@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>그릴박스 | 고기 가득, 직화 한그릇 — 직화 고기덮밥</title>
+<meta name="description" content="유사 덮밥 대비 고기 최대 10배, 주문 후 2분. 직화로 갓 구운 고기덮밥, 그릴박스. 매장 안내와 전체 메뉴·가격 확인.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css">
+<!-- TODO(실데이터 확보 시): Restaurant/LocalBusiness JSON-LD 추가 — 02_marketing §5. SLOT 데이터로는 스키마 미게재. -->
+</head>
+<body>
+
+<header class="gnb">
+  <div class="gnb-in">
+    <a class="wordmark" href="./">GRILLBOX</a>
+    <nav class="gnb-nav" aria-label="주 메뉴">
+      <a href="menu/">메뉴</a>
+      <a href="stores/">매장</a>
+      <a href="#brand">브랜드</a>
+      <a class="btn-order" href="#">바로 주문</a>
+    </nav>
+    <div class="gnb-actions">
+      <a class="btn-order" href="#">바로 주문</a>
+      <button class="hamburger" aria-label="메뉴 열기" onclick="document.querySelector('.m-nav').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+  <nav class="m-nav" aria-label="모바일 메뉴">
+    <a href="menu/">메뉴</a>
+    <a href="stores/">매장</a>
+    <a href="#brand" onclick="document.querySelector('.m-nav').classList.remove('open')">브랜드</a>
+  </nav>
+</header>
+
+<!-- H1 히어로 -->
+<section class="hero">
+  <div class="hero-in">
+    <div>
+      <h1>고기 가득,<br>직화 한그릇</h1>
+      <p class="sub">유사 덮밥 대비 고기 최대 10배. 주문하면 2분, 직화로 굽는 시간이에요.</p>
+      <div class="btn-row">
+        <a class="btn btn-red" href="stores/">가까운 매장 찾기</a>
+        <a class="btn btn-outline" href="#">바로 주문하기</a>
+      </div>
+    </div>
+    <img class="hero-img" src="assets/hero_box.webp" alt="직화 스테이크 고기덮밥 한그릇 — 그릴박스" width="1400" height="1224">
+  </div>
+</section>
+
+<!-- H2 증거① 고기양 -->
+<section>
+  <div class="wrap center">
+    <h2 class="sec-head">고기 최대 10배</h2>
+    <p class="sec-sub">많다는 말은 안 할게요. 사진으로 보여드려요.</p>
+    <div class="compare-frame">
+      <div class="compare-cell"><span class="cam" aria-hidden="true"></span>시중 덮밥 한 그릇</div>
+      <div class="compare-cell"><span class="cam" aria-hidden="true"></span>그릴박스 한 그릇<br><span class="slot">[SLOT: 실측 비교 사진 촬영]</span></div>
+    </div>
+    <div class="compare-notes">
+      <p class="caption">왼쪽, 시중 덮밥 한 그릇. 오른쪽, 그릴박스 한 그릇.</p>
+      <p class="footnote">※ 시중 유사 덮밥 평균 고기 중량 대비, 자사 실측 기준(<span class="slot">[SLOT: 비교기준 실측치·측정일]</span>)</p>
+    </div>
+  </div>
+</section>
+
+<!-- H3 증거② 직화·2분 -->
+<section class="fire">
+  <div class="wrap">
+    <div>
+      <h2 class="sec-head">불맛부터 다르다</h2>
+      <p class="body">소스에 비비지 않아요.<br>주문이 들어오면 그때 불 위에 올려요.<br>직화로 2분, 갓 구운 고기가 밥 위로 올라갑니다.</p>
+    </div>
+    <div>
+      <p class="caption">굽는 냄새부터 다릅니다</p>
+      <div class="seq">
+        <figure>
+          <div class="shot"><img src="assets/bg_dark.jpg" alt="직화 그릴 불꽃 — 그릴박스"></div>
+          <figcaption>01 직화 불꽃</figcaption>
+        </figure>
+        <figure>
+          <div class="ph"><span class="cam" aria-hidden="true"></span>굽는 중 컷<br><span class="slot">[SLOT: 촬영]</span></div>
+          <figcaption>02 굽는 중</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="assets/menu_beef.jpg" alt="직화 소고기 덮밥 — 그릴박스"></div>
+          <figcaption>03 그릇 위로</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- H4 메뉴 하이라이트 -->
+<section>
+  <div class="wrap">
+    <div class="center">
+      <h2 class="sec-head">오늘은 뭘로 채울까</h2>
+      <p class="sec-sub">매일 먹어도 안 질리는 구성. 밥보다 고기가 먼저 보이는 한그릇이에요.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <div class="thumb"><img src="assets/menu_chicken.jpg" alt="직화 치킨 덮밥 — 그릴박스"></div>
+        <div class="card-body">
+          <h3>직화 치킨 그릴박스</h3>
+          <p class="desc">불향 입은 닭다리살이 그릇을 덮어요</p>
+          <div class="price-row"><span class="price">OO,OOO원</span><span class="slot">[SLOT: 가격]</span></div>
+          <div class="meta-row">맵기 <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot off"></span></span> · 곱빼기/추가 옵션 <span class="slot">[SLOT]</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb"><div class="ph"><span class="cam" aria-hidden="true"></span>메뉴 촬영 컷<br><span class="slot">[SLOT: 사진]</span></div></div>
+        <div class="card-body">
+          <h3>직화 포크 그릴박스</h3>
+          <p class="desc">두툼한 돼지고기에 매콤 비법소스</p>
+          <div class="price-row"><span class="price">OO,OOO원</span><span class="slot">[SLOT: 가격]</span></div>
+          <div class="meta-row">맵기 <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span> · 곱빼기/추가 옵션 <span class="slot">[SLOT]</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb"><img src="assets/menu_beef.jpg" alt="직화 비프 덮밥 — 그릴박스"></div>
+        <div class="card-body">
+          <h3>직화 비프 그릴박스</h3>
+          <p class="desc">육즙 그대로, 직화 소고기 가득</p>
+          <div class="price-row"><span class="price">OO,OOO원</span><span class="slot">[SLOT: 가격]</span></div>
+          <div class="meta-row">맵기 <span class="dots"><span class="dot"></span><span class="dot off"></span><span class="dot off"></span></span> · 곱빼기/추가 옵션 <span class="slot">[SLOT]</span></div>
+        </div>
+      </article>
+    </div>
+    <p class="caption center" style="margin-top:18px">메뉴명·가격·구성은 확정 전 문형 예시예요. <span class="slot">[SLOT: MENU_TOP3 — 실메뉴·가격]</span></p>
+    <div class="cta-center"><a class="btn btn-outline" href="menu/">전체 메뉴 보기</a></div>
+  </div>
+</section>
+
+<!-- H5 매장 찾기 -->
+<section>
+  <div class="wrap">
+    <div class="center">
+      <h2 class="sec-head">가까운 그릴박스</h2>
+      <p class="sec-sub">혼자 와도 편한 자리를 만들었어요. 지금 영업 중인지 바로 확인하세요.</p>
+    </div>
+    <div class="store-grid">
+      <div class="ph map-ph"><span class="cam" aria-hidden="true"></span>지도 임베드<br><span class="slot">[SLOT: 지도 좌표]</span></div>
+      <div class="store-card">
+        <h3>그릴박스 ○○점 <span class="badge-open">지금 영업 중</span> <span class="slot">[SLOT: 매장명]</span></h3>
+        <div class="info-row"><span class="k">주소</span><span class="slot">[SLOT: 주소]</span></div>
+        <div class="info-row"><span class="k">영업시간</span><span class="slot">[SLOT: 영업시간·브레이크타임]</span></div>
+        <div class="info-row"><span class="k">전화</span><span class="slot">[SLOT: 전화번호]</span></div>
+        <div class="btn-row">
+          <a class="btn btn-red" href="stores/">길찾기</a>
+          <a class="btn btn-outline" href="stores/">전화하기</a>
+        </div>
+      </div>
+    </div>
+    <p class="caption center" style="margin-top:20px"><a href="stores/" style="text-decoration:underline">매장 안내 전체 보기</a></p>
+  </div>
+</section>
+
+<!-- H6 브랜드 스토리 -->
+<section id="brand">
+  <div class="wrap center">
+    <div class="brand-divider" aria-hidden="true"></div>
+    <h2 class="sec-head">고기 하나에 다 걸었어요</h2>
+    <p class="story-body">불필요한 재료는 과감하게 버렸어요. 남긴 건 두 가지. 직화로 갓 구운 고기, 그리고 메뉴마다 맞춘 비법소스. 맛있는 고기가 가득 담긴 한그릇 — 그릴박스가 하는 일은 이게 전부예요.</p>
+    <div class="story-shots">
+      <div class="shot"><img src="assets/menu_chicken.jpg" alt="직화 치킨 덮밥 — 그릴박스"></div>
+      <div class="shot"><img src="assets/menu_beef.jpg" alt="직화 소고기 덮밥 — 그릴박스"></div>
+      <div class="shot"><img src="assets/omelette.jpg" alt="달걀 오믈렛 반찬 — 그릴박스"></div>
+    </div>
+  </div>
+</section>
+
+<!-- H7 리뷰 -->
+<section>
+  <div class="wrap">
+    <div class="center"><h2 class="sec-head">다녀간 사람들의 말</h2></div>
+    <div class="reviews">
+      <article class="review-card">
+        <span class="qmark" aria-hidden="true">&ldquo;</span>
+        <p class="body">실제 고객 리뷰 원문 게재 자리 — 확보 전 게재 금지, 창작 금지 <span class="slot">[SLOT: 리뷰 원문·출처·수집일]</span></p>
+        <p class="src">출처: 네이버플레이스/배민 · 수집일 <span class="slot">[SLOT]</span></p>
+      </article>
+      <article class="review-card">
+        <span class="qmark" aria-hidden="true">&ldquo;</span>
+        <p class="body">실제 고객 리뷰 원문 게재 자리 — 확보 전 게재 금지, 창작 금지 <span class="slot">[SLOT: 리뷰 원문·출처·수집일]</span></p>
+        <p class="src">출처: 네이버플레이스/배민 · 수집일 <span class="slot">[SLOT]</span></p>
+      </article>
+      <article class="review-card">
+        <span class="qmark" aria-hidden="true">&ldquo;</span>
+        <p class="body">실제 고객 리뷰 원문 게재 자리 — 확보 전 게재 금지, 창작 금지 <span class="slot">[SLOT: 리뷰 원문·출처·수집일]</span></p>
+        <p class="src">출처: 네이버플레이스/배민 · 수집일 <span class="slot">[SLOT]</span></p>
+      </article>
+    </div>
+    <p class="review-tail">오늘도 누군가는 두 번째 그릇을 비웠어요.</p>
+  </div>
+</section>
+
+<!-- H8 인스타 피드 -->
+<section>
+  <div class="wrap center">
+    <h2 class="sec-head">오늘의 그릴박스</h2>
+    <p class="sec-sub">갓 구운 순간들을 올려요. <span class="slot">[SLOT: INSTA_HANDLE]</span></p>
+    <div class="insta-tiles">
+      <div class="tile"><img src="assets/menu_chicken.jpg" alt="직화 치킨 덮밥 — 그릴박스"></div>
+      <div class="tile"><img src="assets/menu_beef.jpg" alt="직화 소고기 덮밥 — 그릴박스"></div>
+      <div class="tile"><img src="assets/bg_dark.jpg" alt="직화 그릴 불꽃 — 그릴박스"></div>
+      <div class="tile"><img src="assets/omelette.jpg" alt="달걀 오믈렛 반찬 — 그릴박스"></div>
+      <div class="ph"><span class="slot">[SLOT: 피드]</span></div>
+      <div class="ph"><span class="slot">[SLOT: 피드]</span></div>
+    </div>
+    <div class="cta-center"><a class="btn btn-outline" href="#">인스타그램 팔로우</a></div>
+  </div>
+</section>
+
+<!-- H9 최종 CTA -->
+<section class="final-cta">
+  <div class="wrap">
+    <h2 class="sec-head">오늘 한 끼, 고기로 채우자</h2>
+    <p class="sec-sub">가까운 매장에서, 또는 지금 바로 주문으로.</p>
+    <div class="btn-row">
+      <a class="btn btn-white" href="stores/">가까운 매장 찾기</a>
+      <a class="btn btn-outline-white" href="#">바로 주문하기</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <span class="wordmark">GRILLBOX</span>
+    <p>사업자 정보 <span class="slot">[SLOT: 사업자등록·주소·대표]</span></p>
+    <p class="foot-links"><a href="#">카카오채널</a> · <a href="#">인스타그램</a></p>
+    <p class="foot-small">가맹·제휴 문의: <span class="slot">[SLOT: CONTACT_EMAIL]</span></p>
+    <p class="copyright">© 2026 GRILLBOX. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

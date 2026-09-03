@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>매장 안내·영업시간 | 그릴박스</title>
+<meta name="description" content="그릴박스 매장별 주소·영업시간·전화·지도 안내. 혼자 와도, 급해도 괜찮아요. 주문하고 2분이면 나옵니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<!-- TODO(실데이터 확보 시): Restaurant JSON-LD(영업시간·주소) 매장별 적용 — 02_marketing §5 -->
+</head>
+<body>
+
+<header class="gnb">
+  <div class="gnb-in">
+    <a class="wordmark" href="../">GRILLBOX</a>
+    <nav class="gnb-nav" aria-label="주 메뉴">
+      <a href="../menu/">메뉴</a>
+      <a href="./" class="active">매장</a>
+      <a href="../#brand">브랜드</a>
+      <a class="btn-order" href="#">바로 주문</a>
+    </nav>
+    <div class="gnb-actions">
+      <a class="btn-order" href="#">바로 주문</a>
+      <button class="hamburger" aria-label="메뉴 열기" onclick="document.querySelector('.m-nav').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+  <nav class="m-nav" aria-label="모바일 메뉴">
+    <a href="../menu/">메뉴</a>
+    <a href="./">매장</a>
+    <a href="../#brand">브랜드</a>
+  </nav>
+</header>
+
+<div class="page-head stores-bg">
+  <div class="wrap">
+    <h1>매장 안내</h1>
+    <p class="intro">혼자 와도, 급해도 괜찮아요. 주문하고 2분이면 나옵니다.</p>
+  </div>
+</div>
+
+<section style="padding-top:64px">
+  <div class="wrap">
+    <div class="ph fullmap"><span class="cam" aria-hidden="true"></span>전체 매장 지도<br><span class="caption">매장별 핀 — 지역 검색 랜딩</span><span class="slot">[SLOT: 지도]</span></div>
+
+    <article class="store-block">
+      <div class="ph photo"><span class="cam" aria-hidden="true"></span>매장 대표 사진<br><span class="slot">[SLOT: 사진]</span></div>
+      <div class="store-detail">
+        <h2>그릴박스 ○○점 <span class="badge-open">지금 영업 중</span> <span class="slot">[SLOT: 매장명]</span></h2>
+        <div class="info-row"><span class="k">주소</span><span class="slot">[SLOT: 주소]</span></div>
+        <div class="info-row"><span class="k">영업시간</span><span class="slot">[SLOT: 영업시간·브레이크타임]</span></div>
+        <div class="info-row"><span class="k">전화</span><span class="slot">[SLOT: 전화번호]</span></div>
+        <div class="info-row"><span class="k">주차</span><span class="slot">[SLOT: 주차 여부]</span></div>
+        <p><span class="seat-tag">1인석 있어요</span> <span class="slot">[SLOT: 좌석 특징]</span></p>
+        <div class="btn-row">
+          <a class="btn btn-red" href="#">길찾기</a>
+          <a class="btn btn-outline" href="#">전화하기</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="store-block">
+      <div class="ph photo"><span class="cam" aria-hidden="true"></span>매장 대표 사진<br><span class="slot">[SLOT: 사진]</span></div>
+      <div class="store-detail">
+        <h2>그릴박스 ○○점 <span class="badge-open">지금 영업 중</span> <span class="slot">[SLOT: 매장명]</span></h2>
+        <div class="info-row"><span class="k">주소</span><span class="slot">[SLOT: 주소]</span></div>
+        <div class="info-row"><span class="k">영업시간</span><span class="slot">[SLOT: 영업시간·브레이크타임]</span></div>
+        <div class="info-row"><span class="k">전화</span><span class="slot">[SLOT: 전화번호]</span></div>
+        <div class="info-row"><span class="k">주차</span><span class="slot">[SLOT: 주차 여부]</span></div>
+        <p><span class="seat-tag">1인석 있어요</span> <span class="slot">[SLOT: 좌석 특징]</span></p>
+        <div class="btn-row">
+          <a class="btn btn-red" href="#">길찾기</a>
+          <a class="btn btn-outline" href="#">전화하기</a>
+        </div>
+      </div>
+    </article>
+
+    <p class="stores-tail">새 매장 소식은 인스타그램에서 가장 먼저 알려드려요.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <span class="wordmark">GRILLBOX</span>
+    <p>사업자 정보 <span class="slot">[SLOT: 사업자등록·주소·대표]</span></p>
+    <p class="foot-links"><a href="#">카카오채널</a> · <a href="#">인스타그램</a></p>
+    <p class="foot-small">가맹·제휴 문의: <span class="slot">[SLOT: CONTACT_EMAIL]</span></p>
+    <p class="copyright">© 2026 GRILLBOX. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>메뉴·가격 | 그릴박스 직화 고기덮밥</title>
+<meta name="description" content="그릴박스 전체 메뉴와 가격. 전 메뉴, 주문 받고 직화로 굽습니다. 직화덮밥·고기덮밥 메뉴명·가격·구성·맵기 확인.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<!-- TODO(실데이터 확보 시): Menu JSON-LD 스키마 적용 — 02_marketing §5 -->
+</head>
+<body>
+
+<header class="gnb">
+  <div class="gnb-in">
+    <a class="wordmark" href="../">GRILLBOX</a>
+    <nav class="gnb-nav" aria-label="주 메뉴">
+      <a href="./" class="active">메뉴</a>
+      <a href="../stores/">매장</a>
+      <a href="../#brand">브랜드</a>
+      <a class="btn-order" href="#">바로 주문</a>
+    </nav>
+    <div class="gnb-actions">
+      <a class="btn-order" href="#">바로 주문</a>
+      <button class="hamburger" aria-label="메뉴 열기" onclick="document.querySelector('.m-nav').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+  <nav class="m-nav" aria-label="모바일 메뉴">
+    <a href="./">메뉴</a>
+    <a href="../stores/">매장</a>
+    <a href="../#brand">브랜드</a>
+  </nav>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <h1>그릴박스 메뉴</h1>
+    <p class="intro">전 메뉴, 주문 받고 직화로 굽습니다. 가격에 헷갈릴 것 없이 그릇 그대로예요.</p>
+  </div>
+</div>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="pills" role="tablist" aria-label="메뉴 카테고리">
+      <button class="pill active" role="tab" aria-selected="true">덮밥</button>
+      <button class="pill" role="tab" aria-selected="false">사이드</button>
+      <button class="pill" role="tab" aria-selected="false">음료</button>
+      <span class="slot">[SLOT: 실제 카테고리]</span>
+    </div>
+
+    <div class="cards menu-cards">
+      <article class="card">
+        <div class="thumb"><img src="../assets/menu_chicken.jpg" alt="직화 치킨 덮밥 — 그릴박스"></div>
+        <div class="card-body">
+          <h3>직화 치킨 그릴박스</h3>
+          <p class="desc">불향 입은 닭다리살이 그릇을 덮어요</p>
+          <div class="price-row"><span class="price">OO,OOO원</span><span class="slot">[SLOT: 가격]</span></div>
+          <div class="meta-row">맵기 <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot off"></span></span> · 구성·중량 / 알레르기 <span class="slot">[SLOT]</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb"><div class="ph"><span class="cam" aria-hidden="true"></span>메뉴 촬영 컷<br><span class="slot">[SLOT: 사진]</span></div></div>
+        <div class="card-body">
+          <h3>직화 포크 그릴박스</h3>
+          <p class="desc">두툼한 돼지고기에 매콤 비법소스</p>
+          <div class="price-row"><span class="price">OO,OOO원</span><span class="slot">[SLOT: 가격]</span></div>
+          <div class="meta-row">맵기 <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span> · 구성·중량 / 알레르기 <span class="slot">[SLOT]</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb"><img src="../assets/menu_beef.jpg" alt="직화 비프 덮밥 — 그릴박스"></div>
+        <div class="card-body">
+          <h3>직화 비프 그릴박스</h3>
+          <p class="desc">육즙 그대로, 직화 소고기 가득</p>
+          <div class="price-row"><span class="price">OO,OOO원</span><span class="slot">[SLOT: 가격]</span></div>
+          <div class="meta-row">맵기 <span class="dots"><span class="dot"></span><span class="dot off"></span><span class="dot off"></span></span> · 구성·중량 / 알레르기 <span class="slot">[SLOT]</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb"><div class="ph"><span class="cam" aria-hidden="true"></span>메뉴<br><span class="slot">[SLOT: 메뉴명·사진]</span></div></div>
+        <div class="card-body">
+          <h3 class="muted">메뉴명 <span class="slot">[SLOT: 메뉴명]</span></h3>
+          <p class="desc muted">가격 · 구성(부위·중량) · 맵기 · 알레르기 표기</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb"><div class="ph"><span class="cam" aria-hidden="true"></span>메뉴<br><span class="slot">[SLOT: 메뉴명·사진]</span></div></div>
+        <div class="card-body">
+          <h3 class="muted">메뉴명 <span class="slot">[SLOT: 메뉴명]</span></h3>
+          <p class="desc muted">가격 · 구성(부위·중량) · 맵기 · 알레르기 표기</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb"><div class="ph"><span class="cam" aria-hidden="true"></span>메뉴<br><span class="slot">[SLOT: 메뉴명·사진]</span></div></div>
+        <div class="card-body">
+          <h3 class="muted">메뉴명 <span class="slot">[SLOT: 메뉴명]</span></h3>
+          <p class="desc muted">가격 · 구성(부위·중량) · 맵기 · 알레르기 표기</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="origin-block">
+      <div>
+        <h3>원산지 표시</h3>
+        <p>법정 원산지 고지 문구 게재 자리 — 운영자 확인 후 기재</p>
+      </div>
+      <span class="slot">[SLOT: 원산지]</span>
+    </div>
+
+    <div class="cta-center">
+      <a class="btn btn-red" href="../stores/">가까운 매장 찾기</a>
+      <a class="btn btn-outline" href="#">바로 주문하기</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <span class="wordmark">GRILLBOX</span>
+    <p>사업자 정보 <span class="slot">[SLOT: 사업자등록·주소·대표]</span></p>
+    <p class="foot-links"><a href="#">카카오채널</a> · <a href="#">인스타그램</a></p>
+    <p class="foot-small">가맹·제휴 문의: <span class="slot">[SLOT: CONTACT_EMAIL]</span></p>
+    <p class="copyright">© 2026 GRILLBOX. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
