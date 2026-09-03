@@ -55,14 +55,14 @@ section{padding:96px 0}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--gb-brick)}
 .dot.off{background:transparent;border:1.5px solid rgba(245,243,239,.3)}
 
-/* ── H1 히어로 ── */
-.hero{position:relative;overflow:hidden;padding:0;background:#0b0a09 url(../assets/bg_dark.jpg) center/cover no-repeat}
-.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,10,9,.88) 0%,rgba(11,10,9,.72) 45%,rgba(11,10,9,.35) 100%)}
-.hero-in{position:relative;max-width:var(--content);margin:0 auto;padding:96px 24px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:40px}
-.hero h1{font-size:74px;font-weight:900;line-height:1.14;letter-spacing:-.015em}
+/* ── H1 히어로 — 풀블리드 배경, 좌측 1/3 어두운 여백에 텍스트 좌측 정렬 ── */
+.hero{position:relative;overflow:hidden;padding:0;background:#0b0a09}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;z-index:0}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(11,10,9,.9) 0%,rgba(11,10,9,.66) 42%,rgba(11,10,9,.12) 100%)}
+.hero-in{position:relative;z-index:2;max-width:var(--content);margin:0 auto;padding:150px 24px 160px;display:grid;grid-template-columns:1fr;align-items:center;gap:40px}
+.hero h1{font-size:74px;font-weight:900;line-height:1.14;letter-spacing:-.015em;text-shadow:0 4px 30px rgba(0,0,0,.5)}
 .hero .sub{font-size:20px;margin-top:22px;max-width:34em;opacity:.92}
 .hero .btn-row{margin-top:34px}
-.hero-img{filter:drop-shadow(0 30px 60px rgba(0,0,0,.55))}
 
 /* ── H2 고기양 ── */
 .compare-frame{margin-top:44px;border:1.5px dashed rgba(245,243,239,.28);border-radius:12px;background:rgba(255,255,255,.015);display:grid;grid-template-columns:1fr 1fr;min-height:320px;position:relative}
@@ -100,6 +100,10 @@ section{padding:96px 0}
 .store-grid{display:grid;grid-template-columns:56fr 44fr;gap:26px;margin-top:48px;align-items:stretch}
 .map-ph{min-height:380px}
 .store-card{background:var(--gb-card);border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:14px}
+.store-photo{margin:-28px -28px 8px;border-radius:12px 12px 0 0;overflow:hidden;aspect-ratio:16/7}
+.store-photo img{width:100%;height:100%;object-fit:cover;object-position:center 55%}
+.store-sub{margin-top:26px;border-radius:12px;overflow:hidden;aspect-ratio:3/1}
+.store-sub img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
 .store-card h3{font-size:24px;font-weight:800;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .info-row{display:flex;gap:14px;font-size:15px;align-items:baseline}
 .info-row .k{color:var(--gb-muted);flex:0 0 64px}
@@ -113,6 +117,9 @@ section{padding:96px 0}
 .story-shots img{width:100%;height:100%;object-fit:cover}
 
 /* ── H7 리뷰 ── */
+.reviews-sec{position:relative;overflow:hidden}
+.reviews-sec .sec-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.16;filter:saturate(.75)}
+.reviews-sec .wrap{position:relative}
 .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:48px}
 .review-card{background:var(--gb-card);border-radius:12px;padding:26px;display:flex;flex-direction:column;gap:14px;min-height:200px}
 .review-card .qmark{font-size:34px;font-weight:900;color:var(--gb-brick);line-height:1}
@@ -138,15 +145,17 @@ footer{background:#0e0d0c;padding:56px 0 40px;font-size:14px}
 .copyright{margin-top:28px;padding-top:20px;border-top:1px solid rgba(245,243,239,.07);font-size:12px;color:var(--gb-muted)}
 
 /* ── 서브페이지 헤더 ── */
-.page-head{position:relative;padding:96px 0 110px;background:#0b0a09 url(../assets/bg_dark.jpg) center/cover no-repeat}
-.page-head.stores-bg{background-image:url(../assets/menu_beef.jpg);background-position:center 35%}
+.page-head{position:relative;padding:96px 0 110px;background:#0b0a09 url(../assets/hero_grill_flame.webp) center 40%/cover no-repeat}
+.page-head.stores-bg{background-image:url(../assets/store_exterior_dusk.webp);background-position:center 35%}
 .page-head::before{content:"";position:absolute;inset:0;background:rgba(11,10,9,.72)}
 .page-head .wrap{position:relative}
 .page-head h1{font-size:56px;font-weight:900;letter-spacing:-.01em}
 .page-head .intro{font-size:19px;margin-top:16px;opacity:.9;max-width:36em}
 
 /* ── /menu ── */
-.pills{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:56px}
+.wide-cut{margin-top:56px;border-radius:12px;overflow:hidden;aspect-ratio:21/8}
+.wide-cut img{width:100%;height:100%;object-fit:cover}
+.pills{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:36px}
 .pill{border:1px solid rgba(245,243,239,.3);color:var(--gb-text);font-size:14.5px;font-weight:600;padding:9px 20px;border-radius:999px;background:transparent;cursor:pointer}
 .pill.active{background:var(--gb-red);border-color:var(--gb-red);color:#fff}
 .menu-cards{margin-top:28px}
@@ -157,6 +166,10 @@ footer{background:#0e0d0c;padding:56px 0 40px;font-size:14px}
 /* ── /stores ── */
 .store-block{background:var(--gb-card);border-radius:14px;padding:28px;display:grid;grid-template-columns:38fr 62fr;gap:32px;margin-top:26px}
 .store-block .photo{min-height:280px}
+.store-photos{display:flex;flex-direction:column;gap:12px}
+.store-photos img{width:100%;border-radius:10px;aspect-ratio:3/2;object-fit:cover}
+.stores-intro-cut{border-radius:12px;overflow:hidden;aspect-ratio:3/1;margin-bottom:26px}
+.stores-intro-cut img{width:100%;height:100%;object-fit:cover;object-position:center 40%}
 .store-detail{display:flex;flex-direction:column;gap:13px}
 .store-detail h2{font-size:26px;font-weight:800;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .seat-tag{display:inline-flex;border:1px solid rgba(245,243,239,.3);border-radius:999px;padding:5px 14px;font-size:13px;color:var(--gb-text)}
@@ -176,10 +189,10 @@ footer{background:#0e0d0c;padding:56px 0 40px;font-size:14px}
   .hamburger{display:block}
   .m-nav.open{display:block;background:var(--gb-card);border-bottom:1px solid rgba(245,243,239,.08)}
   .m-nav a{display:block;padding:15px 24px;font-size:16px;font-weight:600;border-top:1px solid rgba(245,243,239,.06)}
-  .hero-in{grid-template-columns:1fr;padding:56px 24px 64px;gap:24px}
+  .hero-in{grid-template-columns:1fr;padding:96px 24px 104px;gap:24px}
   .hero h1{font-size:40px}
   .hero .sub{font-size:14.5px;margin-top:14px}
-  .hero-img{max-width:320px;margin:0 auto}
+  .hero::before{background:linear-gradient(180deg,rgba(11,10,9,.55) 0%,rgba(11,10,9,.78) 100%)}
   .compare-frame{grid-template-columns:1fr;min-height:0}
   .compare-frame::before{left:8%;right:8%;top:50%;bottom:auto;width:auto;height:1px}
   .compare-cell{padding:34px 20px;font-size:13.5px}
@@ -188,6 +201,10 @@ footer{background:#0e0d0c;padding:56px 0 40px;font-size:14px}
   .cards{grid-template-columns:1fr;gap:14px;margin-top:32px}
   .store-grid{grid-template-columns:1fr;margin-top:32px}
   .map-ph{min-height:240px}
+  .store-photo{margin:-28px -28px 6px;aspect-ratio:3/2}
+  .store-sub{aspect-ratio:3/2}
+  .wide-cut{aspect-ratio:16/9;margin-top:36px}
+  .stores-intro-cut{aspect-ratio:3/2}
   .story-body{font-size:14.5px}
   .story-shots{grid-template-columns:repeat(3,1fr);gap:8px;margin-top:36px}
   .reviews{grid-template-columns:1fr;gap:14px;margin-top:32px}
