@@ -4,12 +4,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>매장 안내·영업시간 | 그릴박스</title>
-<meta name="description" content="그릴박스 매장별 주소·영업시간·전화·지도 안내. 혼자 와도, 급해도 괜찮아요. 주문하고 2분이면 나옵니다.">
+<meta name="description" content="그릴박스 노량진점 — 서울 동작구 만양로14가길 23 1층, 매일 11:00–21:50. 혼자 와도, 급해도 괜찮아요. 주문하고 2분이면 나옵니다.">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="../css/style.css">
-<!-- TODO(실데이터 확보 시): Restaurant JSON-LD(영업시간·주소) 매장별 적용 — 02_marketing §5 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "그릴박스 노량진점",
+  "servesCuisine": "한식 직화 고기덮밥",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "만양로14가길 23 1층",
+    "addressLocality": "동작구",
+    "addressRegion": "서울",
+    "addressCountry": "KR"
+  },
+  "telephone": "+82-507-1318-7881",
+  "openingHours": "Mo-Su 11:00-21:50"
+}
+</script>
 </head>
-<body>
+<body data-root="../">
 
 <header class="gnb">
   <div class="gnb-in">
@@ -18,11 +34,11 @@
       <a href="../menu/">메뉴</a>
       <a href="./" class="active">매장</a>
       <a href="../#brand">브랜드</a>
-      <a class="btn-order" href="#">바로 주문</a>
+      <a class="btn-order" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order">바로 주문</a>
     </nav>
     <div class="gnb-actions">
-      <a class="btn-order" href="#">바로 주문</a>
-      <button class="hamburger" aria-label="메뉴 열기" onclick="document.querySelector('.m-nav').classList.toggle('open')">☰</button>
+      <a class="btn-order" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order">바로 주문</a>
+      <button class="hamburger" aria-label="메뉴 열기">☰</button>
     </div>
   </div>
   <nav class="m-nav" aria-label="모바일 메뉴">
@@ -35,66 +51,50 @@
 <div class="page-head stores-bg">
   <div class="wrap">
     <h1>매장 안내</h1>
-    <p class="intro">혼자 와도, 급해도 괜찮아요. 주문하고 2분이면 나옵니다.</p>
+    <p class="intro" data-cms="storesPage.intro">혼자 와도, 급해도 괜찮아요. 주문하고 2분이면 나옵니다.</p>
   </div>
 </div>
 
 <section style="padding-top:64px">
   <div class="wrap">
-    <div class="stores-intro-cut"><img src="../assets/scene_solo_lunch.webp" alt="그릴박스 매장에서 혼자 식사하는 손님"></div>
-    <div class="ph fullmap"><span class="cam" aria-hidden="true"></span>전체 매장 지도<br><span class="caption">매장별 핀 — 지역 검색 랜딩</span><span class="slot">[SLOT: 지도]</span></div>
+    <div class="map-frame fullmap-frame">
+      <iframe title="그릴박스 노량진점 지도" src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%20%EB%8F%99%EC%9E%91%EA%B5%AC%20%EB%A7%8C%EC%96%91%EB%A1%9C14%EA%B0%80%EA%B8%B8%2023&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
 
     <article class="store-block">
       <div class="store-photos">
-        <img src="../assets/store_exterior_dusk.webp" alt="그릴박스 매장 외관">
-        <img src="../assets/store_interior_counter.webp" alt="그릴박스 매장 내부 1인 카운터석">
+        <img src="../assets/store_exterior_dusk.webp" alt="그릴박스 노량진점 외관" loading="lazy">
+        <img src="../assets/store_interior_counter.webp" alt="그릴박스 노량진점 내부 1인 카운터석" loading="lazy">
       </div>
       <div class="store-detail">
-        <h2>그릴박스 ○○점 <span class="badge-open">지금 영업 중</span> <span class="slot">[SLOT: 매장명]</span></h2>
-        <div class="info-row"><span class="k">주소</span><span class="slot">[SLOT: 주소]</span></div>
-        <div class="info-row"><span class="k">영업시간</span><span class="slot">[SLOT: 영업시간·브레이크타임]</span></div>
-        <div class="info-row"><span class="k">전화</span><span class="slot">[SLOT: 전화번호]</span></div>
-        <div class="info-row"><span class="k">주차</span><span class="slot">[SLOT: 주차 여부]</span></div>
-        <p><span class="seat-tag">1인석 있어요</span> <span class="slot">[SLOT: 좌석 특징]</span></p>
+        <h2><span data-cms="store.name">그릴박스 노량진점</span> <span class="badge-open" data-open-badge>지금 영업 중</span></h2>
+        <div class="info-row"><span class="k">주소</span><span data-cms="store.address">서울 동작구 만양로14가길 23 1층</span></div>
+        <div class="info-row"><span class="k">영업시간</span><span data-cms="store.hoursText">매일 11:00 – 21:50</span></div>
+        <div class="info-row"><span class="k">전화</span><a href="tel:0507-1318-7881" data-cms="store.phone">0507-1318-7881</a></div>
+        <div class="info-row"><span class="k">가는 길</span><span>노량진역 인근 — 지도에서 정확한 위치를 확인하세요</span></div>
+        <p><span class="seat-tag" data-cms="store.seatNote">혼밥도 편해요</span></p>
         <div class="btn-row">
-          <a class="btn btn-red" href="#">길찾기</a>
-          <a class="btn btn-outline" href="#">전화하기</a>
+          <a class="btn btn-red" href="https://map.naver.com/p/entry/place/1093880694" target="_blank" rel="noopener" data-cms-href="links.naverPlace">길찾기</a>
+          <a class="btn btn-outline" href="tel:0507-1318-7881">전화하기</a>
+          <a class="btn btn-outline" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order">포장 주문하기</a>
         </div>
       </div>
     </article>
 
-    <article class="store-block">
-      <div class="store-photos">
-        <img src="../assets/store_exterior_dusk.webp" alt="그릴박스 매장 외관">
-        <img src="../assets/store_interior_counter.webp" alt="그릴박스 매장 내부 1인 카운터석">
-      </div>
-      <div class="store-detail">
-        <h2>그릴박스 ○○점 <span class="badge-open">지금 영업 중</span> <span class="slot">[SLOT: 매장명]</span></h2>
-        <div class="info-row"><span class="k">주소</span><span class="slot">[SLOT: 주소]</span></div>
-        <div class="info-row"><span class="k">영업시간</span><span class="slot">[SLOT: 영업시간·브레이크타임]</span></div>
-        <div class="info-row"><span class="k">전화</span><span class="slot">[SLOT: 전화번호]</span></div>
-        <div class="info-row"><span class="k">주차</span><span class="slot">[SLOT: 주차 여부]</span></div>
-        <p><span class="seat-tag">1인석 있어요</span> <span class="slot">[SLOT: 좌석 특징]</span></p>
-        <div class="btn-row">
-          <a class="btn btn-red" href="#">길찾기</a>
-          <a class="btn btn-outline" href="#">전화하기</a>
-        </div>
-      </div>
-    </article>
-
-    <p class="stores-tail">새 매장 소식은 인스타그램에서 가장 먼저 알려드려요.</p>
+    <p class="stores-tail"><span data-cms="storesPage.tail">새 매장 소식은 인스타그램에서 가장 먼저 알려드려요.</span> <a href="https://www.instagram.com/grillbox.official/" target="_blank" rel="noopener" data-cms-href="links.instagram" style="text-decoration:underline">@grillbox.official</a></p>
   </div>
 </section>
 
 <footer>
   <div class="wrap foot-grid">
     <span class="wordmark">GRILLBOX</span>
-    <p>사업자 정보 <span class="slot">[SLOT: 사업자등록·주소·대표]</span></p>
-    <p class="foot-links"><a href="#">카카오채널</a> · <a href="#">인스타그램</a></p>
-    <p class="foot-small">가맹·제휴 문의: <span class="slot">[SLOT: CONTACT_EMAIL]</span></p>
-    <p class="copyright">© 2026 GRILLBOX. All rights reserved.</p>
+    <p data-cms="footer.company">운영: 주식회사 인디펜던트 · 그릴박스 노량진점 · 서울 동작구 만양로14가길 23 1층</p>
+    <p class="foot-links"><a href="https://pf.kakao.com/_xnKGIn" target="_blank" rel="noopener" data-cms-href="links.kakao">카카오채널</a> · <a href="https://www.instagram.com/grillbox.official/" target="_blank" rel="noopener" data-cms-href="links.instagram">인스타그램</a></p>
+    <p class="foot-small"><a href="https://pf.kakao.com/_xnKGIn" target="_blank" rel="noopener" data-cms-href="links.kakao"><span data-cms="footer.contact">가맹·제휴 문의는 카카오톡 채널로 받아요.</span></a></p>
+    <p class="copyright" data-cms="footer.copyright">© 2026 GRILLBOX. All rights reserved.</p>
   </div>
 </footer>
 
+<script src="../js/cms.js"></script>
 </body>
 </html>

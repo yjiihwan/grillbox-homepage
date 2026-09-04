@@ -1,14 +1,24 @@
-# 그릴박스 홈페이지 개편 — staging 미리보기
-- 근거: `~/shared_inbox/results/grillbox_homepage_renewal_20260903/` (01_branding → 02_marketing v1.1 카피 → 03_design 시안)
-- 순수 정적 HTML/CSS 3페이지: `/`(홈 9섹션) · `/menu/` · `/stores/`
-- **⚠️ staging 전용** — 실서버 grillbox.co.kr(imweb)·DNS와 무관. prod 반영은 형 승인 후 별도.
-- `[SLOT: …]` 빨간 칩 = 운영자 실데이터 치환 지점(02 문서 §7과 1:1): 메뉴명·가격·구성 / 매장 주소·영업시간·전화·주차·좌석 / 실리뷰 3건(창작 금지) / 10배 비교 실측치·측정일 / ORDER_LINK(자체앱 vs 배달앱 — GNB·CTA "바로 주문" href) / INSTA_HANDLE / 사업자 정보 / 원산지 / 지도 좌표
-- 실데이터 확보 시: Restaurant/Menu JSON-LD 추가(02 §5), 각 html의 TODO 주석 참조.
-- 게이트: `~/sally/_gb_homepage_shots.mjs <baseUrl> <outDir>` — PC1440/모바일390 전 페이지 스크린샷 + 가로 overflow + 카피 57건 대조 + 금지어 14종 + 메타/alt.
+# 그릴박스 홈페이지 (실서비스 가능 완성본 · 5단계)
 
-## 이미지 (09-03 design봇 산출 반영)
-- `05_images/IMAGE_MAP.md` 매핑대로 12장 적용(원본 PNG 6~10MB → WebP 51~217KB 변환, `assets/*.webp`).
-- ⚠️ 전량 **AI 생성 임시 컷(촬영 전 staging용)** — prod 게재 여부는 형 승인 사항(IMAGE_MAP 주의 1).
-- H2 비교사진 자리는 **[SLOT] 칩 유지**(실측 각주 확보 전 게재 금지 — 표시광고법).
-- `store_exterior_dusk.webp`엔 빨간 간판 패널 위 `brands/grillbox/assets/grillbox_wordmark_white_1200.png` 합성 완료. 내부 컷(store_interior)엔 무지 빨간 패널이 없어 오버레이 미적용.
-- H8 인스타 타일은 기존 실촬영분 유지(IMAGE_MAP: 실피드 위젯 예정 자리).
+한식 직화구이 덮밥 브랜드 **그릴박스**의 공식 홈페이지. 빌드 없는 순수 정적 사이트.
+
+- 🧪 스테이징: https://yjiihwan.github.io/grillbox-homepage/
+- 페이지: `/`(홈 9섹션) · `/menu/`(전체 메뉴·가격) · `/stores/`(매장 안내) · `/admin/`(콘텐츠 관리)
+- **⚠️ 실서버 grillbox.co.kr(imweb)·DNS와 무관** — 실서버 배포는 개발자 인계 후 별도 진행.
+
+## 5단계에서 바뀐 것 (2026-09-04)
+
+- `[SLOT]` 자리표시 **전부 제거** — 실데이터로 교체 (노량진점 네이버 주문 메뉴·가격 16종, 네이버플레이스 매장정보·실리뷰 3건, 실링크 4종).
+- "고기 10배" 주장 → 실측 전이므로 **실판매 중량 기준(200g/300g/500g)** 으로 교체 (과장 리스크 제거).
+- 전 버튼·링크 실동작: 주문(네이버 주문)·길찾기(네이버 지도)·전화(tel:)·인스타·카카오채널·지도 임베드.
+- 메뉴 사진: 네이버 주문 등록 **브랜드 공식 상품컷**으로 교체 (AI 생성 컷은 분위기 컷에만 잔존).
+- **관리자 페이지 `/admin/`** — 문구·가격·이미지·매장정보를 개발자 없이 수정 (`content.json` + GitHub API).
+
+## 문서
+
+- 운영자용: [docs/ADMIN_GUIDE.md](docs/ADMIN_GUIDE.md) — 관리자 페이지 사용법 (스크린샷 포함)
+- 개발자용: [docs/HANDOFF.md](docs/HANDOFF.md) — 구조·배포·콘텐츠 수정 흐름·보안 모델
+
+## 검증
+
+게이트: `~/sally/_gb_home5_shots.mjs <baseUrl> <outDir>` — 4페이지 × PC1440/mo390 스크린샷 + SLOT·placeholder 0 + 금지어 + 죽은 링크 0 + 이미지 전수 유효 + 메뉴 탭·햄버거·관리자 게이트 실동작 (95항목).

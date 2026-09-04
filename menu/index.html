@@ -4,12 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>메뉴·가격 | 그릴박스 직화 고기덮밥</title>
-<meta name="description" content="그릴박스 전체 메뉴와 가격. 전 메뉴, 주문 받고 직화로 굽습니다. 직화덮밥·고기덮밥 메뉴명·가격·구성·맵기 확인.">
+<meta name="description" content="그릴박스 전체 메뉴와 가격. 덮밥·파스타·카레·샐러드, 전 메뉴 주문 받고 직화로 굽습니다. 기본 200g부터 3XL 500g까지.">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="../css/style.css">
-<!-- TODO(실데이터 확보 시): Menu JSON-LD 스키마 적용 — 02_marketing §5 -->
 </head>
-<body>
+<body data-root="../">
 
 <header class="gnb">
   <div class="gnb-in">
@@ -18,11 +17,11 @@
       <a href="./" class="active">메뉴</a>
       <a href="../stores/">매장</a>
       <a href="../#brand">브랜드</a>
-      <a class="btn-order" href="#">바로 주문</a>
+      <a class="btn-order" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order">바로 주문</a>
     </nav>
     <div class="gnb-actions">
-      <a class="btn-order" href="#">바로 주문</a>
-      <button class="hamburger" aria-label="메뉴 열기" onclick="document.querySelector('.m-nav').classList.toggle('open')">☰</button>
+      <a class="btn-order" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order">바로 주문</a>
+      <button class="hamburger" aria-label="메뉴 열기">☰</button>
     </div>
   </div>
   <nav class="m-nav" aria-label="모바일 메뉴">
@@ -35,82 +34,177 @@
 <div class="page-head">
   <div class="wrap">
     <h1>그릴박스 메뉴</h1>
-    <p class="intro">전 메뉴, 주문 받고 직화로 굽습니다. 가격에 헷갈릴 것 없이 그릇 그대로예요.</p>
+    <p class="intro" data-cms="menuPage.intro">전 메뉴, 주문 받고 직화로 굽습니다. 가격에 헷갈릴 것 없이 그릇 그대로예요.</p>
   </div>
 </div>
 
 <section style="padding-top:0">
   <div class="wrap">
     <div class="wide-cut"><img src="../assets/bowl_topview.webp" alt="고기 가득 직화 덮밥 탑뷰 — 그릴박스"></div>
-    <div class="pills" role="tablist" aria-label="메뉴 카테고리">
-      <button class="pill active" role="tab" aria-selected="true">덮밥</button>
-      <button class="pill" role="tab" aria-selected="false">사이드</button>
-      <button class="pill" role="tab" aria-selected="false">음료</button>
-      <span class="slot">[SLOT: 실제 카테고리]</span>
-    </div>
+    <p class="caption" style="margin-top:36px" data-cms="menuPage.sizeNote">전 메뉴 공통 — 기본 스테이크 200g · 2XL 300g · 3XL 500g. 가격은 카드에서 확인하세요.</p>
+    <div class="pills" role="tablist" aria-label="메뉴 카테고리" data-render="menu-pills">
+      <button class="pill active" role="tab" aria-selected="true" data-cat="bowl">덮밥</button>
+      <button class="pill" role="tab" aria-selected="false" data-cat="pasta">파스타</button>
+      <button class="pill" role="tab" aria-selected="false" data-cat="curry">카레</button>
+      <button class="pill" role="tab" aria-selected="false" data-cat="salad">샐러드</button>    </div>
 
-    <div class="cards menu-cards">
-      <article class="card">
-        <div class="thumb"><img src="../assets/menu_chicken_bowl.webp" alt="직화 치킨 덮밥 — 그릴박스"></div>
+    <div class="cards menu-cards" data-render="menu-grid">
+      <article class="card" data-cat="bowl">
+        <div class="thumb"><img src="../assets/menu_bowl_chicken.webp" alt="그릴드 치킨 덮밥 — 그릴박스" loading="lazy" width="960" height="720"></div>
         <div class="card-body">
-          <h3>직화 치킨 그릴박스</h3>
-          <p class="desc">불향 입은 닭다리살이 그릇을 덮어요</p>
-          <div class="price-row"><span class="price">OO,OOO원</span><span class="slot">[SLOT: 가격]</span></div>
-          <div class="meta-row">맵기 <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot off"></span></span> · 구성·중량 / 알레르기 <span class="slot">[SLOT]</span></div>
+          <h3>그릴드 치킨 덮밥</h3>
+          <p class="desc">부드러운 치킨 스테이크에 직화 불맛</p>
+          <div class="price-row"><span class="price">8,900원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 8,900원</span><span class="size-row">2XL 300g 10,900원</span><span class="size-row">3XL 500g 14,900원</span></div>
         </div>
       </article>
-      <article class="card">
-        <div class="thumb"><img src="../assets/menu_pork_spicy_bowl.webp" alt="직화 매콤 포크 덮밥 — 그릴박스"></div>
+      <article class="card" data-cat="bowl">
+        <div class="thumb"><img src="../assets/menu_bowl_chickenleg.webp" alt="그릴드 치킨렉(닭다리) 덮밥 — 그릴박스" loading="lazy" width="960" height="720"></div>
         <div class="card-body">
-          <h3>직화 포크 그릴박스</h3>
-          <p class="desc">두툼한 돼지고기에 매콤 비법소스</p>
-          <div class="price-row"><span class="price">OO,OOO원</span><span class="slot">[SLOT: 가격]</span></div>
-          <div class="meta-row">맵기 <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span> · 구성·중량 / 알레르기 <span class="slot">[SLOT]</span></div>
+          <h3>그릴드 치킨렉(닭다리) 덮밥</h3>
+          <p class="desc">촉촉한 닭다리 스테이크가 그릇을 덮어요</p>
+          <div class="price-row"><span class="price">9,900원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 9,900원</span><span class="size-row">2XL 300g 12,900원</span><span class="size-row">3XL 500g 18,900원</span></div>
         </div>
       </article>
-      <article class="card">
-        <div class="thumb"><img src="../assets/menu_beef_bowl.webp" alt="직화 비프 덮밥 — 그릴박스"></div>
+      <article class="card" data-cat="bowl">
+        <div class="thumb"><img src="../assets/menu_bowl_pork.webp" alt="그릴드 삼겹 덮밥 — 그릴박스" loading="lazy" width="960" height="720"></div>
         <div class="card-body">
-          <h3>직화 비프 그릴박스</h3>
-          <p class="desc">육즙 그대로, 직화 소고기 가득</p>
-          <div class="price-row"><span class="price">OO,OOO원</span><span class="slot">[SLOT: 가격]</span></div>
-          <div class="meta-row">맵기 <span class="dots"><span class="dot"></span><span class="dot off"></span><span class="dot off"></span></span> · 구성·중량 / 알레르기 <span class="slot">[SLOT]</span></div>
+          <h3>그릴드 삼겹 덮밥</h3>
+          <p class="desc">두툼한 직화 삼겹이 그릇을 덮어요</p>
+          <div class="price-row"><span class="price">11,800원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 11,800원</span><span class="size-row">2XL 300g 14,800원</span><span class="size-row">3XL 500g 20,800원</span></div>
         </div>
       </article>
-      <article class="card">
-        <div class="thumb"><div class="ph"><span class="cam" aria-hidden="true"></span>메뉴<br><span class="slot">[SLOT: 메뉴명·사진]</span></div></div>
+      <article class="card" data-cat="bowl">
+        <div class="thumb"><img src="../assets/menu_bowl_beef.webp" alt="그릴드 비프 덮밥 — 그릴박스" loading="lazy" width="960" height="720"></div>
         <div class="card-body">
-          <h3 class="muted">메뉴명 <span class="slot">[SLOT: 메뉴명]</span></h3>
-          <p class="desc muted">가격 · 구성(부위·중량) · 맵기 · 알레르기 표기</p>
+          <h3>그릴드 비프 덮밥</h3>
+          <p class="desc">육즙 그대로, 직화 비프 스테이크</p>
+          <div class="price-row"><span class="price">13,900원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 13,900원</span><span class="size-row">2XL 300g 18,900원</span><span class="size-row">3XL 500g 28,900원</span></div>
         </div>
       </article>
-      <article class="card">
-        <div class="thumb"><div class="ph"><span class="cam" aria-hidden="true"></span>메뉴<br><span class="slot">[SLOT: 메뉴명·사진]</span></div></div>
+      <article class="card" data-cat="pasta">
+        <div class="thumb"><img src="../assets/menu_pasta_chicken.webp" alt="그릴드 치킨 파스타 — 그릴박스" loading="lazy" width="960" height="720"></div>
         <div class="card-body">
-          <h3 class="muted">메뉴명 <span class="slot">[SLOT: 메뉴명]</span></h3>
-          <p class="desc muted">가격 · 구성(부위·중량) · 맵기 · 알레르기 표기</p>
+          <h3>그릴드 치킨 파스타</h3>
+          <p class="desc">직화 치킨 스테이크를 파스타 위에 그대로</p>
+          <div class="price-row"><span class="price">9,900원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 9,900원</span><span class="size-row">2XL 300g 11,900원</span><span class="size-row">3XL 500g 15,900원</span></div>
         </div>
       </article>
-      <article class="card">
-        <div class="thumb"><div class="ph"><span class="cam" aria-hidden="true"></span>메뉴<br><span class="slot">[SLOT: 메뉴명·사진]</span></div></div>
+      <article class="card" data-cat="pasta">
+        <div class="thumb"><img src="../assets/menu_pasta_chickenleg.webp" alt="그릴드 치킨렉(닭다리) 파스타 — 그릴박스" loading="lazy" width="960" height="720"></div>
         <div class="card-body">
-          <h3 class="muted">메뉴명 <span class="slot">[SLOT: 메뉴명]</span></h3>
-          <p class="desc muted">가격 · 구성(부위·중량) · 맵기 · 알레르기 표기</p>
+          <h3>그릴드 치킨렉(닭다리) 파스타</h3>
+          <p class="desc">닭다리 스테이크와 파스타 한 접시</p>
+          <div class="price-row"><span class="price">10,900원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 10,900원</span><span class="size-row">2XL 300g 13,900원</span><span class="size-row">3XL 500g 19,900원</span></div>
         </div>
       </article>
-    </div>
+      <article class="card" data-cat="pasta">
+        <div class="thumb"><img src="../assets/menu_pasta_pork.webp" alt="그릴드 삼겹 파스타 — 그릴박스" loading="lazy" width="960" height="720"></div>
+        <div class="card-body">
+          <h3>그릴드 삼겹 파스타</h3>
+          <p class="desc">직화 삼겹을 파스타 위에 얹었어요</p>
+          <div class="price-row"><span class="price">12,800원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 12,800원</span><span class="size-row">2XL 300g 15,800원</span><span class="size-row">3XL 500g 21,800원</span></div>
+        </div>
+      </article>
+      <article class="card" data-cat="pasta">
+        <div class="thumb"><img src="../assets/menu_pasta_beef.webp" alt="그릴드 비프 파스타 — 그릴박스" loading="lazy" width="960" height="720"></div>
+        <div class="card-body">
+          <h3>그릴드 비프 파스타</h3>
+          <p class="desc">비프 스테이크가 올라간 파스타</p>
+          <div class="price-row"><span class="price">14,900원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 14,900원</span><span class="size-row">2XL 300g 19,900원</span><span class="size-row">3XL 500g 29,900원</span></div>
+        </div>
+      </article>
+      <article class="card" data-cat="curry">
+        <div class="thumb"><img src="../assets/menu_curry_chicken.webp" alt="그릴드 치킨 카레라이스 — 그릴박스" loading="lazy" width="960" height="720"></div>
+        <div class="card-body">
+          <h3>그릴드 치킨 카레라이스</h3>
+          <p class="desc">일본식 카레에 직화 치킨 스테이크</p>
+          <div class="price-row"><span class="price">9,900원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 9,900원</span><span class="size-row">2XL 300g 11,900원</span><span class="size-row">3XL 500g 15,900원</span></div>
+        </div>
+      </article>
+      <article class="card" data-cat="curry">
+        <div class="thumb"><img src="../assets/menu_curry_chickenleg.webp" alt="그릴드 치킨렉(닭다리) 카레라이스 — 그릴박스" loading="lazy" width="960" height="720"></div>
+        <div class="card-body">
+          <h3>그릴드 치킨렉(닭다리) 카레라이스</h3>
+          <p class="desc">일본식 카레에 닭다리 스테이크</p>
+          <div class="price-row"><span class="price">10,900원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 10,900원</span><span class="size-row">2XL 300g 13,900원</span><span class="size-row">3XL 500g 19,900원</span></div>
+        </div>
+      </article>
+      <article class="card" data-cat="curry">
+        <div class="thumb"><img src="../assets/menu_curry_pork.webp" alt="그릴드 삼겹 카레라이스 — 그릴박스" loading="lazy" width="960" height="720"></div>
+        <div class="card-body">
+          <h3>그릴드 삼겹 카레라이스</h3>
+          <p class="desc">일본식 카레에 직화 삼겹</p>
+          <div class="price-row"><span class="price">12,800원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 12,800원</span><span class="size-row">2XL 300g 15,800원</span><span class="size-row">3XL 500g 21,800원</span></div>
+        </div>
+      </article>
+      <article class="card" data-cat="curry">
+        <div class="thumb"><img src="../assets/menu_curry_beef.webp" alt="그릴드 비프 카레라이스 — 그릴박스" loading="lazy" width="960" height="720"></div>
+        <div class="card-body">
+          <h3>그릴드 비프 카레라이스</h3>
+          <p class="desc">일본식 카레에 비프 스테이크</p>
+          <div class="price-row"><span class="price">14,900원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 14,900원</span><span class="size-row">2XL 300g 19,900원</span><span class="size-row">3XL 500g 29,900원</span></div>
+        </div>
+      </article>
+      <article class="card" data-cat="salad">
+        <div class="thumb"><img src="../assets/menu_salad_chicken.webp" alt="그릴드 치킨 샐러드 — 그릴박스" loading="lazy" width="960" height="720"></div>
+        <div class="card-body">
+          <h3>그릴드 치킨 샐러드</h3>
+          <p class="desc">당일 수급 채소 위에 직화 치킨 스테이크</p>
+          <div class="price-row"><span class="price">9,900원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 9,900원</span><span class="size-row">2XL 300g 11,900원</span><span class="size-row">3XL 500g 15,900원</span></div>
+        </div>
+      </article>
+      <article class="card" data-cat="salad">
+        <div class="thumb"><img src="../assets/menu_salad_chickenleg.webp" alt="그릴드 치킨렉(닭다리) 샐러드 — 그릴박스" loading="lazy" width="960" height="720"></div>
+        <div class="card-body">
+          <h3>그릴드 치킨렉(닭다리) 샐러드</h3>
+          <p class="desc">당일 수급 채소 위에 닭다리 스테이크</p>
+          <div class="price-row"><span class="price">10,900원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 10,900원</span><span class="size-row">2XL 300g 13,900원</span><span class="size-row">3XL 500g 19,900원</span></div>
+        </div>
+      </article>
+      <article class="card" data-cat="salad">
+        <div class="thumb"><img src="../assets/menu_salad_pork.webp" alt="그릴드 삼겹 샐러드 — 그릴박스" loading="lazy" width="960" height="720"></div>
+        <div class="card-body">
+          <h3>그릴드 삼겹 샐러드</h3>
+          <p class="desc">당일 수급 채소 위에 직화 삼겹</p>
+          <div class="price-row"><span class="price">12,800원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 12,800원</span><span class="size-row">2XL 300g 15,800원</span><span class="size-row">3XL 500g 21,800원</span></div>
+        </div>
+      </article>
+      <article class="card" data-cat="salad">
+        <div class="thumb"><img src="../assets/menu_salad_beef.webp" alt="그릴드 비프 샐러드 — 그릴박스" loading="lazy" width="960" height="720"></div>
+        <div class="card-body">
+          <h3>그릴드 비프 샐러드</h3>
+          <p class="desc">당일 수급 채소 위에 비프 스테이크</p>
+          <div class="price-row"><span class="price">14,900원</span></div>
+          <div class="size-rows"><span class="size-row">기본 200g 14,900원</span><span class="size-row">2XL 300g 19,900원</span><span class="size-row">3XL 500g 29,900원</span></div>
+        </div>
+      </article>    </div>
 
     <div class="origin-block">
       <div>
-        <h3>원산지 표시</h3>
-        <p>법정 원산지 고지 문구 게재 자리 — 운영자 확인 후 기재</p>
+        <h3>원산지 안내</h3>
+        <p data-cms="menuPage.origin">원산지 정보는 매장 내 게시물과 주문 화면에서 확인하실 수 있어요.</p>
       </div>
-      <span class="slot">[SLOT: 원산지]</span>
+      <a class="btn btn-outline" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order">주문 화면에서 보기</a>
     </div>
 
     <div class="cta-center">
       <a class="btn btn-red" href="../stores/">가까운 매장 찾기</a>
-      <a class="btn btn-outline" href="#">바로 주문하기</a>
+      <a class="btn btn-outline" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order">바로 주문하기</a>
     </div>
   </div>
 </section>
@@ -118,12 +212,13 @@
 <footer>
   <div class="wrap foot-grid">
     <span class="wordmark">GRILLBOX</span>
-    <p>사업자 정보 <span class="slot">[SLOT: 사업자등록·주소·대표]</span></p>
-    <p class="foot-links"><a href="#">카카오채널</a> · <a href="#">인스타그램</a></p>
-    <p class="foot-small">가맹·제휴 문의: <span class="slot">[SLOT: CONTACT_EMAIL]</span></p>
-    <p class="copyright">© 2026 GRILLBOX. All rights reserved.</p>
+    <p data-cms="footer.company">운영: 주식회사 인디펜던트 · 그릴박스 노량진점 · 서울 동작구 만양로14가길 23 1층</p>
+    <p class="foot-links"><a href="https://pf.kakao.com/_xnKGIn" target="_blank" rel="noopener" data-cms-href="links.kakao">카카오채널</a> · <a href="https://www.instagram.com/grillbox.official/" target="_blank" rel="noopener" data-cms-href="links.instagram">인스타그램</a></p>
+    <p class="foot-small"><a href="https://pf.kakao.com/_xnKGIn" target="_blank" rel="noopener" data-cms-href="links.kakao"><span data-cms="footer.contact">가맹·제휴 문의는 카카오톡 채널로 받아요.</span></a></p>
+    <p class="copyright" data-cms="footer.copyright">© 2026 GRILLBOX. All rights reserved.</p>
   </div>
 </footer>
 
+<script src="../js/cms.js"></script>
 </body>
 </html>
