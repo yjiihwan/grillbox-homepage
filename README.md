@@ -14,6 +14,12 @@
 - 메뉴 사진: 네이버 주문 등록 **브랜드 공식 상품컷**으로 교체 (AI 생성 컷은 분위기 컷에만 잔존).
 - **관리자 페이지 `/admin/`** — 문구·가격·이미지·매장정보를 개발자 없이 수정 (`content.json` + GitHub API).
 
+## 관리자 UX 개편 (2026-09-05)
+
+- 아이디·비밀번호 로그인(로그인 유지·로그아웃), 토큰 입력 UI 완전 제거 — 저장 권한은 `admin/auth.json`에 비밀번호로 봉인(PBKDF2+AES-GCM, 암호문만 저장).
+- 좌측 메뉴(모바일=상단 탭) 7개 항목 · 항목마다 한글 설명 + 「실제 화면 보기」 · 저장 바(바뀐 곳 N개 → 저장 중 → 저장 완료 → 사이트에 반영됐어요) · 실패 시 한글 안내 · 사진은 파일 선택 → 미리보기 → 저장.
+- 계정 재설정: `admin/setup.html` 또는 `tools/seal_auth.mjs` (docs/HANDOFF.md).
+
 ## 문서
 
 - 운영자용: [docs/ADMIN_GUIDE.md](docs/ADMIN_GUIDE.md) — 관리자 페이지 사용법 (스크린샷 포함)
@@ -21,4 +27,5 @@
 
 ## 검증
 
-게이트: `~/sally/_gb_home5_shots.mjs <baseUrl> <outDir>` — 4페이지 × PC1440/mo390 스크린샷 + SLOT·placeholder 0 + 금지어 + 죽은 링크 0 + 이미지 전수 유효 + 메뉴 탭·햄버거·관리자 게이트 실동작 (95항목).
+게이트: `~/sally/_gb_home5_shots.mjs <baseUrl> <outDir>` — 4페이지 × PC1440/mo390 스크린샷 + SLOT·placeholder 0 + 금지어 + 죽은 링크 0 + 이미지 전수 유효 + 메뉴 탭·햄버거·관리자 로그인 실동작.
+관리자 UX 게이트: `~/sally/_gb_admin_ux_shots.mjs <baseUrl> <outDir> [--save]` — 로그인 오답/정답·7탭·개발 용어 0·overflow 0·수정→저장→사이트 반영→원복→로그아웃 (자격: `~/shared_inbox/secrets_grillbox_admin.json` 또는 GB_ADMIN_ID/GB_ADMIN_PW).

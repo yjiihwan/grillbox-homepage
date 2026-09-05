@@ -384,22 +384,33 @@
       r.readAsDataURL(file);
     });
   }
-  function putFile(path, b64, msg) {
-    return api(path + '?ref=' + BRANCH, {}).then(function (r) {
+  /* 파일별 최신 sha를 기억한다 — 저장 직후 GET이 잠시 옛 값을 돌려줘 충돌(409)이 나는 것을 막는다 */
+  var knownSha = {};
+  function fetchSha(path) {
+    return api(path + '?ref=' + BRANCH + '&ts=' + Date.now(), { cache: 'no-store' }).then(function (r) {
       return r.ok ? r.json().then(function (j) { return j.sha; }) : null;
-    }).then(function (sha) {
+    });
+  }
+  function putFile(path, b64, msg, retried) {
+    var shaP = knownSha[path] ? Promise.resolve(knownSha[path]) : fetchSha(path);
+    return shaP.then(function (sha) {
       var body = { message: msg, content: b64, branch: BRANCH };
       if (sha) body.sha = sha;
       return api(path, { method: 'PUT', body: JSON.stringify(body) });
     }).then(function (r) {
-      if (!r.ok) { var e = new Error('put'); e.status = r.status; throw e; }
-      return r.json();
+      if (r.status === 409 || r.status === 422) {
+        if (retried) { var e = new Error('conflict'); e.status = 409; throw e; }
+        delete knownSha[path];
+        return fetchSha(path).then(function (sha) { knownSha[path] = sha; return putFile(path, b64, msg, true); });
+      }
+      if (!r.ok) { var e2 = new Error('put'); e2.status = r.status; throw e2; }
+      return r.json().then(function (j) { if (j && j.content && j.content.sha) knownSha[path] = j.content.sha; return j; });
     });
   }
   function humanError(e) {
     if (e && e.status === 401 || e && e.status === 403) return '저장 권한을 확인할 수 없어요. 로그아웃 후 다시 로그인해 보세요. 계속 안 되면 개발 담당자에게 「관리자 계정 설정 갱신」을 요청해 주세요.';
     if (e && e.status === 409) return '다른 곳에서 먼저 저장된 내용이 있어요. 새로고침(F5)해서 최신 내용을 불러온 뒤 다시 고쳐 주세요.';
-    if (e && (e.status === 413 || e.status === 422)) return '사진이 너무 커서 올리지 못했어요. 2.5MB 이하로 줄여서 다시 시도해 주세요.';
+    if (e && e.status === 413) return '사진이 너무 커서 올리지 못했어요. 2.5MB 이하로 줄여서 다시 시도해 주세요.';
     if (e && e.status === 404) return '저장할 곳을 찾지 못했어요. 새로고침(F5) 후 다시 시도해 주세요.';
     if (e instanceof TypeError) return '인터넷 연결을 확인해 주세요. 잠시 후 다시 시도하면 대부분 해결돼요.';
     return '저장하지 못했어요. 잠시 후 다시 시도해 주세요. 계속되면 개발 담당자에게 알려 주세요.';
