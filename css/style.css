@@ -11,6 +11,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{
   background:var(--gb-surface);color:var(--gb-text);
   font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
@@ -65,7 +66,7 @@ section{padding:96px 0}
 
 .tier-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
 .tier{margin:0}
-.tier .shot{aspect-ratio:1/1;border-radius:12px;overflow:hidden}
+.tier .shot{aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:var(--gb-card)}
 .tier .shot img{width:100%;height:100%;object-fit:cover}
 .tier figcaption{font-size:14px;color:var(--gb-muted);margin-top:12px;white-space:nowrap}
 .tier figcaption strong{color:var(--gb-text);font-weight:800;margin-right:6px}
@@ -77,14 +78,14 @@ section{padding:96px 0}
 .fire p.body{font-size:19px;margin-top:20px;line-height:1.85;opacity:.92}
 .seq{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
 .seq figure{margin:0}
-.seq .shot{aspect-ratio:1/1;border-radius:10px;overflow:hidden}
+.seq .shot{aspect-ratio:1/1;border-radius:10px;overflow:hidden;background:rgba(27,25,23,.8)}
 .seq .shot img{width:100%;height:100%;object-fit:cover}
 .seq figcaption{font-size:12px;color:var(--gb-muted);margin-top:8px}
 
 /* ── H4 메뉴 카드 ── */
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:48px}
 .card{background:var(--gb-card);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
-.card .thumb{aspect-ratio:4/3;overflow:hidden}
+.card .thumb{aspect-ratio:4/3;overflow:hidden;background:#221f1c}
 .card .thumb img{width:100%;height:100%;object-fit:cover}
 .card-body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:8px}
 .card-body h3{font-size:20px;font-weight:800}
@@ -99,14 +100,19 @@ section{padding:96px 0}
 
 /* ── H5 매장 찾기 ── */
 .store-grid{display:grid;grid-template-columns:56fr 44fr;gap:26px;margin-top:48px;align-items:stretch}
-.map-frame{border-radius:12px;overflow:hidden;min-height:380px;background:var(--gb-card)}
-.map-frame iframe{width:100%;height:100%;min-height:380px;border:0;display:block;filter:grayscale(.15)}
+/* 지도 = 정적 이미지(OSM 타일 합성, 항상 즉시 표시) + 네이버 지도 링크. 외부 임베드 의존 0 → 어떤 환경에서도 빈 박스 없음 */
+.map-frame{border-radius:12px;overflow:hidden;min-height:380px;background:var(--gb-card);position:relative}
+.map-static{position:absolute;inset:0;display:block}
+.map-static img{width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.85)}
+.map-static::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(245,243,239,.08);pointer-events:none}
+.map-cta{position:absolute;left:14px;bottom:14px;background:var(--gb-red);color:#fff;font-size:13px;font-weight:700;padding:8px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.map-static:hover .map-cta{background:var(--gb-brick)}
+.map-credit{position:absolute;right:8px;bottom:6px;font-size:10px;color:#3a3a3a;background:rgba(255,255,255,.7);padding:1px 6px;border-radius:4px}
 .fullmap-frame{margin-bottom:26px;min-height:340px}
-.fullmap-frame iframe{min-height:340px}
 .store-card{background:var(--gb-card);border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:14px}
-.store-photo{margin:-28px -28px 8px;border-radius:12px 12px 0 0;overflow:hidden;aspect-ratio:16/7}
+.store-photo{margin:-28px -28px 8px;border-radius:12px 12px 0 0;overflow:hidden;aspect-ratio:16/7;background:#221f1c}
 .store-photo img{width:100%;height:100%;object-fit:cover;object-position:center 55%}
-.store-sub{margin-top:26px;border-radius:12px;overflow:hidden;aspect-ratio:3/1}
+.store-sub{margin-top:26px;border-radius:12px;overflow:hidden;aspect-ratio:3/1;background:var(--gb-card)}
 .store-sub img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
 .store-card h3{font-size:24px;font-weight:800;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .info-row{display:flex;gap:14px;font-size:15px;align-items:baseline}
@@ -117,7 +123,7 @@ section{padding:96px 0}
 .brand-divider{width:56px;height:4px;background:var(--gb-red);margin:0 auto 28px}
 .story-body{font-size:19px;line-height:1.9;max-width:38em;margin:24px auto 0;opacity:.92}
 .story-shots{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
-.story-shots .shot{aspect-ratio:4/3;border-radius:12px;overflow:hidden}
+.story-shots .shot{aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:var(--gb-card)}
 .story-shots img{width:100%;height:100%;object-fit:cover}
 
 /* ── H7 리뷰 ── */
@@ -133,7 +139,7 @@ section{padding:96px 0}
 
 /* ── H8 인스타 ── */
 .insta-tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:44px}
-.insta-tiles .tile{aspect-ratio:1/1;border-radius:10px;overflow:hidden}
+.insta-tiles .tile{aspect-ratio:1/1;border-radius:10px;overflow:hidden;background:var(--gb-card)}
 .insta-tiles img{width:100%;height:100%;object-fit:cover}
 
 /* ── H9 최종 CTA + 푸터 ── */
@@ -156,7 +162,7 @@ footer{background:#0e0d0c;padding:56px 0 40px;font-size:14px}
 .page-head .intro{font-size:19px;margin-top:16px;opacity:.9;max-width:36em}
 
 /* ── /menu ── */
-.wide-cut{margin-top:56px;border-radius:12px;overflow:hidden;aspect-ratio:21/8}
+.wide-cut{margin-top:56px;border-radius:12px;overflow:hidden;aspect-ratio:21/8;background:var(--gb-card)}
 .wide-cut img{width:100%;height:100%;object-fit:cover}
 .pills{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:36px}
 .pill{border:1px solid rgba(245,243,239,.3);color:var(--gb-text);font-size:14.5px;font-weight:600;padding:9px 20px;border-radius:999px;background:transparent;cursor:pointer}
@@ -170,7 +176,7 @@ footer{background:#0e0d0c;padding:56px 0 40px;font-size:14px}
 .store-block{background:var(--gb-card);border-radius:14px;padding:28px;display:grid;grid-template-columns:38fr 62fr;gap:32px;margin-top:26px}
 .store-block .photo{min-height:280px}
 .store-photos{display:flex;flex-direction:column;gap:12px}
-.store-photos img{width:100%;border-radius:10px;aspect-ratio:3/2;object-fit:cover}
+.store-photos img{width:100%;height:auto;border-radius:10px;aspect-ratio:3/2;object-fit:cover;background:#221f1c}
 .store-detail{display:flex;flex-direction:column;gap:13px}
 .store-detail h2{font-size:26px;font-weight:800;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .seat-tag{display:inline-flex;border:1px solid rgba(245,243,239,.3);border-radius:999px;padding:5px 14px;font-size:13px;color:var(--gb-text)}
@@ -200,7 +206,7 @@ footer{background:#0e0d0c;padding:56px 0 40px;font-size:14px}
   .tier-strip{gap:8px;margin-top:32px}
   .tier figcaption{font-size:11px;margin-top:8px;letter-spacing:-.01em}
   .map-frame{min-height:260px}
-  .map-frame iframe{min-height:260px}
+  .map-cta{font-size:12px;padding:7px 12px;left:10px;bottom:10px}
     .store-photo{margin:-28px -28px 6px;aspect-ratio:3/2}
   .store-sub{aspect-ratio:3/2}
   .wide-cut{aspect-ratio:16/9;margin-top:36px}
@@ -219,3 +225,11 @@ footer{background:#0e0d0c;padding:56px 0 40px;font-size:14px}
   .info-row{font-size:14px}
   .origin-block{padding:20px}
 }
+
+/* ── 404 ── */
+.nf{min-height:calc(100vh - 64px);display:grid;place-items:center;text-align:center;padding:96px 24px}
+.nf .code{font-size:14px;font-weight:700;letter-spacing:.2em;color:var(--gb-red)}
+.nf h1{font-size:44px;font-weight:900;line-height:1.2;margin-top:14px;word-break:keep-all}
+.nf p{font-size:17px;opacity:.85;margin-top:14px;word-break:keep-all}
+.nf .btn-row{justify-content:center;margin-top:32px}
+@media (max-width:767px){.nf h1{font-size:30px}.nf p{font-size:14.5px}}

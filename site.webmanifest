@@ -1,0 +1,15 @@
+{
+  "name": "그릴박스 — 고기 가득, 직화 한그릇",
+  "short_name": "그릴박스",
+  "description": "주문 받고 직화로 굽는 고기덮밥, 그릴박스 노량진점",
+  "start_url": "./",
+  "display": "browser",
+  "background_color": "#131211",
+  "theme_color": "#131211",
+  "lang": "ko",
+  "icons": [
+    { "src": "assets/icon_512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon_512_maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

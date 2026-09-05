@@ -19,6 +19,10 @@
 <link rel="icon" href="../favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta name="theme-color" content="#131211">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="../css/style.css">
 <script type="application/ld+json">
@@ -35,7 +39,10 @@
     "addressCountry": "KR"
   },
   "telephone": "+82-507-1318-7881",
-  "openingHours": "Mo-Su 11:00-21:50"
+  "openingHours": "Mo-Su 11:00-21:50",
+  "image": "https://yjiihwan.github.io/grillbox-homepage/assets/og_stores.jpg",
+  "hasMap": "https://map.naver.com/p/entry/place/1093880694",
+  "url": "https://grillbox.co.kr"
 }
 </script>
 </head>
@@ -72,13 +79,17 @@
 <section style="padding-top:64px">
   <div class="wrap">
     <div class="map-frame fullmap-frame">
-      <iframe title="그릴박스 노량진점 지도" src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%20%EB%8F%99%EC%9E%91%EA%B5%AC%20%EB%A7%8C%EC%96%91%EB%A1%9C14%EA%B0%80%EA%B8%B8%2023&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <a class="map-static" href="https://map.naver.com/p/entry/place/1093880694" target="_blank" rel="noopener" data-cms-href="links.naverPlace" aria-label="그릴박스 노량진점 위치를 네이버 지도에서 보기">
+        <img src="../assets/map_noryangjin.webp" alt="그릴박스 노량진점 위치 지도 — 노량진역 남쪽, 만양로14가길" width="1600" height="1000">
+        <span class="map-cta">네이버 지도에서 보기 ↗</span>
+        <span class="map-credit">© OpenStreetMap contributors</span>
+      </a>
     </div>
 
     <article class="store-block">
       <div class="store-photos">
-        <img src="../assets/store_exterior_dusk.webp" alt="그릴박스 노량진점 외관" loading="lazy">
-        <img src="../assets/store_interior_counter.webp" alt="그릴박스 노량진점 내부 1인 카운터석" loading="lazy">
+        <img src="../assets/store_exterior_dusk.webp" alt="그릴박스 매장 외관" loading="lazy" width="2528" height="1696">
+        <img src="../assets/store_interior_counter.webp" alt="그릴박스 매장 내부 1인 카운터석" loading="lazy" width="2528" height="1696">
       </div>
       <div class="store-detail">
         <h2><span data-cms="store.name">그릴박스 노량진점</span> <span class="badge-open" data-open-badge>지금 영업 중</span></h2>

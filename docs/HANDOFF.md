@@ -32,7 +32,7 @@ robots.txt          /admin/ 크롤링 차단
 따라서 **운영자 수정분은 전부 `content.json`(+`assets/cms/`)에만 쌓인다.** HTML의 구운 값은 시간이 지나면 JSON과 어긋날 수 있는데, 사용자에겐 항상 JSON 값이 보이므로 기능 문제는 없다. 다만 SEO 최신화를 원하면 이관 시점에 JSON 값을 HTML에 다시 구워주는 것을 권장 (수동 또는 간단한 스크립트).
 
 - 영업 중 뱃지: `cms.js`가 KST 기준 현재 시각과 `store.openHour/closeHour`를 비교해 계산 (서버 불필요).
-- 지도: Google Maps `output=embed` iframe (키 불필요). 네이버 지도 API 키가 생기면 교체 권장.
+- 지도: **정적 지도 이미지**(`assets/map_noryangjin.webp`, OpenStreetMap 타일 합성 + 브랜드 핀, ODbL 크레딧 표기) + 네이버 지도 링크(`links.naverPlace`). 외부 임베드 의존이 없어 어떤 환경에서도 빈 박스가 나오지 않는다. 매장 이전 시 `tools/make_map.py`로 재생성(좌표만 수정).
 - 메뉴 카테고리 탭: JS 필터 (`data-cat`). 카드 16장은 전부 DOM에 존재.
 
 ## 관리자 페이지 보안 모델 (2026-09-05 개편)
@@ -62,6 +62,21 @@ robots.txt          /admin/ 크롤링 차단
 - 파비콘: `favicon.ico`(32/16) · `assets/favicon-32.png` · `assets/apple-touch-icon.png`(180) — 워드마크 `G`를 브랜드 레드(#FF110E) 라운드 사각형에 얹음.
 - ⚠️ **실서버 이전 시**: og:image·og:url은 절대 URL이라 현재 스테이징 도메인(`https://yjiihwan.github.io/grillbox-homepage/`)이 박혀 있음 → 3개 HTML에서 도메인만 `https://grillbox.co.kr/`로 치환.
 
+## 이미지 운용 규칙 (2026-09-05 완성본)
+
+- **한 페이지 안에서 같은 사진 2회 이상 사용 금지** — 게이트 `_gb_home5_shots.mjs`가 `<img src>`+CSS 배경까지 대조한다.
+- 홈 대표 메뉴 3장은 `menus[].imgHome`(크롭 차등본 `menu_bowl_*_crop.webp`)을 쓰고, /menu 카탈로그는 `menus[].img`(실상품컷). `imgHome`이 없으면 `img`로 폴백(`js/cms.js menuCard`). 관리자 「사진」 탭에서 둘 다 교체 가능.
+- 홈 H8 인스타 타일 6장(`insta_01~06`)은 HTML 고정(관리자 대상 아님). 인스타 실피드 연동 시 폴백으로 유지.
+- 실촬영 교체 우선순위(design AUDIT): ① 매장 외관 ② 매장 내부 ③ H7 배경(scene_solo_lunch) ④ H2 3단 실측컷(저울 병기). H2 3장은 **연출컷**이라 `weight.footnote`의 «사진은 연출된 예시…» 고지를 지울 수 없다(표시광고법).
+- 이미지 교체 시 같은 파일명으로 덮어쓰면 코드 수정이 없다. GitHub Pages 캐시(max-age 600)라 10분 내 갱신.
+- 모든 `<img>`에 `width/height` + 컨테이너 `aspect-ratio`·배경색 → 지연 로드 중 빈 공간이 튀지 않는다. 새 이미지를 넣을 때도 같은 규칙.
+
+## 404 · manifest · 폰트
+
+- `404.html`(GitHub Pages 규약). 어느 깊이에서 열려도 링크가 맞도록 `<base>`를 스크립트로 계산(github.io면 첫 경로 세그먼트, 그 외 `/`). 실서버(루트 서빙)에선 그대로 동작.
+- `site.webmanifest` + `assets/icon_512.png`(any)·`icon_512_maskable.png`(maskable)·`theme-color`.
+- Pretendard CDN CSS는 `preconnect`+`preload as=style`로 먼저 당겨 FOUT를 줄였다. 완전 제거를 원하면 self-host(woff2 subset) 권장.
+
 ## 문구 동기화 규칙
 
 - HTML에 구워진 문구(무JS·SEO 폴백)와 `content.json`은 항상 같은 값이어야 한다. 관리자 페이지 저장은 JSON만 바꾸므로, **대규모 문구 교정 시 HTML도 같이 교체**(게이트 `~/sally/_gb_copy_v2_shots.mjs`가 무JS 렌더와 JSON을 대조).
@@ -85,5 +100,7 @@ robots.txt          /admin/ 크롤링 차단
 - 메뉴명·가격·중량: 그릴박스 노량진점 네이버 주문 (biz 1346907) 2026-07-10 수집분
 - 매장 주소·전화·영업시간: 네이버플레이스 (place 1093880694) 2026-09-04 확인
 - 리뷰: 네이버플레이스 방문자 리뷰 원문 (2026-09-04 수집)
-- 메뉴 사진: 네이버 주문에 등록된 브랜드 공식 상품컷 (webp 변환)
+- 메뉴 사진(/menu 16장·홈 대표 3장 크롭본): 네이버 주문에 등록된 브랜드 공식 상품컷 (webp 변환)
+- 그 외 분위기 컷(히어로·H2 3단·H3 시퀀스·H5 매장·H6·인스타 6·/menu 탑뷰·og 3종·아이콘): **2026-09-05 design 생성본(AI, staging용 임시)** — `shared_inbox/results/grillbox_homepage_final_20260905/README.md`. 실촬영 확보 시 같은 파일명으로 교체
+- 지도: OpenStreetMap 타일(© OpenStreetMap contributors, ODbL) 합성, 좌표 37.51258, 126.94488
 - ⚠️ 미확정 항목(사업자등록번호 등)은 저장소 밖 `04_dev/REPORT.md`의 "실데이터 교체 필요 목록" 참조

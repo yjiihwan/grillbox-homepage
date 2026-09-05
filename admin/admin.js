@@ -155,8 +155,9 @@
     return '<div class="card"><div class="card-head"><div><h3>' + title + '</h3>' + (desc ? '<p class="desc">' + desc + '</p>' : '') + '</div>' +
       (where ? '<span class="where"><a href="' + where.href + '" target="_blank" rel="noopener">' + where.label + ' ↗</a></span>' : '') + '</div>' + body + '</div>';
   }
-  function photoBox(path, label) {
-    var src = pendingImages[path] ? pendingImages[path].url : '../' + get(path) + '?ts=' + Date.now();
+  function photoBox(path, label, fallbackPath) {
+    var cur = get(path) || (fallbackPath ? get(fallbackPath) : '');
+    var src = pendingImages[path] ? pendingImages[path].url : '../' + cur + '?ts=' + Date.now();
     return '<div class="menu-photo' + (pendingImages[path] ? ' pending' : '') + '" data-photo="' + path + '"><img src="' + esc(src) + '" alt="' + esc(label) + '">' +
       '<label class="ph-btn">사진 바꾸기<input type="file" accept="image/*" data-img-path="' + path + '"></label></div>';
   }
@@ -245,7 +246,14 @@
         var p = 'menus.' + i + '.img';
         tiles += '<figure class="photo-tile">' + photoBox(p, m.name) + '<figcaption><b>' + esc(m.name) + '</b><small>' + esc(catLabel(m.cat)) + '</small>' + undoBtn(p) + '</figcaption></figure>';
       });
-      html += card('메뉴 사진 (16장)', '메뉴 페이지와 홈 화면 대표 메뉴에 쓰여요. 가로로 긴 사진(4:3)이 잘 맞아요.', { href: '../menu/', label: '메뉴 페이지 보기' }, '<div class="photo-grid">' + tiles + '</div>');
+      html += card('메뉴 사진 (16장)', '메뉴 페이지 카드에 쓰여요. 가로로 긴 사진(4:3)이 잘 맞아요.', { href: '../menu/', label: '메뉴 페이지 보기' }, '<div class="photo-grid">' + tiles + '</div>');
+      tiles = '';
+      content.menuHighlight.items.forEach(function (id) {
+        var i = content.menus.findIndex(function (m) { return m.id === id; }); if (i < 0) return;
+        var m = content.menus[i]; var p = 'menus.' + i + '.imgHome';
+        tiles += '<figure class="photo-tile">' + photoBox(p, m.name + ' (홈 화면)', 'menus.' + i + '.img') + '<figcaption><b>' + esc(m.name) + '</b><small>홈 화면 대표 메뉴 · 비워 두면 메뉴 사진과 같아요</small>' + undoBtn(p) + '</figcaption></figure>';
+      });
+      html += card('홈 화면 대표 메뉴 사진 (3장)', '홈 화면 대표 메뉴 3개에만 쓰이는 사진이에요. 메뉴 페이지 사진과 다른 구도로 두면 홈이 덜 반복돼 보여요.', { href: '../#menu', label: '이 부분 보기' }, '<div class="photo-grid">' + tiles + '</div>');
       return html;
     },
     links: function () {
@@ -324,7 +332,7 @@
     menu: /^menus\.\d+\.(name|desc|prices)/,
     store: /^(store|storesPage)\./,
     reviews: /^reviews\./,
-    photos: /^(menus\.\d+\.img|weight\.tiers\.\d+\.img)$/,
+    photos: /^(menus\.\d+\.img|menus\.\d+\.imgHome|weight\.tiers\.\d+\.img)$/,
     links: /^links\./,
     pages: /^(menuPage|footer)\./
   };
@@ -417,7 +425,7 @@
   }
   function slug(path) {
     var parts = path.split('.');
-    if (parts[0] === 'menus') return content.menus[+parts[1]].id;
+    if (parts[0] === 'menus') return content.menus[+parts[1]].id + (parts[2] === 'imgHome' ? '_home' : '');
     if (parts[0] === 'weight') return 'size_' + content.weight.tiers[+parts[2]].grams.replace(/[^0-9]/g, '');
     return parts.join('_');
   }

@@ -20,6 +20,12 @@
 - 좌측 메뉴(모바일=상단 탭) 7개 항목 · 항목마다 한글 설명 + 「실제 화면 보기」 · 저장 바(바뀐 곳 N개 → 저장 중 → 저장 완료 → 사이트에 반영됐어요) · 실패 시 한글 안내 · 사진은 파일 선택 → 미리보기 → 저장.
 - 계정 재설정: `admin/setup.html` 또는 `tools/seal_auth.mjs` (docs/HANDOFF.md).
 
+## 완성본 통합 (2026-09-05 저녁)
+
+- design 최종 이미지 세트 반영(히어로·H2 3단·H3 시퀀스·H5 매장 2컷·H6 그릇·/menu 탑뷰·og 3종·아이콘) + 신규 인스타 타일 6·홈 대표 메뉴 크롭 3(`menus[].imgHome`). **페이지 내 동일 사진 중복 0.**
+- 지도: Google 임베드 → 정적 지도 이미지 + 네이버 지도 링크 (어떤 환경에서도 빈 박스 없음).
+- `404.html` · `site.webmanifest` · 512 아이콘 · 폰트 preconnect/preload · 전 이미지 width/height+aspect-ratio · H2 연출컷 고지 문구.
+
 ## 문서
 
 - 운영자용: [docs/ADMIN_GUIDE.md](docs/ADMIN_GUIDE.md) — 관리자 페이지 사용법 (스크린샷 포함)
@@ -27,5 +33,5 @@
 
 ## 검증
 
-게이트: `~/sally/_gb_home5_shots.mjs <baseUrl> <outDir>` — 4페이지 × PC1440/mo390 스크린샷 + SLOT·placeholder 0 + 금지어 + 죽은 링크 0 + 이미지 전수 유효 + 메뉴 탭·햄버거·관리자 로그인 실동작.
+게이트: `~/sally/_gb_home5_shots.mjs <baseUrl> <outDir>` — 4페이지+404 × PC1440/mo390 스크린샷 + SLOT·placeholder 0 + 금지어 + 죽은 링크 0 + 이미지 전수 유효·alt 전수·width/height + **페이지 내 이미지 중복 0** + 정적 지도 + og/favicon/manifest 200 + 메뉴 탭·햄버거·관리자 로그인 실동작.
 관리자 UX 게이트: `~/sally/_gb_admin_ux_shots.mjs <baseUrl> <outDir> [--save]` — 로그인 오답/정답·7탭·개발 용어 0·overflow 0·수정→저장→사이트 반영→원복→로그아웃 (자격: `~/shared_inbox/secrets_grillbox_admin.json` 또는 GB_ADMIN_ID/GB_ADMIN_PW).

@@ -91,7 +91,8 @@
       '<div class="price-row"><span class="price"></span></div>' +
       '<div class="size-rows"></div></div>';
     var img = a.querySelector('img');
-    img.src = ROOT + m.img; img.alt = alt;
+    // 홈 대표 카드는 크롭 차등본(imgHome)을 우선 — 같은 상품컷이 /menu와 겹쳐 보이지 않게
+    img.src = ROOT + ((highlight && m.imgHome) || m.img); img.alt = alt;
     a.querySelector('h3').textContent = m.name;
     a.querySelector('.desc').textContent = m.desc;
     a.querySelector('.price').textContent = won(m.prices.base);

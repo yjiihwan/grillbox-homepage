@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>페이지를 찾을 수 없어요 | 그릴박스</title>
+<meta name="robots" content="noindex">
+<!-- 404는 어느 경로에서든 열리므로 사이트 루트를 스크립트로 계산한다 (GitHub Pages 서브패스·실서버 루트 모두 대응) -->
+<script>
+(function(){
+  var seg = location.pathname.split('/')[1];
+  var root = (location.hostname.endsWith('github.io') && seg) ? '/' + seg + '/' : '/';
+  document.write('<base href="' + root + '">');
+})();
+</script>
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#131211">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="gnb">
+  <div class="gnb-in">
+    <a class="wordmark" href="./">GRILLBOX</a>
+    <nav class="gnb-nav" aria-label="주 메뉴">
+      <a href="menu/">메뉴</a>
+      <a href="stores/">매장</a>
+      <a href="./#brand">브랜드</a>
+      <a class="btn-order" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener">바로 주문</a>
+    </nav>
+    <div class="gnb-actions">
+      <a class="btn-order" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener">바로 주문</a>
+    </div>
+  </div>
+</header>
+
+<main class="nf">
+  <div>
+    <p class="code">404</p>
+    <h1>이 페이지는<br>아직 굽지 않았어요</h1>
+    <p>주소가 바뀌었거나 잘못 적혔어요. 홈에서 메뉴와 매장 안내를 확인하세요.</p>
+    <div class="btn-row">
+      <a class="btn btn-red" href="./">홈으로</a>
+      <a class="btn btn-outline" href="menu/">전체 메뉴 보기</a>
+      <a class="btn btn-outline" href="stores/">매장 안내</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <span class="wordmark">GRILLBOX</span>
+    <p>운영: 주식회사 인디펜던트 · 그릴박스 노량진점 · 서울 동작구 만양로14가길 23 1층</p>
+    <p class="copyright">© 2026 GRILLBOX. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>

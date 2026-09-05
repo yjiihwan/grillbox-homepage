@@ -1,9 +1,9 @@
 {
   "_meta": {
-    "note": "그릴박스 홈페이지 콘텐츠 SSOT. /admin/ 에서 수정하면 이 파일이 갱신되고 1~2분 내 사이트에 반영됩니다.",
+    "note": "그릴박스 홈페이지 콘텐츠 SSOT. /admin/ 에서 수정하면 이 파일이 갱신되고 1~2분 내 사이트에 반영됩니다. menus[].imgHome은 홈 화면 대표 메뉴 카드 전용 사진(없으면 img 사용).",
     "updated": "2026-09-05",
     "dataSource": "메뉴·가격: 그릴박스 노량진점 네이버 주문(2026-07-10 수집) · 매장정보: 네이버플레이스(2026-09-04 확인)",
-    "rev": "copyv20905"
+    "rev": "final0905"
   },
   "links": {
     "order": "https://booking.naver.com/order/bizes/1346907/items/6572978",
@@ -41,7 +41,7 @@
       }
     ],
     "caption": "같은 그릇에 고기 양만 다르게. 그릴드 치킨 덮밥 기본 · 2XL · 3XL",
-    "footnote": "※ 중량·가격은 그릴박스 노량진점 판매 메뉴 표기 기준(그릴드 치킨 덮밥)."
+    "footnote": "※ 중량·가격은 그릴박스 노량진점 판매 메뉴 표기 기준(그릴드 치킨 덮밥). 사진은 연출된 예시이며, 실제 중량·구성은 표기 기준을 따릅니다."
   },
   "fire": {
     "head": "불맛부터 다르다",
@@ -138,7 +138,8 @@
         "base": 8900,
         "xl2": 10900,
         "xl3": 14900
-      }
+      },
+      "imgHome": "assets/menu_bowl_chicken_crop.webp"
     },
     {
       "id": "bowl_chickenleg",
@@ -162,7 +163,8 @@
         "base": 11800,
         "xl2": 14800,
         "xl3": 20800
-      }
+      },
+      "imgHome": "assets/menu_bowl_pork_crop.webp"
     },
     {
       "id": "bowl_beef",
@@ -174,7 +176,8 @@
         "base": 13900,
         "xl2": 18900,
         "xl3": 28900
-      }
+      },
+      "imgHome": "assets/menu_bowl_beef_crop.webp"
     },
     {
       "id": "pasta_chicken",
