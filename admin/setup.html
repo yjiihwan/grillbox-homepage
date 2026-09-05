@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>관리자 계정 설정 (개발 담당자용)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="admin.css">
+<style>
+.setup{max-width:640px;margin:0 auto;padding:40px 20px 80px}
+.setup h1{font-size:22px;font-weight:800;margin-top:14px}
+.setup .lead{font-size:14px;color:var(--muted);margin-top:8px;line-height:1.6}
+.setup .card{margin-top:18px}
+.row{display:flex;gap:8px;align-items:flex-end}
+.row .field{flex:1}
+pre{background:#0F0E0D;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:12px;overflow:auto;white-space:pre-wrap;word-break:break-all;margin-top:12px}
+ol{padding-left:20px;font-size:13.5px;line-height:1.7;margin-top:10px}
+.state{font-size:13px;margin-top:10px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main class="setup">
+  <a class="wordmark" href="./">GRILL<span>BOX</span> <em>관리자</em></a>
+  <h1>관리자 계정 설정 <small style="font-weight:600;color:var(--muted);font-size:14px">개발 담당자용</small></h1>
+  <p class="lead">관리자 아이디·비밀번호를 새로 정하고, 저장 권한(GitHub 토큰)을 그 비밀번호로 봉인해 <code>admin/auth.json</code>을 만듭니다. 토큰과 비밀번호는 이 화면 밖으로 전송되지 않으며, 저장소에는 암호문만 들어갑니다.</p>
+
+  <div class="card">
+    <h3>1. 저장 권한 토큰</h3>
+    <p class="desc">GitHub → Settings → Developer settings → Fine-grained tokens → 저장소 <b>grillbox-homepage</b>만 선택 → Permissions에서 <b>Contents: Read and write</b>. 만료는 1년 권장(만료 시 이 화면에서 다시 봉인).</p>
+    <label class="field" for="s-token"><span>토큰 값</span><input type="password" id="s-token" autocomplete="off" placeholder="github_pat_…"></label>
+  </div>
+
+  <div class="card">
+    <h3>2. 새 아이디 · 비밀번호</h3>
+    <p class="desc">비밀번호는 무작위 20자 이상을 권장합니다. 운영자에게 안전한 경로로 전달하고, 여기 외에는 기록하지 마세요.</p>
+    <label class="field" for="s-user"><span>아이디</span><input type="text" id="s-user" autocomplete="off" autocapitalize="off" value="grillbox"></label>
+    <div class="row">
+      <label class="field" for="s-pw"><span>비밀번호</span><input type="text" id="s-pw" autocomplete="off" spellcheck="false"></label>
+      <button type="button" class="btn" id="s-gen" style="margin-bottom:0">무작위 생성</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>3. 봉인 파일 만들기</h3>
+    <p class="desc">만든 파일을 저장소의 <code>admin/auth.json</code>에 덮어쓰면 다음 로그인부터 새 계정이 적용됩니다.</p>
+    <div class="row" style="margin-top:14px;flex-wrap:wrap">
+      <button type="button" class="btn btn-primary" id="s-make">봉인 파일 만들기</button>
+      <button type="button" class="btn btn-ghost" id="s-download" disabled>auth.json 내려받기</button>
+      <button type="button" class="btn btn-ghost" id="s-apply" disabled>지금 로그인된 권한으로 바로 저장소에 적용</button>
+    </div>
+    <p class="state" id="s-state"></p>
+    <pre id="s-out" hidden></pre>
+  </div>
+
+  <div class="card">
+    <h3>명령줄로 하려면</h3>
+    <pre>gh auth token | node tools/seal_auth.mjs grillbox - -     # 비밀번호 무작위 생성
+node tools/seal_auth.mjs grillbox '비밀번호' token.txt     # 지정 비밀번호</pre>
+    <ol>
+      <li>생성된 <code>admin/auth.json</code>을 커밋·push</li>
+      <li>운영자에게 아이디·비밀번호 전달 → <code>/admin/</code>에서 로그인 확인</li>
+    </ol>
+  </div>
+</main>
+<script src="sealbox.js"></script>
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  var box=null, REPO='yjiihwan/grillbox-homepage', BRANCH='main';
+  var sess=null; try{ sess=JSON.parse(sessionStorage.getItem('gb_admin_session')||localStorage.getItem('gb_admin_session')||'null'); }catch(e){}
+  $('#s-gen').addEventListener('click',function(){ $('#s-pw').value=GBSeal.randomPassword(20); });
+  $('#s-make').addEventListener('click',function(){
+    var tok=$('#s-token').value.trim(), u=$('#s-user').value.trim(), pw=$('#s-pw').value;
+    if(!tok||!u||pw.length<12){ $('#s-state').textContent='토큰·아이디를 채우고 비밀번호는 12자 이상으로 해 주세요.'; return; }
+    $('#s-state').textContent='봉인 중…';
+    GBSeal.seal(u,pw,tok).then(function(b){ return GBSeal.open(b,u,pw).then(function(chk){ if(chk!==tok) throw new Error('selfcheck'); box=b; }); })
+    .then(function(){
+      $('#s-out').textContent=JSON.stringify(box,null,2); $('#s-out').hidden=false;
+      $('#s-download').disabled=false; $('#s-apply').disabled=!(sess&&sess.t);
+      $('#s-state').textContent='봉인 완료 · 자체 검증 통과. 아래 파일을 admin/auth.json으로 저장소에 올리세요.'+(sess&&sess.t?' (현재 로그인 상태라 바로 적용도 가능)':' (바로 적용은 /admin/ 로그인 상태에서만 가능)');
+    }).catch(function(){ $('#s-state').textContent='봉인에 실패했어요. 값을 확인하고 다시 시도하세요.'; });
+  });
+  $('#s-download').addEventListener('click',function(){
+    var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(box,null,2)+'\n'],{type:'application/json'})); a.download='auth.json'; a.click();
+  });
+  $('#s-apply').addEventListener('click',function(){
+    if(!box||!sess||!sess.t) return;
+    if(!confirm('admin/auth.json을 저장소에 덮어씁니다. 지금 로그인 세션은 유지되지만, 다음 로그인부터 새 아이디·비밀번호만 됩니다. 계속할까요?')) return;
+    var h={'Authorization':'Bearer '+sess.t,'Accept':'application/vnd.github+json'};
+    var path='https://api.github.com/repos/'+REPO+'/contents/admin/auth.json';
+    $('#s-state').textContent='적용 중…';
+    fetch(path+'?ref='+BRANCH,{headers:h}).then(function(r){return r.ok?r.json():null}).then(function(j){
+      var body={message:'관리자 계정 설정 갱신',content:btoa(unescape(encodeURIComponent(JSON.stringify(box,null,2)+'\n'))),branch:BRANCH}; if(j&&j.sha) body.sha=j.sha;
+      return fetch(path,{method:'PUT',headers:h,body:JSON.stringify(body)});
+    }).then(function(r){ if(!r.ok) throw new Error(r.status); $('#s-state').textContent='적용 완료. 1~2분 뒤부터 새 아이디·비밀번호로 로그인됩니다.'; })
+    .catch(function(e){ $('#s-state').textContent='적용 실패('+e.message+'). 내려받은 파일을 직접 올려 주세요.'; });
+  });
+})();
+</script>
+</body>
+</html>
