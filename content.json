@@ -1,8 +1,9 @@
 {
   "_meta": {
     "note": "그릴박스 홈페이지 콘텐츠 SSOT. /admin/ 에서 수정하면 이 파일이 갱신되고 1~2분 내 사이트에 반영됩니다.",
-    "updated": "2026-09-04",
-    "dataSource": "메뉴·가격: 그릴박스 노량진점 네이버 주문(2026-07-10 수집) · 매장정보: 네이버플레이스(2026-09-04 확인)"
+    "updated": "2026-09-05",
+    "dataSource": "메뉴·가격: 그릴박스 노량진점 네이버 주문(2026-07-10 수집) · 매장정보: 네이버플레이스(2026-09-04 확인)",
+    "rev": "mtnyrlnk"
   },
   "links": {
     "order": "https://booking.naver.com/order/bizes/1346907/items/6572978",
@@ -20,9 +21,24 @@
     "head": "스테이크 200g부터 500g까지",
     "sub": "많다는 말은 안 할게요. 사진으로 보여드려요.",
     "tiers": [
-      { "label": "기본", "grams": "200g", "price": "8,900원", "img": "assets/h2_size_200.webp" },
-      { "label": "2XL", "grams": "300g", "price": "10,900원", "img": "assets/h2_size_300.webp" },
-      { "label": "3XL", "grams": "500g", "price": "14,900원", "img": "assets/h2_size_500.webp" }
+      {
+        "label": "기본",
+        "grams": "200g",
+        "price": "8,900원",
+        "img": "assets/h2_size_200.webp"
+      },
+      {
+        "label": "2XL",
+        "grams": "300g",
+        "price": "10,900원",
+        "img": "assets/h2_size_300.webp"
+      },
+      {
+        "label": "3XL",
+        "grams": "500g",
+        "price": "14,900원",
+        "img": "assets/h2_size_500.webp"
+      }
     ],
     "caption": "같은 그릇, 다른 중량 — 그릴드 치킨 덮밥 기본 · 2XL · 3XL.",
     "footnote": "※ 중량·가격은 그릴박스 노량진점 판매 메뉴 표기 기준(치킨 덮밥 라인)."
@@ -35,7 +51,11 @@
   "menuHighlight": {
     "head": "오늘은 뭘로 채울까",
     "sub": "매일 먹어도 안 질리는 구성. 밥보다 고기가 먼저 보이는 한그릇이에요.",
-    "items": ["bowl_chicken", "bowl_pork", "bowl_beef"]
+    "items": [
+      "bowl_chicken",
+      "bowl_pork",
+      "bowl_beef"
+    ]
   },
   "store": {
     "name": "그릴박스 노량진점",
@@ -52,9 +72,18 @@
     "tail": "오늘도 누군가는 두 번째 그릇을 비웠어요.",
     "source": "네이버플레이스 방문자 리뷰 · 2026-09-04 수집",
     "items": [
-      { "text": "스테이크덮밥 정말 맛있게 잘 먹었어요! 고기가 부드럽고 적당히 잘 구워져 있어서 밥과 함께 먹으니 정말 잘 어울렸어요.", "visited": "2026년 8월 방문" },
-      { "text": "닭가슴살을 부드럽게 익히고 그릴에 추가로 구워서 향도 직화향이 나서 좋아요 잘 먹고 갑니다", "visited": "2026년 8월 방문" },
-      { "text": "내 단골!! 여기 운동 후에 먹으면 짱 맛잇음", "visited": "2026년 8월 방문" }
+      {
+        "text": "스테이크덮밥 정말 맛있게 잘 먹었어요! 고기가 부드럽고 적당히 잘 구워져 있어서 밥과 함께 먹으니 정말 잘 어울렸어요.",
+        "visited": "2026년 8월 방문"
+      },
+      {
+        "text": "닭가슴살을 부드럽게 익히고 그릴에 추가로 구워서 향도 직화향이 나서 좋아요 잘 먹고 갑니다",
+        "visited": "2026년 8월 방문"
+      },
+      {
+        "text": "내 단골!! 여기 운동 후에 먹으면 짱 맛잇음",
+        "visited": "2026년 8월 방문"
+      }
     ]
   },
   "insta": {
@@ -78,30 +107,218 @@
   },
   "storesPage": {
     "intro": "혼자 와도, 급해도 괜찮아요. 주문하고 2분이면 나옵니다.",
-    "tail": "새 매장 소식은 인스타그램에서 가장 먼저 알려드려요."
+    "tail": "새 매장 소식은 인스타그램에서 가장 먼저 알려드려요. [검증 05:50]"
   },
   "categories": [
-    { "id": "bowl", "label": "덮밥" },
-    { "id": "pasta", "label": "파스타" },
-    { "id": "curry", "label": "카레" },
-    { "id": "salad", "label": "샐러드" }
+    {
+      "id": "bowl",
+      "label": "덮밥"
+    },
+    {
+      "id": "pasta",
+      "label": "파스타"
+    },
+    {
+      "id": "curry",
+      "label": "카레"
+    },
+    {
+      "id": "salad",
+      "label": "샐러드"
+    }
   ],
   "menus": [
-    { "id": "bowl_chicken", "cat": "bowl", "name": "그릴드 치킨 덮밥", "desc": "부드러운 치킨 스테이크에 직화 불맛", "img": "assets/menu_bowl_chicken.webp", "prices": { "base": 8900, "xl2": 10900, "xl3": 14900 } },
-    { "id": "bowl_chickenleg", "cat": "bowl", "name": "그릴드 치킨렉(닭다리) 덮밥", "desc": "촉촉한 닭다리 스테이크가 그릇을 덮어요", "img": "assets/menu_bowl_chickenleg.webp", "prices": { "base": 9900, "xl2": 12900, "xl3": 18900 } },
-    { "id": "bowl_pork", "cat": "bowl", "name": "그릴드 삼겹 덮밥", "desc": "두툼한 직화 삼겹이 그릇을 덮어요", "img": "assets/menu_bowl_pork.webp", "prices": { "base": 11800, "xl2": 14800, "xl3": 20800 } },
-    { "id": "bowl_beef", "cat": "bowl", "name": "그릴드 비프 덮밥", "desc": "육즙 그대로, 직화 비프 스테이크", "img": "assets/menu_bowl_beef.webp", "prices": { "base": 13900, "xl2": 18900, "xl3": 28900 } },
-    { "id": "pasta_chicken", "cat": "pasta", "name": "그릴드 치킨 파스타", "desc": "직화 치킨 스테이크를 파스타 위에 그대로", "img": "assets/menu_pasta_chicken.webp", "prices": { "base": 9900, "xl2": 11900, "xl3": 15900 } },
-    { "id": "pasta_chickenleg", "cat": "pasta", "name": "그릴드 치킨렉(닭다리) 파스타", "desc": "닭다리 스테이크와 파스타 한 접시", "img": "assets/menu_pasta_chickenleg.webp", "prices": { "base": 10900, "xl2": 13900, "xl3": 19900 } },
-    { "id": "pasta_pork", "cat": "pasta", "name": "그릴드 삼겹 파스타", "desc": "직화 삼겹을 파스타 위에 얹었어요", "img": "assets/menu_pasta_pork.webp", "prices": { "base": 12800, "xl2": 15800, "xl3": 21800 } },
-    { "id": "pasta_beef", "cat": "pasta", "name": "그릴드 비프 파스타", "desc": "비프 스테이크가 올라간 파스타", "img": "assets/menu_pasta_beef.webp", "prices": { "base": 14900, "xl2": 19900, "xl3": 29900 } },
-    { "id": "curry_chicken", "cat": "curry", "name": "그릴드 치킨 카레라이스", "desc": "일본식 카레에 직화 치킨 스테이크", "img": "assets/menu_curry_chicken.webp", "prices": { "base": 9900, "xl2": 11900, "xl3": 15900 } },
-    { "id": "curry_chickenleg", "cat": "curry", "name": "그릴드 치킨렉(닭다리) 카레라이스", "desc": "일본식 카레에 닭다리 스테이크", "img": "assets/menu_curry_chickenleg.webp", "prices": { "base": 10900, "xl2": 13900, "xl3": 19900 } },
-    { "id": "curry_pork", "cat": "curry", "name": "그릴드 삼겹 카레라이스", "desc": "일본식 카레에 직화 삼겹", "img": "assets/menu_curry_pork.webp", "prices": { "base": 12800, "xl2": 15800, "xl3": 21800 } },
-    { "id": "curry_beef", "cat": "curry", "name": "그릴드 비프 카레라이스", "desc": "일본식 카레에 비프 스테이크", "img": "assets/menu_curry_beef.webp", "prices": { "base": 14900, "xl2": 19900, "xl3": 29900 } },
-    { "id": "salad_chicken", "cat": "salad", "name": "그릴드 치킨 샐러드", "desc": "당일 수급 채소 위에 직화 치킨 스테이크", "img": "assets/menu_salad_chicken.webp", "prices": { "base": 9900, "xl2": 11900, "xl3": 15900 } },
-    { "id": "salad_chickenleg", "cat": "salad", "name": "그릴드 치킨렉(닭다리) 샐러드", "desc": "당일 수급 채소 위에 닭다리 스테이크", "img": "assets/menu_salad_chickenleg.webp", "prices": { "base": 10900, "xl2": 13900, "xl3": 19900 } },
-    { "id": "salad_pork", "cat": "salad", "name": "그릴드 삼겹 샐러드", "desc": "당일 수급 채소 위에 직화 삼겹", "img": "assets/menu_salad_pork.webp", "prices": { "base": 12800, "xl2": 15800, "xl3": 21800 } },
-    { "id": "salad_beef", "cat": "salad", "name": "그릴드 비프 샐러드", "desc": "당일 수급 채소 위에 비프 스테이크", "img": "assets/menu_salad_beef.webp", "prices": { "base": 14900, "xl2": 19900, "xl3": 29900 } }
+    {
+      "id": "bowl_chicken",
+      "cat": "bowl",
+      "name": "그릴드 치킨 덮밥",
+      "desc": "부드러운 치킨 스테이크에 직화 불맛",
+      "img": "assets/menu_bowl_chicken.webp",
+      "prices": {
+        "base": 8900,
+        "xl2": 10900,
+        "xl3": 14900
+      }
+    },
+    {
+      "id": "bowl_chickenleg",
+      "cat": "bowl",
+      "name": "그릴드 치킨렉(닭다리) 덮밥",
+      "desc": "촉촉한 닭다리 스테이크가 그릇을 덮어요",
+      "img": "assets/menu_bowl_chickenleg.webp",
+      "prices": {
+        "base": 9900,
+        "xl2": 12900,
+        "xl3": 18900
+      }
+    },
+    {
+      "id": "bowl_pork",
+      "cat": "bowl",
+      "name": "그릴드 삼겹 덮밥",
+      "desc": "두툼한 직화 삼겹이 그릇을 덮어요",
+      "img": "assets/menu_bowl_pork.webp",
+      "prices": {
+        "base": 11800,
+        "xl2": 14800,
+        "xl3": 20800
+      }
+    },
+    {
+      "id": "bowl_beef",
+      "cat": "bowl",
+      "name": "그릴드 비프 덮밥",
+      "desc": "육즙 그대로, 직화 비프 스테이크",
+      "img": "assets/menu_bowl_beef.webp",
+      "prices": {
+        "base": 13900,
+        "xl2": 18900,
+        "xl3": 28900
+      }
+    },
+    {
+      "id": "pasta_chicken",
+      "cat": "pasta",
+      "name": "그릴드 치킨 파스타",
+      "desc": "직화 치킨 스테이크를 파스타 위에 그대로",
+      "img": "assets/menu_pasta_chicken.webp",
+      "prices": {
+        "base": 9900,
+        "xl2": 11900,
+        "xl3": 15900
+      }
+    },
+    {
+      "id": "pasta_chickenleg",
+      "cat": "pasta",
+      "name": "그릴드 치킨렉(닭다리) 파스타",
+      "desc": "닭다리 스테이크와 파스타 한 접시",
+      "img": "assets/menu_pasta_chickenleg.webp",
+      "prices": {
+        "base": 10900,
+        "xl2": 13900,
+        "xl3": 19900
+      }
+    },
+    {
+      "id": "pasta_pork",
+      "cat": "pasta",
+      "name": "그릴드 삼겹 파스타",
+      "desc": "직화 삼겹을 파스타 위에 얹었어요",
+      "img": "assets/menu_pasta_pork.webp",
+      "prices": {
+        "base": 12800,
+        "xl2": 15800,
+        "xl3": 21800
+      }
+    },
+    {
+      "id": "pasta_beef",
+      "cat": "pasta",
+      "name": "그릴드 비프 파스타",
+      "desc": "비프 스테이크가 올라간 파스타",
+      "img": "assets/menu_pasta_beef.webp",
+      "prices": {
+        "base": 14900,
+        "xl2": 19900,
+        "xl3": 29900
+      }
+    },
+    {
+      "id": "curry_chicken",
+      "cat": "curry",
+      "name": "그릴드 치킨 카레라이스",
+      "desc": "일본식 카레에 직화 치킨 스테이크",
+      "img": "assets/menu_curry_chicken.webp",
+      "prices": {
+        "base": 9900,
+        "xl2": 11900,
+        "xl3": 15900
+      }
+    },
+    {
+      "id": "curry_chickenleg",
+      "cat": "curry",
+      "name": "그릴드 치킨렉(닭다리) 카레라이스",
+      "desc": "일본식 카레에 닭다리 스테이크",
+      "img": "assets/menu_curry_chickenleg.webp",
+      "prices": {
+        "base": 10900,
+        "xl2": 13900,
+        "xl3": 19900
+      }
+    },
+    {
+      "id": "curry_pork",
+      "cat": "curry",
+      "name": "그릴드 삼겹 카레라이스",
+      "desc": "일본식 카레에 직화 삼겹",
+      "img": "assets/menu_curry_pork.webp",
+      "prices": {
+        "base": 12800,
+        "xl2": 15800,
+        "xl3": 21800
+      }
+    },
+    {
+      "id": "curry_beef",
+      "cat": "curry",
+      "name": "그릴드 비프 카레라이스",
+      "desc": "일본식 카레에 비프 스테이크",
+      "img": "assets/menu_curry_beef.webp",
+      "prices": {
+        "base": 14900,
+        "xl2": 19900,
+        "xl3": 29900
+      }
+    },
+    {
+      "id": "salad_chicken",
+      "cat": "salad",
+      "name": "그릴드 치킨 샐러드",
+      "desc": "당일 수급 채소 위에 직화 치킨 스테이크",
+      "img": "assets/menu_salad_chicken.webp",
+      "prices": {
+        "base": 9900,
+        "xl2": 11900,
+        "xl3": 15900
+      }
+    },
+    {
+      "id": "salad_chickenleg",
+      "cat": "salad",
+      "name": "그릴드 치킨렉(닭다리) 샐러드",
+      "desc": "당일 수급 채소 위에 닭다리 스테이크",
+      "img": "assets/menu_salad_chickenleg.webp",
+      "prices": {
+        "base": 10900,
+        "xl2": 13900,
+        "xl3": 19900
+      }
+    },
+    {
+      "id": "salad_pork",
+      "cat": "salad",
+      "name": "그릴드 삼겹 샐러드",
+      "desc": "당일 수급 채소 위에 직화 삼겹",
+      "img": "assets/menu_salad_pork.webp",
+      "prices": {
+        "base": 12800,
+        "xl2": 15800,
+        "xl3": 21800
+      }
+    },
+    {
+      "id": "salad_beef",
+      "cat": "salad",
+      "name": "그릴드 비프 샐러드",
+      "desc": "당일 수급 채소 위에 비프 스테이크",
+      "img": "assets/menu_salad_beef.webp",
+      "prices": {
+        "base": 14900,
+        "xl2": 19900,
+        "xl3": 29900
+      }
+    }
   ]
 }
