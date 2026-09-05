@@ -67,7 +67,7 @@ section{padding:96px 0}
 .tier{margin:0}
 .tier .shot{aspect-ratio:1/1;border-radius:12px;overflow:hidden}
 .tier .shot img{width:100%;height:100%;object-fit:cover}
-.tier figcaption{font-size:14px;color:var(--gb-muted);margin-top:12px}
+.tier figcaption{font-size:14px;color:var(--gb-muted);margin-top:12px;white-space:nowrap}
 .tier figcaption strong{color:var(--gb-text);font-weight:800;margin-right:6px}
 
 /* ── H3 직화·2분 ── */
@@ -198,7 +198,7 @@ footer{background:#0e0d0c;padding:56px 0 40px;font-size:14px}
   .cards{grid-template-columns:1fr;gap:14px;margin-top:32px}
   .store-grid{grid-template-columns:1fr;margin-top:32px}
   .tier-strip{gap:8px;margin-top:32px}
-  .tier figcaption{font-size:11.5px;margin-top:8px}
+  .tier figcaption{font-size:11px;margin-top:8px;letter-spacing:-.01em}
   .map-frame{min-height:260px}
   .map-frame iframe{min-height:260px}
     .store-photo{margin:-28px -28px 6px;aspect-ratio:3/2}

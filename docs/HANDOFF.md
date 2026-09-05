@@ -55,6 +55,17 @@ robots.txt          /admin/ 크롤링 차단
 
 실서버 이관 후에도 GitHub 저장소가 남아 있으면 관리자 페이지는 그대로 쓸 수 있다(커밋 → 실서버 동기화 파이프라인만 추가). 저장소 밖으로 복사·이관하면 저장 기능은 동작하지 않는다.
 
+## 공유 미리보기(og)·파비콘 (2026-09-05 추가)
+
+- 3페이지 `<head>`에 `og:title / og:description / og:image / og:url` + `twitter:card`. og:description은 각 페이지 meta description과 **동일 문구**로 유지.
+- og 이미지: `assets/og_home.jpg`(hero) · `assets/og_menu.jpg`(bowl_topview) · `assets/og_stores.jpg`(store_exterior_dusk), 1200×630 JPG. 원본 교체 시 같은 비율로 재생성.
+- 파비콘: `favicon.ico`(32/16) · `assets/favicon-32.png` · `assets/apple-touch-icon.png`(180) — 워드마크 `G`를 브랜드 레드(#FF110E) 라운드 사각형에 얹음.
+- ⚠️ **실서버 이전 시**: og:image·og:url은 절대 URL이라 현재 스테이징 도메인(`https://yjiihwan.github.io/grillbox-homepage/`)이 박혀 있음 → 3개 HTML에서 도메인만 `https://grillbox.co.kr/`로 치환.
+
+## 문구 동기화 규칙
+
+- HTML에 구워진 문구(무JS·SEO 폴백)와 `content.json`은 항상 같은 값이어야 한다. 관리자 페이지 저장은 JSON만 바꾸므로, **대규모 문구 교정 시 HTML도 같이 교체**(게이트 `~/sally/_gb_copy_v2_shots.mjs`가 무JS 렌더와 JSON을 대조).
+
 ## 배포 방법
 
 - **GitHub Pages(현행)**: `main`에 push하면 자동 배포. 끝.
