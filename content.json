@@ -3,7 +3,7 @@
     "note": "그릴박스 홈페이지 콘텐츠 SSOT. /admin/ 에서 수정하면 이 파일이 갱신되고 1~2분 내 사이트에 반영됩니다. menus[].imgHome은 홈 화면 대표 메뉴 카드 전용 사진(없으면 img 사용). footer.business는 모든 페이지 하단 사업자 정보(빈 항목은 화면에 표시되지 않음), stores[].business는 매장별 사업자 정보(비면 footer.business로 대체).",
     "updated": "2026-09-08",
     "dataSource": "메뉴·가격: 그릴박스 노량진점 네이버 주문(2026-07-10 수집) · 매장정보: 네이버플레이스(2026-09-04 확인)",
-    "rev": "mts8ueil"
+    "rev": "mts8xod8"
   },
   "brand": {
     "slogan": "직화 스테이크 가득 맛있는 한그릇",
@@ -103,25 +103,6 @@
       "mapImg": "assets/map_noryangjin.webp",
       "photoExterior": "assets/store_exterior_dusk.webp",
       "photoInterior": "assets/store_interior_counter.webp"
-    },
-    {
-      "id": "store2",
-      "name": "그릴박스 표시확인 테스트점",
-      "shortName": "테스트점",
-      "address": "서울 동작구 테스트로 1",
-      "hoursText": "매일 10:00 – 22:00",
-      "openHour": "10:00",
-      "closeHour": "22:00",
-      "phone": "0507-0000-0002",
-      "seatNote": "",
-      "access": "",
-      "mapQuery": "",
-      "naverPlace": "https://map.naver.com/p/entry/place/1093880694",
-      "orderUrl": "https://example.com/gb-verify-order",
-      "status": "open",
-      "business": {
-        "companyName": "테스트 가맹점 표기"
-      }
     }
   ],
   "store": {
@@ -202,7 +183,7 @@
     "contact": "가맹·제휴 문의는 카카오톡 채널로 받아요.",
     "copyright": "© 2026 GRILLBOX. All rights reserved.",
     "business": {
-      "companyName": "표시확인 테스트 (곧 지웁니다)",
+      "companyName": "",
       "ceo": "",
       "regNo": "",
       "mailOrderNo": "",
@@ -210,7 +191,7 @@
       "phone": "",
       "email": "",
       "privacyOfficer": "",
-      "etc": "표시확인 테스트"
+      "etc": ""
     }
   },
   "menuPage": {
