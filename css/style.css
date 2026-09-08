@@ -73,7 +73,7 @@ section{padding:96px 0}
 .tier figcaption{font-size:14px;color:var(--gb-muted);margin-top:12px;white-space:nowrap}
 .tier figcaption strong{color:var(--gb-text);font-weight:800;margin-right:6px}
 
-/* ── H3 직화·2분 ── */
+/* ── H3 직화 3축 ── */
 .fire{position:relative;background:#0b0a09 url(../assets/bg_dark.jpg) center 30%/cover no-repeat}
 .fire::before{content:"";position:absolute;inset:0;background:rgba(11,10,9,.78)}
 .fire .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
