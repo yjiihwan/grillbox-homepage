@@ -184,21 +184,26 @@
       return card('첫 화면 (가장 위)', '사이트에 들어오면 가장 먼저 보이는 큰 제목과 버튼 문구예요.', { href: '../#hero', label: '이 부분 보기' },
           field('hero.h1', '큰 제목', { type: 'textarea', rows: 2, help: '줄을 나누면 화면에서도 그 자리에서 줄이 바뀌어요.' }) +
           field('hero.sub', '소개 문구', { type: 'textarea', rows: 2 }) +
-          '<div class="grid2">' + field('hero.ctaStore', '왼쪽 버튼 글자') + field('hero.ctaOrder', '오른쪽 버튼 글자') + '</div>') +
+          '<div class="grid2">' + field('hero.ctaStore', '왼쪽 버튼 글자') + field('hero.ctaOrder', '오른쪽 버튼 글자') + '</div>' +
+          field('nav.order', '맨 위 「바로 주문」 버튼 글자', { help: '모든 페이지 맨 위 빨간 버튼이에요. 매장이 2곳 이상이 되면 「매장 골라 주문」으로 바꿔 주세요.' })) +
         card('고기양 소개', '200g · 300g · 500g 비교 사진이 있는 부분이에요.', { href: '../#weight', label: '이 부분 보기' },
           field('weight.head', '제목') + field('weight.sub', '소개 문구') + field('weight.caption', '사진 아래 설명') +
           field('weight.footnote', '작은 글씨 안내', { help: '가격·중량 기준을 밝히는 문구예요. 실제 판매 기준과 다르면 안 돼요.' })) +
         card('직화 소개', '불 위에서 굽는 사진이 있는 부분이에요.', { href: '../#fire', label: '이 부분 보기' },
-          field('fire.head', '제목') + field('fire.body', '본문', { type: 'textarea', rows: 3, help: '줄바꿈이 그대로 반영돼요.' }) + field('fire.caption', '사진 위 짧은 문구')) +
+          field('fire.head', '제목') + field('fire.body', '본문', { type: 'textarea', rows: 3, help: '줄바꿈이 그대로 반영돼요.' }) + field('fire.caption', '사진 위 짧은 문구') +
+          '<div class="grid3">' + [0, 1, 2].map(function (i) { return field('fire.steps.' + i, '사진 ' + (i + 1) + ' 아래 글'); }).join('') + '</div>') +
         card('대표 메뉴 3종', '홈 화면에 크게 보여 줄 메뉴 3개를 고르세요. 이름·가격·사진은 「메뉴 · 가격」에서 고쳐요.', { href: '../#menu', label: '이 부분 보기' },
           field('menuHighlight.head', '제목') + field('menuHighlight.sub', '소개 문구') +
           '<div class="grid3">' + [0, 1, 2].map(function (i) {
             return '<label class="field" for="f_hl_' + i + '"><span>대표 메뉴 ' + (i + 1) + '</span><select id="f_hl_' + i + '" data-path="menuHighlight.items.' + i + '">' + menuOptions(content.menuHighlight.items[i]) + '</select></label>';
-          }).join('') + '</div>') +
+          }).join('') + '</div>' + field('menuHighlight.cta', '「전체 메뉴 보기」 버튼 글자')) +
+        card('브랜드 소개', '홈 화면 아래쪽 브랜드 이야기 부분이에요.', { href: '../#brand', label: '이 부분 보기' },
+          field('brand.head', '제목') + field('brand.body', '본문', { type: 'textarea', rows: 4, help: '칼로리·단백질 같은 수치나 효능 표현은 실측 자료가 있을 때만 넣어 주세요.' })) +
         card('인스타그램 소개', '', { href: '../#insta', label: '이 부분 보기' },
           field('insta.head', '제목') + field('insta.sub', '소개 문구', { help: '@계정이름을 함께 적어 두면 좋아요.' }) + field('insta.cta', '버튼 글자')) +
         card('마지막 안내 (맨 아래 큰 문구)', '', { href: '../#cta', label: '이 부분 보기' },
-          field('finalCta.head', '제목') + field('finalCta.sub', '소개 문구'));
+          field('finalCta.head', '제목') + field('finalCta.sub', '소개 문구') +
+          '<div class="grid2">' + field('finalCta.ctaStore', '왼쪽 버튼 글자') + field('finalCta.ctaOrder', '오른쪽 버튼 글자') + '</div>');
     },
     menu: function () {
       var html = '<div class="notice">가격은 숫자만 적으면 돼요 (예: 8900). 쉼표와 「원」은 자동으로 붙어요. 사진은 「사진」 탭이나 여기서 바로 바꿀 수 있어요.</div>';
@@ -216,14 +221,35 @@
       return html;
     },
     store: function () {
-      return card('기본 정보', '', { href: '../stores/', label: '매장 페이지 보기' },
-          field('store.name', '매장 이름') + field('store.address', '주소', { help: '지도도 이 주소로 표시돼요.' }) +
-          '<div class="grid2">' + field('store.phone', '전화번호', { type: 'tel' }) + field('store.seatNote', '좌석 한 줄 소개') + '</div>') +
-        card('영업시간', '「지금 영업 중」 표시는 오픈·마감 시각을 보고 자동으로 바뀌어요. 영업시간이 바뀌면 세 칸을 모두 고쳐 주세요.', null,
-          field('store.hoursText', '화면에 보이는 영업시간 글', { placeholder: '예: 매일 11:00 – 21:50' }) +
-          '<div class="grid2">' + field('store.openHour', '오픈 시각', { placeholder: '11:00', help: '시:분 형식 (예 11:00)' }) + field('store.closeHour', '마감 시각', { placeholder: '21:50', help: '시:분 형식 (예 21:50)' }) + '</div>') +
-        card('매장 페이지 문구', '', { href: '../stores/', label: '매장 페이지 보기' },
-          field('storesPage.intro', '맨 위 소개 문구', { type: 'textarea', rows: 2 }) + field('storesPage.tail', '맨 아래 한 줄'));
+      var html = '<div class="notice">매장이 2곳 이상이 되면 홈·매장 페이지·주문 버튼이 자동으로 「매장 선택」 방식으로 바뀌어요. 2호점 정보는 개발 담당에게 알려 주세요.</div>';
+      content.stores.forEach(function (s, i) {
+        var p = 'stores.' + i + '.';
+        html += card((s.name || ('매장 ' + (i + 1))) + ' · 기본 정보', '', { href: '../stores/', label: '매장 페이지 보기' },
+            field(p + 'name', '매장 이름') + field(p + 'address', '주소', { help: '지도도 이 주소로 표시돼요.' }) +
+            '<div class="grid2">' + field(p + 'phone', '전화번호', { type: 'tel' }) + field(p + 'seatNote', '좌석 한 줄 소개') + '</div>' +
+            field(p + 'access', '가는 길 안내', { type: 'textarea', rows: 2, help: '도보 O분 같은 표현은 실제로 재 본 뒤에만 적어 주세요.' })) +
+          card((s.name || ('매장 ' + (i + 1))) + ' · 영업시간', '「지금 영업 중」 표시는 오픈·마감 시각을 보고 자동으로 바뀌어요. 영업시간이 바뀌면 세 칸을 모두 고쳐 주세요.', null,
+            field(p + 'hoursText', '화면에 보이는 영업시간 글', { placeholder: '예: 매일 11:00 – 21:50' }) +
+            '<div class="grid2">' + field(p + 'openHour', '오픈 시각', { placeholder: '11:00', help: '시:분 형식 (예 11:00)' }) + field(p + 'closeHour', '마감 시각', { placeholder: '21:50', help: '시:분 형식 (예 21:50)' }) + '</div>') +
+          card((s.name || ('매장 ' + (i + 1))) + ' · 링크', '이 매장의 주문·지도 주소예요. 매장마다 다르니 꼭 그 매장 주소를 넣어 주세요.', null,
+            field(p + 'orderUrl', '이 매장 주문 주소', { type: 'url', help: '「바로 주문」·「포장 주문하기」 버튼이 여는 주소예요.' }) +
+            field(p + 'naverPlace', '이 매장 지도 주소', { type: 'url', help: '「길찾기」 버튼이 여는 네이버 지도 주소예요.' }));
+      });
+      html += card('홈 화면 매장 영역 문구', '홈 화면 가운데 「가까운 그릴박스」 부분이에요.', { href: '../#store', label: '이 부분 보기' },
+          field('storeSection.head', '제목') + field('storeSection.sub', '소개 문구') +
+          '<div class="grid2">' + field('storeSection.badgeOpen', '영업 중일 때 표시') + field('storeSection.badgeClosedTpl', '영업 전일 때 표시', { help: '{openHour} 자리에 오픈 시각이 들어가요.' }) + '</div>' +
+          '<div class="grid3">' + field('storeSection.ctaDirections', '「길찾기」 버튼') + field('storeSection.ctaCall', '「전화하기」 버튼') + field('storeSection.allStores', '「전체 매장 보기」 링크') + '</div>' +
+          field('storeSection.mapCta', '지도 위 안내 글'));
+      html += card('매장 페이지 문구', '', { href: '../stores/', label: '매장 페이지 보기' },
+        field('storesPage.h1', '페이지 제목') + field('storesPage.intro', '맨 위 소개 문구', { type: 'textarea', rows: 2 }) + field('storesPage.tail', '맨 아래 한 줄'));
+      html += card('매장 선택 화면 문구', '매장이 2곳 이상일 때 「바로 주문」을 누르면 뜨는 화면이에요. 지금은 매장이 한 곳이라 화면에 나오지 않아요.', null,
+        field('storeSelect.title', '제목') + field('storeSelect.sub', '안내 문구', { type: 'textarea', rows: 2 }) +
+        '<div class="grid2">' + field('storeSelect.tabAll', '「전체 매장」 탭') + field('storeSelect.tabOpen', '「지금 영업 중」 탭') + '</div>' +
+        '<div class="grid2">' + field('storeSelect.card.cta', '매장 카드 버튼') + field('storeSelect.confirmCta', '이어서 주문 버튼') + '</div>' +
+        field('storeSelect.searchPlaceholder', '검색창 안내 글') +
+        field('storeSelect.emptyTitle', '검색 결과 없을 때 제목') + field('storeSelect.emptyBody', '검색 결과 없을 때 안내', { type: 'textarea', rows: 2 }) +
+        field('storeSelect.footnote', '맨 아래 각주'));
+      return html;
     },
     reviews: function () {
       var html = card('리뷰 영역 문구', '', { href: '../#reviews', label: '이 부분 보기' },
@@ -258,14 +284,14 @@
     },
     links: function () {
       return card('버튼이 여는 주소', '주소를 바꾼 뒤에는 저장 후 실제로 버튼을 눌러 잘 열리는지 꼭 확인해 주세요.', null,
-        field('links.order', '「바로 주문」 버튼', { type: 'url', help: '네이버 주문 페이지 주소' }) +
-        field('links.naverPlace', '「길찾기」 버튼', { type: 'url', help: '네이버 지도의 매장 페이지 주소' }) +
+        field('links.order', '「바로 주문」 예비 주소', { type: 'url', help: '주문 주소는 「매장 정보」 탭에서 매장별로 넣어요. 여기 값은 매장 주소가 비었을 때만 쓰여요.' }) +
+        field('links.naverPlace', '「길찾기」 예비 주소', { type: 'url', help: '길찾기 주소도 「매장 정보」 탭에서 매장별로 넣어요.' }) +
         field('links.instagram', '「인스타그램」 버튼', { type: 'url' }) +
         field('links.kakao', '「카카오톡 채널」 버튼', { type: 'url' }));
     },
     pages: function () {
       return card('메뉴 페이지 안내 문구', '', { href: '../menu/', label: '메뉴 페이지 보기' },
-          field('menuPage.intro', '맨 위 소개 문구', { type: 'textarea', rows: 2 }) + field('menuPage.sizeNote', '사이즈 안내') +
+          field('menuPage.h1', '페이지 제목') + field('menuPage.intro', '맨 위 소개 문구', { type: 'textarea', rows: 2 }) + field('menuPage.sizeNote', '사이즈 안내') + field('menuPage.originHead', '원산지 안내 제목') +
           field('menuPage.origin', '원산지 안내', { type: 'textarea', rows: 2, help: '법정 원산지 표기 문구가 확정되면 여기에 넣어 주세요.' })) +
         card('사이트 맨 아래 (모든 페이지 공통)', '', { href: '../#cta', label: '이 부분 보기' },
           field('footer.company', '사업자 표기', { type: 'textarea', rows: 2, help: '상호 · 사업자등록번호 · 대표자 · 주소 등을 적어요.' }) +
@@ -328,9 +354,9 @@
 
   /* ── 변경 추적 ── */
   var SECTION_PATHS = {
-    home: /^(hero|weight\.(head|sub|caption|footnote)|fire|menuHighlight|insta|finalCta)\./,
+    home: /^(hero|weight\.(head|sub|caption|footnote)|fire|menuHighlight|insta|finalCta|brand|nav)\./,
     menu: /^menus\.\d+\.(name|desc|prices)/,
-    store: /^(store|storesPage)\./,
+    store: /^(store|stores|storeSection|storeSelect|storesPage)\./,
     reviews: /^reviews\./,
     photos: /^(menus\.\d+\.img|menus\.\d+\.imgHome|weight\.tiers\.\d+\.img)$/,
     links: /^links\./,
@@ -430,6 +456,15 @@
     return parts.join('_');
   }
 
+  // store(단수)는 하위호환용 별칭 — 항상 stores[0]을 따른다
+  function syncStoreAlias() {
+    if (!content.stores || !content.stores[0]) return;
+    if (!content.store) content.store = {};
+    ['name', 'address', 'hoursText', 'openHour', 'closeHour', 'phone', 'seatNote', 'mapQuery'].forEach(function (k) {
+      content.store[k] = content.stores[0][k];
+    });
+  }
+
   function save() {
     if (saving || !isDirty()) return;
     saving = true;
@@ -448,6 +483,7 @@
     var rev = Date.now().toString(36);
     steps.then(function () {
       progress('저장 중…');
+      syncStoreAlias();
       content._meta.updated = new Date().toISOString().slice(0, 10);
       content._meta.rev = rev;
       var json = JSON.stringify(content, null, 2) + '\n';

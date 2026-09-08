@@ -1,7 +1,7 @@
 {
-  "name": "그릴박스 — 고기 가득, 직화 한그릇",
+  "name": "그릴박스 — 직화 스테이크 가득 맛있는 한그릇",
   "short_name": "그릴박스",
-  "description": "주문 받고 직화로 굽는 고기덮밥, 그릴박스 노량진점",
+  "description": "주문받고 그때 직화로 굽는 스테이크 한그릇, 그릴박스",
   "start_url": "./",
   "display": "browser",
   "background_color": "#131211",

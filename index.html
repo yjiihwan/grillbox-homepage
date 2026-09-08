@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>그릴박스 | 고기 가득, 직화 한그릇 — 직화 고기덮밥</title>
-<meta name="description" content="한 그릇에 스테이크 200g부터 최대 500g. 주문 받고 직화로 굽는 고기덮밥, 그릴박스. 노량진점 매장 안내와 전체 메뉴·가격을 확인하세요.">
+<title>그릴박스 | 직화 스테이크 가득 맛있는 한그릇</title>
+<meta name="description" content="주문받고 그때 직화로 굽는 스테이크를 한 그릇 가득. 기본 200g부터 3XL 500g까지, 덮밥·파스타·카레·샐러드로 고르세요. 그릴박스 전체 메뉴·가격·매장 안내.">
 <!-- 공유 미리보기(og)·아이콘 — 실서버(grillbox.co.kr) 이전 시 아래 절대 URL의 도메인만 교체 -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="그릴박스">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:title" content="그릴박스 | 고기 가득, 직화 한그릇">
-<meta property="og:description" content="한 그릇에 스테이크 200g부터 최대 500g. 주문 받고 직화로 굽는 고기덮밥, 그릴박스. 노량진점 매장 안내와 전체 메뉴·가격을 확인하세요.">
+<meta property="og:title" content="그릴박스 | 직화 스테이크 가득 맛있는 한그릇">
+<meta property="og:description" content="주문받고 그때 직화로 굽는 스테이크를 한 그릇 가득. 기본 200g부터 3XL 500g까지, 덮밥·파스타·카레·샐러드로 고르세요. 그릴박스 전체 메뉴·가격·매장 안내.">
 <meta property="og:url" content="https://yjiihwan.github.io/grillbox-homepage/">
 <meta property="og:image" content="https://yjiihwan.github.io/grillbox-homepage/assets/og_home.jpg">
 <meta property="og:image:width" content="1200">
@@ -28,24 +28,16 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Restaurant",
-  "name": "그릴박스 노량진점",
-  "servesCuisine": "한식 직화 고기덮밥",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "만양로14가길 23 1층",
-    "addressLocality": "동작구",
-    "addressRegion": "서울",
-    "addressCountry": "KR"
-  },
-  "telephone": "+82-507-1318-7881",
-  "openingHours": "Mo-Su 11:00-21:50",
+  "@type": "FoodEstablishment",
+  "name": "그릴박스",
+  "description": "주문받고 그때 직화로 굽는 스테이크 전문점. 덮밥·파스타·카레·샐러드에 기본 200g부터 3XL 500g까지 중량을 골라 담습니다.",
+  "servesCuisine": "한식 직화 스테이크 덮밥",
+  "brand": { "@type": "Brand", "name": "그릴박스" },
   "url": "https://grillbox.co.kr",
   "image": "https://yjiihwan.github.io/grillbox-homepage/assets/og_home.jpg",
   "priceRange": "₩8,900~₩29,900",
   "hasMenu": "https://yjiihwan.github.io/grillbox-homepage/menu/",
-  "hasMap": "https://map.naver.com/p/entry/place/1093880694",
-  "sameAs": ["https://www.instagram.com/grillbox.official/", "https://map.naver.com/p/entry/place/1093880694"]
+  "sameAs": ["https://www.instagram.com/grillbox.official/", "https://pf.kakao.com/_xnKGIn"]
 }
 </script>
 </head>
@@ -58,11 +50,11 @@
       <a href="menu/">메뉴</a>
       <a href="stores/">매장</a>
       <a href="#brand">브랜드</a>
-      <a class="btn-order" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order">바로 주문</a>
+      <a class="btn-order" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order" data-cms="nav.order">바로 주문</a>
     </nav>
     <div class="gnb-actions">
-      <a class="btn-order" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order">바로 주문</a>
-      <button class="hamburger" aria-label="메뉴 열기">☰</button>
+      <a class="btn-order" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order" data-cms="nav.order">바로 주문</a>
+      <button class="hamburger" aria-label="메뉴 열기" aria-expanded="false">☰</button>
     </div>
   </div>
   <nav class="m-nav" aria-label="모바일 메뉴">
@@ -74,11 +66,11 @@
 
 <!-- H1 히어로 -->
 <section id="hero" class="hero">
-  <img class="hero-bg" src="assets/hero_grill_flame.webp" alt="직화 불꽃에 굽는 고기 — 그릴박스" width="2560" height="1086">
+  <img class="hero-bg" src="assets/hero_grill_flame.webp" alt="직화 불꽃 위에서 굽는 스테이크 — 그릴박스" width="2560" height="1086">
   <div class="hero-in">
     <div>
-      <h1 data-cms="hero.h1">고기 가득,<br>직화 한그릇</h1>
-      <p class="sub" data-cms="hero.sub">한 그릇에 스테이크 200g부터 최대 500g까지. 주문하면 2분, 직화로 굽는 시간이에요.</p>
+      <h1 data-cms="hero.h1">직화 스테이크 가득<br>맛있는 한그릇</h1>
+      <p class="sub" data-cms="hero.sub">한 그릇에 스테이크 200g부터 최대 500g까지. 주문이 들어오면 그때 불 위에 올립니다.</p>
       <div class="btn-row">
         <a class="btn btn-red" href="stores/" data-cms="hero.ctaStore">가까운 매장 찾기</a>
         <a class="btn btn-outline" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order"><span data-cms="hero.ctaOrder">바로 주문하기</span></a>
@@ -90,50 +82,50 @@
 <!-- H2 증거① 고기양 — 실판매 사이즈 3종 실사진 -->
 <section id="weight">
   <div class="wrap center">
-    <h2 class="sec-head" data-cms="weight.head">기본 200g, 최대 500g</h2>
-    <p class="sec-sub" data-cms="weight.sub">한 그릇에 올라가는 스테이크 무게예요. 많다는 말 대신, 사진으로 보여드려요.</p>
+    <h2 class="sec-head" data-cms="weight.head">감탄이 절로 나오는 고기양</h2>
+    <p class="sec-sub" data-cms="weight.sub">기본 200g, 2XL 300g, 3XL 500g. 한 그릇에 올라가는 스테이크 무게예요. 많다는 말 대신 사진으로 보여드려요.</p>
     <div class="tier-strip">
       <figure class="tier">
-        <div class="shot"><img data-cms-src="weight.tiers.0.img" src="assets/h2_size_200.webp" alt="기본 200g 고기 양 예시 — 그릴박스 도시락" loading="lazy" width="800" height="800"></div>
+        <div class="shot"><img data-cms-src="weight.tiers.0.img" src="assets/h2_size_200.webp" alt="기본 200g 스테이크 양 예시 — 그릴박스 한그릇" loading="lazy" width="800" height="800"></div>
         <figcaption><strong>기본</strong> 200g · 8,900원</figcaption>
       </figure>
       <figure class="tier">
-        <div class="shot"><img data-cms-src="weight.tiers.1.img" src="assets/h2_size_300.webp" alt="2XL 300g 고기 양 예시 — 그릴박스 도시락" loading="lazy" width="800" height="800"></div>
+        <div class="shot"><img data-cms-src="weight.tiers.1.img" src="assets/h2_size_300.webp" alt="2XL 300g 스테이크 양 예시 — 그릴박스 한그릇" loading="lazy" width="800" height="800"></div>
         <figcaption><strong>2XL</strong> 300g · 10,900원</figcaption>
       </figure>
       <figure class="tier">
-        <div class="shot"><img data-cms-src="weight.tiers.2.img" src="assets/h2_size_500.webp" alt="3XL 500g 고기 양 예시 — 그릴박스 도시락" loading="lazy" width="800" height="800"></div>
+        <div class="shot"><img data-cms-src="weight.tiers.2.img" src="assets/h2_size_500.webp" alt="3XL 500g 스테이크 양 예시 — 그릴박스 한그릇" loading="lazy" width="800" height="800"></div>
         <figcaption><strong>3XL</strong> 500g · 14,900원</figcaption>
       </figure>
     </div>
     <div class="compare-notes">
       <p class="caption" data-cms="weight.caption">같은 그릇에 고기 양만 다르게. 그릴드 치킨 덮밥 기본 · 2XL · 3XL</p>
-      <p class="footnote" data-cms="weight.footnote">※ 중량·가격은 그릴박스 노량진점 판매 메뉴 표기 기준(그릴드 치킨 덮밥). 사진은 연출된 예시이며, 실제 중량·구성은 표기 기준을 따릅니다.</p>
+      <p class="footnote" data-cms="weight.footnote">※ 중량·가격은 그릴드 치킨 덮밥 표기 기준이며, 매장에 따라 다를 수 있습니다. 사진은 연출된 예시이며, 실제 중량·구성은 매장 표기 기준을 따릅니다.</p>
     </div>
   </div>
 </section>
 
-<!-- H3 증거② 직화·2분 -->
+<!-- H3 증거② 직화 — 주문 후 조리 -->
 <section id="fire" class="fire">
   <div class="wrap">
     <div>
-      <h2 class="sec-head" data-cms="fire.head">불맛부터 다르다</h2>
-      <p class="body" data-cms="fire.body">소스에 비비지 않아요.<br>주문이 들어오면 그때 불 위에 올려요.<br>직화로 2분, 갓 구운 고기가 밥 위로 올라갑니다.</p>
+      <h2 class="sec-head" data-cms="fire.head">한번 먹으면 계속 생각나는 맛</h2>
+      <p class="body" data-cms="fire.body">소스에 미리 비벼 두지 않아요.<br>주문이 들어오면 그때 불 위에 올립니다.<br>갓 구운 스테이크가 그대로 밥 위로 올라가요.</p>
     </div>
     <div>
-      <p class="caption" data-cms="fire.caption">주문부터 그릇까지, 2분</p>
+      <p class="caption" data-cms="fire.caption">미리 만들어 두지 않습니다</p>
       <div class="seq">
         <figure>
           <div class="shot"><img src="assets/h3_seq1_fire.webp" alt="직화 그릴 불꽃 클로즈업 — 그릴박스" loading="lazy" width="1600" height="1600"></div>
-          <figcaption>01 직화 불꽃</figcaption>
+          <figcaption data-cms="fire.steps.0">01 불을 올리고</figcaption>
         </figure>
         <figure>
-          <div class="shot"><img src="assets/h3_seq2_grilling.webp" alt="직화 그릴 위에서 집게로 굽는 고기 — 그릴박스" loading="lazy" width="1600" height="1600"></div>
-          <figcaption>02 굽는 중</figcaption>
+          <div class="shot"><img src="assets/h3_seq2_grilling.webp" alt="주문받고 그릴 위에서 굽는 스테이크 — 그릴박스" loading="lazy" width="1600" height="1600"></div>
+          <figcaption data-cms="fire.steps.1">02 주문받고 굽고</figcaption>
         </figure>
         <figure>
-          <div class="shot"><img src="assets/h3_seq3_plating.webp" alt="갓 구운 고기를 도시락 밥 위에 올리는 장면 — 그릴박스" loading="lazy" width="1600" height="1600"></div>
-          <figcaption>03 그릇 위로</figcaption>
+          <div class="shot"><img src="assets/h3_seq3_plating.webp" alt="갓 구운 스테이크를 밥 위에 올리는 장면 — 그릴박스" loading="lazy" width="1600" height="1600"></div>
+          <figcaption data-cms="fire.steps.2">03 그대로 그릇에</figcaption>
         </figure>
       </div>
     </div>
@@ -145,7 +137,7 @@
   <div class="wrap">
     <div class="center">
       <h2 class="sec-head" data-cms="menuHighlight.head">고기부터 고르세요</h2>
-      <p class="sec-sub" data-cms="menuHighlight.sub">치킨, 삼겹, 비프. 매일 먹어도 안 질리는 한그릇, 밥보다 고기가 먼저 보여요.</p>
+      <p class="sec-sub" data-cms="menuHighlight.sub">치킨, 삼겹, 비프. 고기를 고르고 덮밥·파스타·카레·샐러드 중에 그릇을 고르세요.</p>
     </div>
     <div class="cards" data-render="menu-highlight">
       <article class="card" data-cat="bowl">
@@ -176,7 +168,7 @@
         </div>
       </article>
     </div>
-    <div class="cta-center"><a class="btn btn-outline" href="menu/">전체 메뉴 보기</a></div>
+    <div class="cta-center"><a class="btn btn-outline" href="menu/" data-cms="menuHighlight.cta">전체 메뉴 보기</a></div>
   </div>
 </section>
 
@@ -184,31 +176,31 @@
 <section id="store">
   <div class="wrap">
     <div class="center">
-      <h2 class="sec-head">가까운 그릴박스</h2>
-      <p class="sec-sub">혼자 와도 편한 자리를 만들었어요. 지금 영업 중인지 바로 확인하세요.</p>
+      <h2 class="sec-head" data-cms="storeSection.head">가까운 그릴박스</h2>
+      <p class="sec-sub" data-cms="storeSection.sub">매장을 고르면 위치와 영업시간, 지금 영업 중인지 바로 확인할 수 있어요.</p>
     </div>
     <div class="store-grid">
       <div class="map-frame">
-        <a class="map-static" href="https://map.naver.com/p/entry/place/1093880694" target="_blank" rel="noopener" data-cms-href="links.naverPlace" aria-label="그릴박스 노량진점 위치를 네이버 지도에서 보기">
-          <img src="assets/map_noryangjin.webp" alt="그릴박스 노량진점 위치 지도 — 노량진역 남쪽, 만양로14가길" loading="lazy" width="1600" height="1000">
-          <span class="map-cta">네이버 지도에서 보기 ↗</span>
+        <a class="map-static" href="https://map.naver.com/p/entry/place/1093880694" target="_blank" rel="noopener" data-cms-href="links.naverPlace" aria-label="그릴박스 노량진점 위치를 네이버 지도에서 보기" data-store-tpl="aria-label|{name} 위치를 네이버 지도에서 보기">
+          <img src="assets/map_noryangjin.webp" alt="그릴박스 노량진점 위치 지도" loading="lazy" width="1600" height="1000" data-store-src="mapImg" data-store-tpl="alt|{name} 위치 지도">
+          <span class="map-cta" data-cms="storeSection.mapCta">네이버 지도에서 보기 ↗</span>
           <span class="map-credit">© OpenStreetMap contributors</span>
         </a>
       </div>
       <div class="store-card">
-        <div class="store-photo"><img src="assets/store_exterior_dusk.webp" alt="그릴박스 매장 외관" loading="lazy" width="2528" height="1696"></div>
+        <div class="store-photo"><img src="assets/store_exterior_dusk.webp" alt="그릴박스 노량진점 매장 외관" loading="lazy" width="2528" height="1696" data-store-src="photoExterior" data-store-tpl="alt|{name} 매장 외관"></div>
         <h3><span data-cms="store.name">그릴박스 노량진점</span> <span class="badge-open" data-open-badge>지금 영업 중</span></h3>
         <div class="info-row"><span class="k">주소</span><span data-cms="store.address">서울 동작구 만양로14가길 23 1층</span></div>
         <div class="info-row"><span class="k">영업시간</span><span data-cms="store.hoursText">매일 11:00 – 21:50</span></div>
-        <div class="info-row"><span class="k">전화</span><a href="tel:0507-1318-7881" data-cms="store.phone">0507-1318-7881</a></div>
+        <div class="info-row"><span class="k">전화</span><a href="tel:0507-1318-7881" data-cms="store.phone" data-store-tel>0507-1318-7881</a></div>
         <div class="btn-row">
-          <a class="btn btn-red" href="https://map.naver.com/p/entry/place/1093880694" target="_blank" rel="noopener" data-cms-href="links.naverPlace">길찾기</a>
-          <a class="btn btn-outline" href="tel:0507-1318-7881">전화하기</a>
+          <a class="btn btn-red" href="https://map.naver.com/p/entry/place/1093880694" target="_blank" rel="noopener" data-cms-href="links.naverPlace" data-cms="storeSection.ctaDirections">길찾기</a>
+          <a class="btn btn-outline" href="tel:0507-1318-7881" data-store-tel data-cms="storeSection.ctaCall">전화하기</a>
         </div>
       </div>
     </div>
-    <div class="store-sub"><img src="assets/store_interior_counter.webp" alt="그릴박스 매장 내부 1인 카운터석" loading="lazy" width="2528" height="1696"></div>
-    <p class="caption center" style="margin-top:20px"><a href="stores/" style="text-decoration:underline">매장 안내 전체 보기</a></p>
+    <div class="store-sub"><img src="assets/store_interior_counter.webp" alt="그릴박스 노량진점 1인 카운터석 — 그릴박스" loading="lazy" width="2528" height="1696" data-store-src="photoInterior" data-store-tpl="alt|{name} 1인 카운터석 — 그릴박스"></div>
+    <p class="caption center" style="margin-top:20px"><a href="stores/" style="text-decoration:underline" data-cms="storeSection.allStores">전체 매장 보기</a></p>
   </div>
 </section>
 
@@ -216,12 +208,12 @@
 <section id="brand">
   <div class="wrap center">
     <div class="brand-divider" aria-hidden="true"></div>
-    <h2 class="sec-head">고기 하나에 다 걸었어요</h2>
-    <p class="story-body">불필요한 재료는 과감하게 버렸어요. 남긴 건 두 가지. 직화로 갓 구운 고기, 그리고 메뉴마다 맞춘 비법소스. 맛있는 고기가 가득 담긴 한그릇. 그릴박스가 하는 일은 이게 전부예요.</p>
+    <h2 class="sec-head" data-cms="brand.head">매일 먹어도 건강한 구성</h2>
+    <p class="story-body" data-cms="brand.body">튀기지 않고 불에 굽습니다. 소스는 미리 비벼 두지 않고 메뉴마다 따로 맞췄어요. 밥이 부담되는 날엔 같은 스테이크를 샐러드로 받을 수 있고요. 직화 스테이크 가득 맛있는 한그릇, 그릴박스가 하는 일은 이게 전부예요.</p>
     <div class="story-shots">
-      <div class="shot"><img src="assets/story_grill_fire.webp" alt="직화 석쇠 위 불꽃 — 그릴박스" loading="lazy" width="1200" height="896"></div>
+      <div class="shot"><img src="assets/story_grill_fire.webp" alt="직화 그릴 위 불꽃 — 그릴박스" loading="lazy" width="1200" height="896"></div>
       <div class="shot"><img src="assets/story_bowl_dark.webp" alt="김이 오르는 그릴박스 한그릇" loading="lazy" width="1200" height="896"></div>
-      <div class="shot"><img src="assets/story_ingredients.webp" alt="고기와 비법소스 재료 — 그릴박스" loading="lazy" width="2389" height="1792"></div>
+      <div class="shot"><img src="assets/story_ingredients.webp" alt="스테이크와 메뉴별 소스 재료 — 그릴박스" loading="lazy" width="2389" height="1792"></div>
     </div>
   </div>
 </section>
@@ -248,7 +240,7 @@
         <p class="src">2026년 8월 방문 · 네이버플레이스 방문자 리뷰</p>
       </article>
     </div>
-    <p class="review-tail" data-cms="reviews.tail">오늘도 누군가는 두 번째 그릇을 비웠어요.</p>
+    <p class="review-tail" data-cms="reviews.tail">맛에 대한 판단은 다녀간 분들 말로 대신할게요.</p>
   </div>
 </section>
 
@@ -260,7 +252,7 @@
     <div class="insta-tiles">
       <a class="tile" href="https://www.instagram.com/grillbox.official/" target="_blank" rel="noopener" data-cms-href="links.instagram"><img src="assets/insta_01_grilling.webp" alt="직화 그릴 위 닭다리살 — 그릴박스" loading="lazy" width="1200" height="1200"></a>
       <a class="tile" href="https://www.instagram.com/grillbox.official/" target="_blank" rel="noopener" data-cms-href="links.instagram"><img src="assets/insta_02_plating_sauce.webp" alt="도시락 위에 비법소스 붓는 장면 — 그릴박스" loading="lazy" width="1200" height="1200"></a>
-      <a class="tile" href="https://www.instagram.com/grillbox.official/" target="_blank" rel="noopener" data-cms-href="links.instagram"><img src="assets/insta_03_store_counter.webp" alt="노량진점 1인 카운터 — 그릴박스" loading="lazy" width="1200" height="1200"></a>
+      <a class="tile" href="https://www.instagram.com/grillbox.official/" target="_blank" rel="noopener" data-cms-href="links.instagram"><img src="assets/insta_03_store_counter.webp" alt="매장 1인 카운터 — 그릴박스" loading="lazy" width="1200" height="1200"></a>
       <a class="tile" href="https://www.instagram.com/grillbox.official/" target="_blank" rel="noopener" data-cms-href="links.instagram"><img src="assets/insta_04_sauce_still.webp" alt="그릴박스 비법소스" loading="lazy" width="1200" height="1200"></a>
       <a class="tile" href="https://www.instagram.com/grillbox.official/" target="_blank" rel="noopener" data-cms-href="links.instagram"><img src="assets/insta_05_meat_closeup.webp" alt="직화 스테이크 단면 — 그릴박스" loading="lazy" width="1200" height="1200"></a>
       <a class="tile" href="https://www.instagram.com/grillbox.official/" target="_blank" rel="noopener" data-cms-href="links.instagram"><img src="assets/insta_06_customer_pov.webp" alt="카운터에서 한 입 — 그릴박스" loading="lazy" width="1200" height="1200"></a>
@@ -272,11 +264,11 @@
 <!-- H9 최종 CTA -->
 <section id="cta" class="final-cta">
   <div class="wrap">
-    <h2 class="sec-head" data-cms="finalCta.head">오늘 한 끼, 고기로 채우자</h2>
-    <p class="sec-sub" data-cms="finalCta.sub">가까운 매장에서 드시거나, 지금 바로 주문하세요.</p>
+    <h2 class="sec-head" data-cms="finalCta.head">직화 스테이크 가득, 오늘 한그릇</h2>
+    <p class="sec-sub" data-cms="finalCta.sub">가까운 매장을 고르고, 바로 주문하세요.</p>
     <div class="btn-row">
-      <a class="btn btn-white" href="stores/">가까운 매장 찾기</a>
-      <a class="btn btn-outline-white" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order">바로 주문하기</a>
+      <a class="btn btn-white" href="stores/" data-cms="finalCta.ctaStore">가까운 매장 찾기</a>
+      <a class="btn btn-outline-white" href="https://booking.naver.com/order/bizes/1346907/items/6572978" target="_blank" rel="noopener" data-cms-href="links.order" data-cms="finalCta.ctaOrder">바로 주문하기</a>
     </div>
   </div>
 </section>
@@ -284,7 +276,7 @@
 <footer>
   <div class="wrap foot-grid">
     <span class="wordmark">GRILLBOX</span>
-    <p data-cms="footer.company">운영: 주식회사 인디펜던트 · 그릴박스 노량진점 · 서울 동작구 만양로14가길 23 1층</p>
+    <p data-cms="footer.company">운영: 주식회사 인디펜던트 · 그릴박스</p>
     <p class="foot-links"><a href="https://pf.kakao.com/_xnKGIn" target="_blank" rel="noopener" data-cms-href="links.kakao">카카오채널</a> · <a href="https://www.instagram.com/grillbox.official/" target="_blank" rel="noopener" data-cms-href="links.instagram">인스타그램</a></p>
     <p class="foot-small"><a href="https://pf.kakao.com/_xnKGIn" target="_blank" rel="noopener" data-cms-href="links.kakao"><span data-cms="footer.contact">가맹·제휴 문의는 카카오톡 채널로 받아요.</span></a></p>
     <p class="copyright" data-cms="footer.copyright">© 2026 GRILLBOX. All rights reserved.</p>

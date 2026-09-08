@@ -233,3 +233,36 @@ footer{background:#0e0d0c;padding:56px 0 40px;font-size:14px}
 .nf p{font-size:17px;opacity:.85;margin-top:14px;word-break:keep-all}
 .nf .btn-row{justify-content:center;margin-top:32px}
 @media (max-width:767px){.nf h1{font-size:30px}.nf p{font-size:14.5px}}
+
+/* ── 매장 선택 (§7 storeSelect) — 매장 2곳 이상일 때만 뜬다 ── */
+.ssel-back{position:fixed;inset:0;z-index:200;background:rgba(10,9,8,.72);display:flex;align-items:flex-end;justify-content:center;padding:0}
+@media(min-width:721px){.ssel-back{align-items:center;padding:32px}}
+.ssel{position:relative;width:100%;max-width:560px;max-height:92vh;overflow:auto;background:#1b1917;color:#f5f2ee;border-radius:20px 20px 0 0;padding:28px 20px 24px}
+@media(min-width:721px){.ssel{border-radius:20px;padding:32px 28px}}
+.ssel-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border:0;border-radius:50%;background:rgba(255,255,255,.1);color:#f5f2ee;font-size:15px;cursor:pointer}
+.ssel-title{font-size:22px;font-weight:800;margin:0 0 6px;letter-spacing:-.02em}
+.ssel-sub{font-size:14px;line-height:1.6;color:#b9b2a9;margin:0 0 16px}
+.ssel-banner{display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:rgba(255,255,255,.06);border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:14px}
+.ssel-banner .ssel-confirm{margin-left:auto;padding:8px 14px;font-size:13px}
+.ssel-change{background:none;border:0;color:#b9b2a9;text-decoration:underline;font-size:13px;cursor:pointer}
+.ssel-search{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.25);color:#f5f2ee;font-size:15px}
+.ssel-nearby{margin-top:10px;background:none;border:1px solid rgba(255,255,255,.2);border-radius:999px;color:#f5f2ee;padding:8px 14px;font-size:13px;cursor:pointer}
+.ssel-notice{font-size:13px;color:#b9b2a9;margin:10px 0 0;line-height:1.6}
+.ssel-tabs{display:flex;gap:8px;margin:16px 0 10px}
+.ssel-tab{background:none;border:1px solid rgba(255,255,255,.18);border-radius:999px;color:#b9b2a9;padding:7px 14px;font-size:13px;cursor:pointer}
+.ssel-tab.active{background:#e03b23;border-color:#e03b23;color:#fff;font-weight:700}
+.ssel-count{font-size:13px;color:#b9b2a9;margin:0 0 8px}
+.ssel-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ssel-card{display:flex;gap:12px;background:rgba(255,255,255,.05);border-radius:14px;padding:12px}
+.ssel-thumb{width:84px;height:84px;object-fit:cover;border-radius:10px;flex:none}
+.ssel-body{flex:1;min-width:0}
+.ssel-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.ssel-addr,.ssel-meta{font-size:13px;color:#b9b2a9;margin:0 0 2px;line-height:1.5}
+.ssel-seat{font-size:12px;color:#e0b04a;margin:4px 0 0}
+.ssel-actions{display:flex;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap}
+.ssel-cta{padding:9px 16px;font-size:14px;border:0;cursor:pointer}
+.ssel-sub-link{font-size:13px;color:#b9b2a9;text-decoration:underline}
+.ssel-empty{text-align:center;padding:28px 8px}
+.ssel-empty h3{font-size:17px;margin:0 0 8px}
+.ssel-empty p{font-size:14px;color:#b9b2a9;line-height:1.6;margin:0 0 14px}
+.ssel-foot{font-size:12px;color:#8f8880;margin:16px 0 0;text-align:center}

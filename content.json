@@ -1,9 +1,20 @@
 {
   "_meta": {
     "note": "그릴박스 홈페이지 콘텐츠 SSOT. /admin/ 에서 수정하면 이 파일이 갱신되고 1~2분 내 사이트에 반영됩니다. menus[].imgHome은 홈 화면 대표 메뉴 카드 전용 사진(없으면 img 사용).",
-    "updated": "2026-09-05",
+    "updated": "2026-09-08",
     "dataSource": "메뉴·가격: 그릴박스 노량진점 네이버 주문(2026-07-10 수집) · 매장정보: 네이버플레이스(2026-09-04 확인)",
-    "rev": "final0905"
+    "rev": "ssot-v2-0908"
+  },
+  "brand": {
+    "slogan": "직화 스테이크 가득 맛있는 한그릇",
+    "axis1": "감탄이 절로 나오는 고기양",
+    "axis2": "한번 먹으면 계속 생각나는 맛",
+    "axis3": "매일 먹어도 건강한 구성",
+    "head": "매일 먹어도 건강한 구성",
+    "body": "튀기지 않고 불에 굽습니다. 소스는 미리 비벼 두지 않고 메뉴마다 따로 맞췄어요. 밥이 부담되는 날엔 같은 스테이크를 샐러드로 받을 수 있고요. 직화 스테이크 가득 맛있는 한그릇, 그릴박스가 하는 일은 이게 전부예요."
+  },
+  "nav": {
+    "order": "바로 주문"
   },
   "links": {
     "order": "https://booking.naver.com/order/bizes/1346907/items/6572978",
@@ -12,14 +23,14 @@
     "naverPlace": "https://map.naver.com/p/entry/place/1093880694"
   },
   "hero": {
-    "h1": "고기 가득,\n직화 한그릇",
-    "sub": "한 그릇에 스테이크 200g부터 최대 500g까지. 주문하면 2분, 직화로 굽는 시간이에요.",
+    "h1": "직화 스테이크 가득\n맛있는 한그릇",
+    "sub": "한 그릇에 스테이크 200g부터 최대 500g까지. 주문이 들어오면 그때 불 위에 올립니다.",
     "ctaStore": "가까운 매장 찾기",
     "ctaOrder": "바로 주문하기"
   },
   "weight": {
-    "head": "기본 200g, 최대 500g",
-    "sub": "한 그릇에 올라가는 스테이크 무게예요. 많다는 말 대신, 사진으로 보여드려요.",
+    "head": "감탄이 절로 나오는 고기양",
+    "sub": "기본 200g, 2XL 300g, 3XL 500g. 한 그릇에 올라가는 스테이크 무게예요. 많다는 말 대신 사진으로 보여드려요.",
     "tiers": [
       {
         "label": "기본",
@@ -41,22 +52,59 @@
       }
     ],
     "caption": "같은 그릇에 고기 양만 다르게. 그릴드 치킨 덮밥 기본 · 2XL · 3XL",
-    "footnote": "※ 중량·가격은 그릴박스 노량진점 판매 메뉴 표기 기준(그릴드 치킨 덮밥). 사진은 연출된 예시이며, 실제 중량·구성은 표기 기준을 따릅니다."
+    "footnote": "※ 중량·가격은 그릴드 치킨 덮밥 표기 기준이며, 매장에 따라 다를 수 있습니다. 사진은 연출된 예시이며, 실제 중량·구성은 매장 표기 기준을 따릅니다."
   },
   "fire": {
-    "head": "불맛부터 다르다",
-    "body": "소스에 비비지 않아요.\n주문이 들어오면 그때 불 위에 올려요.\n직화로 2분, 갓 구운 고기가 밥 위로 올라갑니다.",
-    "caption": "주문부터 그릇까지, 2분"
+    "head": "한번 먹으면 계속 생각나는 맛",
+    "body": "소스에 미리 비벼 두지 않아요.\n주문이 들어오면 그때 불 위에 올립니다.\n갓 구운 스테이크가 그대로 밥 위로 올라가요.",
+    "caption": "미리 만들어 두지 않습니다",
+    "steps": [
+      "01 불을 올리고",
+      "02 주문받고 굽고",
+      "03 그대로 그릇에"
+    ]
   },
   "menuHighlight": {
     "head": "고기부터 고르세요",
-    "sub": "치킨, 삼겹, 비프. 매일 먹어도 안 질리는 한그릇, 밥보다 고기가 먼저 보여요.",
+    "sub": "치킨, 삼겹, 비프. 고기를 고르고 덮밥·파스타·카레·샐러드 중에 그릇을 고르세요.",
+    "cta": "전체 메뉴 보기",
     "items": [
       "bowl_chicken",
       "bowl_pork",
       "bowl_beef"
     ]
   },
+  "storeSection": {
+    "head": "가까운 그릴박스",
+    "sub": "매장을 고르면 위치와 영업시간, 지금 영업 중인지 바로 확인할 수 있어요.",
+    "mapCta": "네이버 지도에서 보기 ↗",
+    "badgeOpen": "지금 영업 중",
+    "badgeClosedTpl": "오늘 {openHour} 오픈",
+    "ctaDirections": "길찾기",
+    "ctaCall": "전화하기",
+    "allStores": "전체 매장 보기"
+  },
+  "stores": [
+    {
+      "id": "noryangjin",
+      "name": "그릴박스 노량진점",
+      "shortName": "노량진점",
+      "address": "서울 동작구 만양로14가길 23 1층",
+      "hoursText": "매일 11:00 – 21:50",
+      "openHour": "11:00",
+      "closeHour": "21:50",
+      "phone": "0507-1318-7881",
+      "seatNote": "혼밥도 편해요",
+      "access": "노량진역에서 걸어올 수 있어요. 길찾기를 누르면 네이버 지도로 연결됩니다.",
+      "mapQuery": "서울 동작구 만양로14가길 23",
+      "naverPlace": "https://map.naver.com/p/entry/place/1093880694",
+      "orderUrl": "https://booking.naver.com/order/bizes/1346907/items/6572978",
+      "status": "open",
+      "mapImg": "assets/map_noryangjin.webp",
+      "photoExterior": "assets/store_exterior_dusk.webp",
+      "photoInterior": "assets/store_interior_counter.webp"
+    }
+  ],
   "store": {
     "name": "그릴박스 노량진점",
     "address": "서울 동작구 만양로14가길 23 1층",
@@ -67,9 +115,42 @@
     "seatNote": "혼밥도 편해요",
     "mapQuery": "서울 동작구 만양로14가길 23"
   },
+  "storeSelect": {
+    "title": "어느 매장에서 드시나요?",
+    "sub": "매장마다 영업시간과 주문 링크가 달라요. 먼저 매장을 골라주세요.",
+    "searchPlaceholder": "지역이나 매장 이름으로 찾기",
+    "searchAria": "매장 검색",
+    "nearbyCta": "내 위치에서 가까운 순으로",
+    "locationNotice": "가까운 매장을 찾으려면 위치 권한이 필요해요. 직접 검색하셔도 괜찮아요.",
+    "tabAll": "전체 매장",
+    "tabOpen": "지금 영업 중",
+    "listAria": "그릴박스 매장 목록",
+    "countTpl": "매장 {n}곳",
+    "card": {
+      "distanceTpl": "내 위치에서 {distance}",
+      "badgeOpen": "지금 영업 중",
+      "badgeClosedTpl": "오늘 {openHour} 오픈",
+      "badgeSoon": "오픈 준비 중",
+      "hoursTpl": "{hoursText}",
+      "cta": "이 매장으로 주문하기",
+      "ctaSoon": "오픈 소식 받기",
+      "subDirections": "길찾기",
+      "subCall": "전화",
+      "ariaTpl": "{name} 선택 — {status}"
+    },
+    "selectedTpl": "{name}에서 주문합니다",
+    "changeCta": "매장 변경",
+    "confirmCta": "이 매장으로 계속",
+    "emptyTitle": "아직 이 지역엔 매장이 없어요",
+    "emptyBody": "가까운 다른 매장을 확인해 보시거나, 새 매장 소식을 인스타그램에서 가장 먼저 받아보세요.",
+    "emptyCta": "전체 매장 보기",
+    "errorBody": "매장 정보를 불러오지 못했어요. 잠시 후 다시 시도하거나 전체 매장에서 골라주세요.",
+    "closeAria": "매장 선택 닫기",
+    "footnote": "메뉴와 가격은 매장에 따라 다를 수 있어요."
+  },
   "reviews": {
     "head": "다녀간 사람들의 말",
-    "tail": "오늘도 누군가는 두 번째 그릇을 비웠어요.",
+    "tail": "맛에 대한 판단은 다녀간 분들 말로 대신할게요.",
     "source": "네이버플레이스 방문자 리뷰",
     "items": [
       {
@@ -92,21 +173,26 @@
     "cta": "인스타그램 팔로우"
   },
   "finalCta": {
-    "head": "오늘 한 끼, 고기로 채우자",
-    "sub": "가까운 매장에서 드시거나, 지금 바로 주문하세요."
+    "head": "직화 스테이크 가득, 오늘 한그릇",
+    "sub": "가까운 매장을 고르고, 바로 주문하세요.",
+    "ctaStore": "가까운 매장 찾기",
+    "ctaOrder": "바로 주문하기"
   },
   "footer": {
-    "company": "운영: 주식회사 인디펜던트 · 그릴박스 노량진점 · 서울 동작구 만양로14가길 23 1층",
+    "company": "운영: 주식회사 인디펜던트 · 그릴박스",
     "contact": "가맹·제휴 문의는 카카오톡 채널로 받아요.",
     "copyright": "© 2026 GRILLBOX. All rights reserved."
   },
   "menuPage": {
-    "intro": "전 메뉴, 주문 받고 직화로 굽습니다. 덮밥부터 샐러드까지, 고기는 똑같이 직화 스테이크예요.",
-    "sizeNote": "전 메뉴 공통, 기본 스테이크 200g · 2XL 300g · 3XL 500g. 사이즈별 가격은 카드에 있어요.",
-    "origin": "원산지는 매장 안 게시물과 주문 화면에서 확인할 수 있어요."
+    "h1": "그릴박스 메뉴",
+    "intro": "전 메뉴, 주문받고 그때 직화로 굽습니다. 덮밥·파스타·카레·샐러드 무엇을 고르든 고기는 똑같은 직화 스테이크예요.",
+    "sizeNote": "전 메뉴 공통, 기본 스테이크 200g · 2XL 300g · 3XL 500g. 사이즈별 가격은 카드에 있어요. 가격은 매장에 따라 다를 수 있어요.",
+    "originHead": "원산지 안내",
+    "origin": "원산지는 각 매장 안 게시물과 주문 화면에서 확인하실 수 있어요."
   },
   "storesPage": {
-    "intro": "혼자 와도, 급해도 괜찮아요. 주문하고 2분이면 나옵니다.",
+    "h1": "매장 안내",
+    "intro": "어느 매장에서든 같은 직화 스테이크를 굽습니다. 가까운 매장부터 확인해 보세요.",
     "tail": "새 매장 소식은 인스타그램에서 가장 먼저 알려드려요."
   },
   "categories": [
@@ -195,7 +281,7 @@
       "id": "pasta_chickenleg",
       "cat": "pasta",
       "name": "그릴드 치킨렉(닭다리) 파스타",
-      "desc": "닭다리 스테이크와 파스타 한 접시",
+      "desc": "직화 닭다리 스테이크와 파스타 한 접시",
       "img": "assets/menu_pasta_chickenleg.webp",
       "prices": {
         "base": 10900,
@@ -219,7 +305,7 @@
       "id": "pasta_beef",
       "cat": "pasta",
       "name": "그릴드 비프 파스타",
-      "desc": "육즙 가득 비프 스테이크를 파스타 위에",
+      "desc": "육즙 그대로, 직화 비프 스테이크를 파스타 위에",
       "img": "assets/menu_pasta_beef.webp",
       "prices": {
         "base": 14900,
@@ -243,7 +329,7 @@
       "id": "curry_chickenleg",
       "cat": "curry",
       "name": "그릴드 치킨렉(닭다리) 카레라이스",
-      "desc": "카레라이스 위에 촉촉한 닭다리 스테이크",
+      "desc": "카레라이스 위에 촉촉한 직화 닭다리 스테이크",
       "img": "assets/menu_curry_chickenleg.webp",
       "prices": {
         "base": 10900,
@@ -267,7 +353,7 @@
       "id": "curry_beef",
       "cat": "curry",
       "name": "그릴드 비프 카레라이스",
-      "desc": "카레라이스에 육즙 그대로 비프 스테이크",
+      "desc": "카레라이스에 육즙 그대로 직화 비프 스테이크",
       "img": "assets/menu_curry_beef.webp",
       "prices": {
         "base": 14900,
@@ -291,7 +377,7 @@
       "id": "salad_chickenleg",
       "cat": "salad",
       "name": "그릴드 치킨렉(닭다리) 샐러드",
-      "desc": "아삭한 채소에 촉촉한 닭다리 스테이크",
+      "desc": "아삭한 채소에 촉촉한 직화 닭다리 스테이크",
       "img": "assets/menu_salad_chickenleg.webp",
       "prices": {
         "base": 10900,
@@ -315,7 +401,7 @@
       "id": "salad_beef",
       "cat": "salad",
       "name": "그릴드 비프 샐러드",
-      "desc": "채소 위에 육즙 그대로 비프 스테이크",
+      "desc": "채소 위에 육즙 그대로 직화 비프 스테이크",
       "img": "assets/menu_salad_beef.webp",
       "prices": {
         "base": 14900,
