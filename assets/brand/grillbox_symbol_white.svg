@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="GRILLBOX 심볼 (White)">
-<title>GRILLBOX symbol — White monochrome</title>
-<rect x="6" y="6" width="500" height="500" rx="108" fill="none" stroke="#FFFFFF" stroke-width="10"/>
-<rect x="112" y="300" width="288" height="120" rx="26" fill="none" stroke="#FFFFFF" stroke-width="12"/>
-<line x1="118" y1="342" x2="394" y2="342" stroke="#FFFFFF" stroke-width="8" opacity="0.9"/>
-<rect x="150" y="366" width="90" height="14" rx="7" fill="#FFFFFF" opacity="0.9"/>
-<rect x="150" y="392" width="150" height="12" rx="6" fill="#FFFFFF" opacity="0.5"/>
-<path d="M256 74 C 300 138 330 176 330 226 A 74 74 0 1 1 182 226 C 182 188 206 172 220 144 C 230 172 250 178 256 160 C 270 130 250 102 256 74 Z" fill="#FFFFFF"/>
-</svg>

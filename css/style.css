@@ -29,8 +29,8 @@ section[id]{scroll-margin-top:72px}
 .gnb-in{max-width:var(--content);margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 /* 워드마크 = 공식 로고 SVG. 비율은 원본(4.93:1) 고정 — height만 주고 width는 auto로 둔다 */
 .wordmark{display:inline-flex;align-items:center;line-height:0;flex:0 0 auto}
-.wordmark img{display:block;height:21px;width:auto}
-footer .wordmark img{height:24px}
+.wordmark img{display:block;height:26px;width:auto}
+footer .wordmark img{height:26px}
 .gnb-nav{display:flex;align-items:center;gap:28px}
 .gnb-nav a{font-size:15px;font-weight:600;color:var(--gb-text)}
 .gnb-nav a.active{color:#fff;box-shadow:0 14px 0 -12px var(--gb-red)}
