@@ -98,26 +98,47 @@
   function writeSelected(id) {
     try { localStorage.setItem(SEL_KEY, id); } catch (e) { /* 저장 실패해도 선택 자체는 동작 */ }
   }
-  // 매장이 1곳이면 선택 단계 없이 바로 주문 링크로 — 불필요한 단계는 전환을 깎는다
-  function needsSelect(c) { return visibleStores(c).length > 1; }
+  // 주문은 매장 수와 무관하게 항상 매장 선택 단계를 거친다 — 다매장이 기본 전제(형 방침)
+  function hasStores(c) { return visibleStores(c).length > 0; }
+  // 실제로 사용자가 고른 적이 있는 매장만 — readSelected는 기본값(첫 매장)을 돌려주므로 확인 배너 판정엔 쓸 수 없다
+  function savedStore(c) {
+    var saved;
+    try { saved = localStorage.getItem(SEL_KEY); } catch (e) { return null; }
+    if (!saved) return null;
+    return visibleStores(c).filter(function (s) { return s.id === saved; })[0] || null;
+  }
+  // 매장별 지도 — 전역 links.naverPlace 로 폴백하면 다른 매장 지도로 새므로 주소 검색으로 대체한다
+  function storeMapUrl(s) {
+    if (!s) return '';
+    if (s.naverPlace) return s.naverPlace;
+    var q = s.mapQuery || s.address || s.name;
+    return q ? 'https://map.naver.com/p/search/' + encodeURIComponent(q) : '';
+  }
+  // 매장별 주문 링크 — 없으면 전역 links.order 대신 그 매장 상세로 보낸다(오주문 방지)
+  function storeOrderUrl(s) { return (s && s.orderUrl) || ''; }
+  function storeHref(id) { return ROOT + 'stores/?store=' + encodeURIComponent(id); }
+  // 좌표는 관리자에서 문자열로 들어올 수 있다 — 빈 값·비수치는 거리 계산 대상에서 뺀다
+  function hasGeo(s) { return !!s && s.lat !== '' && s.lng !== '' && isFinite(+s.lat) && isFinite(+s.lng); }
+
+  function bindText(c, node) {
+    var v = get(c, node.getAttribute('data-cms'));
+    if (typeof v === 'number') v = String(v);
+    if (typeof v !== 'string') return;
+    if (v.indexOf('\n') >= 0) {
+      node.innerHTML = '';
+      v.split('\n').forEach(function (line, i) {
+        if (i) node.appendChild(document.createElement('br'));
+        node.appendChild(document.createTextNode(line));
+      });
+    } else node.textContent = v;
+  }
 
   function hydrate(c) {
     normalizeStores(c);
     var sel = readSelected(c);
     if (sel) c.store = sel;
 
-    document.querySelectorAll('[data-cms]').forEach(function (node) {
-      var v = get(c, node.getAttribute('data-cms'));
-      if (typeof v === 'number') v = String(v);
-      if (typeof v !== 'string') return;
-      if (v.indexOf('\n') >= 0) {
-        node.innerHTML = '';
-        v.split('\n').forEach(function (line, i) {
-          if (i) node.appendChild(document.createElement('br'));
-          node.appendChild(document.createTextNode(line));
-        });
-      } else node.textContent = v;
-    });
+    document.querySelectorAll('[data-cms]').forEach(function (node) { bindText(c, node); });
     document.querySelectorAll('[data-cms-src]').forEach(function (node) {
       var v = get(c, node.getAttribute('data-cms-src'));
       if (typeof v === 'string' && v) node.setAttribute('src', ROOT + v);
@@ -180,12 +201,17 @@
   /* ── 선택 매장이 바뀌면 다시 그려야 하는 것들 ── */
   // 헤더 「매장 변경」·모달에서 매장을 고르면 링크·전화·배지·바를 그 자리에서 갱신한다(새로고침 없이)
   function applyStore(c, sel) {
+    // store(단수)는 선택 매장의 별칭 — 갱신 후 store.* 텍스트를 다시 그려야 카드가 이전 매장으로 남지 않는다
+    if (sel) {
+      c.store = sel;
+      document.querySelectorAll('[data-cms^="store."]').forEach(function (node) { bindText(c, node); });
+    }
     document.querySelectorAll('[data-cms-href]').forEach(function (node) {
       var key = node.getAttribute('data-cms-href');
       var v = get(c, key);
-      // 주문·길찾기는 매장별 값이 우선 (links.* 는 하위호환 폴백)
-      if (sel && key === 'links.order' && sel.orderUrl) v = sel.orderUrl;
-      if (sel && key === 'links.naverPlace' && sel.naverPlace) v = sel.naverPlace;
+      // 주문·길찾기는 반드시 매장별 값 — 매장이 있으면 전역 links.* 로 폴백하지 않는다
+      if (sel && key === 'links.order') v = storeOrderUrl(sel) || storeHref(sel.id);
+      if (sel && key === 'links.naverPlace') v = storeMapUrl(sel) || v;
       if (typeof v === 'string' && v) node.setAttribute('href', v);
     });
     if (sel) {
@@ -205,14 +231,15 @@
     }
     openBadges(c, sel);
     renderStoreBar(c, sel);
+    renderHomeStores(c, sel);
   }
 
-  /* ── 헤더·푸터 「현재 매장 ○○점 (변경)」 — 매장 2곳 이상일 때만 ── */
+  /* ── 헤더·푸터 「현재 매장 ○○점 (변경)」 — 매장 수와 무관하게 항상 노출(변경 경로 상시 확보) ── */
   function renderStoreBar(c, sel) {
     var bar = document.querySelector('[data-render="store-bar"]');
     var foot = document.querySelector('[data-render="store-bar-foot"]');
     var t = (c.storeBar) || {};
-    var multi = needsSelect(c) && sel;
+    var multi = !!sel;
     document.body.classList.toggle('has-storebar', !!multi);
     if (bar) {
       bar.hidden = !multi;
@@ -286,7 +313,7 @@
     var host = document.querySelector('[data-render="store-blocks"]');
     if (!host) return;
     var list = visibleStores(c);
-    if (!list.length) return;
+    if (!list.length) { renderStoresEmpty(c, host); return; }
     var want = storeParam();
     var detail = list.filter(function (s) { return s.id === want; })[0] || (list.length === 1 ? list[0] : null);
     var listHost = document.querySelector('[data-render="store-list"]');
@@ -320,10 +347,27 @@
     }
     renderStoresJsonLd(c, list, 'list');
   }
+  // 보이는 매장이 0곳 — 노량진점 정적 폴백이 그대로 남지 않게 비우고 안내를 낸다
+  function renderStoresEmpty(c, host) {
+    var t = (c.storeSelect) || {};
+    host.innerHTML = '';
+    ['store-list', 'store-map', 'store-crumb'].forEach(function (k) {
+      var n = document.querySelector('[data-render="' + k + '"]');
+      if (n) { n.hidden = true; n.innerHTML = ''; }
+    });
+    var box = el('div', 'ssel-empty stores-empty');
+    box.appendChild(el('h2', null, t.emptyTitle || '아직 이 지역엔 매장이 없어요'));
+    box.appendChild(el('p', null, t.emptyBody || ''));
+    if (c.links && c.links.instagram) box.appendChild(extLink('btn btn-outline', c.links.instagram, (c.insta && c.insta.cta) || '인스타그램 팔로우'));
+    host.appendChild(box);
+    var node = document.getElementById('stores-jsonld');
+    if (node) node.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'ItemList', numberOfItems: 0, itemListElement: [] }, null, 2);
+  }
   function applyStoreMap(mapHost, c, s) {
     var a = mapHost.querySelector('a');
     if (a) {
-      if (s.naverPlace) a.setAttribute('href', s.naverPlace);
+      var mu = storeMapUrl(s);
+      if (mu) a.setAttribute('href', mu);
       a.setAttribute('aria-label', s.name + ' 위치를 네이버 지도에서 보기');
     }
     var im = mapHost.querySelector('img');
@@ -332,9 +376,9 @@
       im.setAttribute('alt', s.name + ' 위치 지도');
     }
   }
-  function storeListCard(c, s) {
+  function storeListCard(c, s, href) {
     var a = el('a', 'store-list-card');
-    a.href = './?store=' + encodeURIComponent(s.id);
+    a.href = href || ('./?store=' + encodeURIComponent(s.id));
     if (s.photoExterior) {
       var im = new Image();
       im.src = ROOT + s.photoExterior; im.alt = ''; im.setAttribute('aria-hidden', 'true');
@@ -353,6 +397,21 @@
     body.appendChild(el('p', 'more', (c.storesPage && c.storesPage.moreCta) || '매장 상세 보기 →'));
     a.appendChild(body);
     return a;
+  }
+
+  /* ── 홈 H5 — 매장이 2곳 이상이면 대표(선택) 매장 아래에 전 매장 목록을 함께 낸다 ── */
+  function renderHomeStores(c, sel) {
+    var host = document.querySelector('[data-render="home-store-list"]');
+    if (!host) return;
+    var list = visibleStores(c);
+    host.innerHTML = '';
+    host.hidden = list.length < 2;
+    if (list.length < 2) return;
+    list.forEach(function (s) {
+      var card = storeListCard(c, s, storeHref(s.id));
+      if (sel && s.id === sel.id) card.classList.add('is-current');
+      host.appendChild(card);
+    });
   }
 
   function renderStoreBlocks(c, list) {
@@ -381,17 +440,21 @@
       h2.appendChild(badge);
       d.appendChild(h2);
 
+      // 값이 빈 칸은 라벨째 그리지 않는다 — 새 매장을 덜 채운 상태로 추가해도 빈 행이 남지 않게
       [['주소', s.address], ['영업시간', s.hoursText]].forEach(function (row) {
+        if (!row[1]) return;
         var r = el('div', 'info-row');
         r.appendChild(el('span', 'k', row[0]));
         r.appendChild(el('span', null, row[1]));
         d.appendChild(r);
       });
-      var rp = el('div', 'info-row');
-      rp.appendChild(el('span', 'k', '전화'));
-      var tel = el('a', null, s.phone); tel.href = 'tel:' + s.phone;
-      rp.appendChild(tel);
-      d.appendChild(rp);
+      if (s.phone) {
+        var rp = el('div', 'info-row');
+        rp.appendChild(el('span', 'k', '전화'));
+        var tel = el('a', null, s.phone); tel.href = 'tel:' + s.phone;
+        rp.appendChild(tel);
+        d.appendChild(rp);
+      }
       if (s.access) {
         var ra = el('div', 'info-row');
         ra.appendChild(el('span', 'k', '가는 길'));
@@ -404,11 +467,15 @@
         d.appendChild(p);
       }
       var row = el('div', 'btn-row');
-      row.appendChild(extLink('btn btn-red', s.naverPlace, ss.ctaDirections || '길찾기'));
-      var call = el('a', 'btn btn-outline', ss.ctaCall || '전화하기');
-      call.href = 'tel:' + s.phone;
-      row.appendChild(call);
-      row.appendChild(extLink('btn btn-outline', s.orderUrl, '포장 주문하기'));
+      var mu = storeMapUrl(s);
+      if (mu) row.appendChild(extLink('btn btn-red', mu, ss.ctaDirections || '길찾기'));
+      if (s.phone) {
+        var call = el('a', 'btn btn-outline', ss.ctaCall || '전화하기');
+        call.href = 'tel:' + s.phone;
+        row.appendChild(call);
+      }
+      // 주문 링크가 없는 매장은 버튼을 아예 내지 않는다 — 다른 매장 주문 화면으로 새면 오주문
+      if (storeOrderUrl(s)) row.appendChild(extLink('btn btn-outline', s.orderUrl, '포장 주문하기'));
       d.appendChild(row);
       var sb = bizNode('store-biz', mergeBiz(c.footer && c.footer.business, s.business));
       if (sb) d.appendChild(sb);
@@ -437,7 +504,7 @@
         name: (c.storesPage && c.storesPage.h1) || '매장 안내',
         numberOfItems: stores.length,
         itemListElement: stores.map(function (s, i) {
-          return { '@type': 'ListItem', position: i + 1, name: s.name, url: location.href.split('?')[0] + '?store=' + encodeURIComponent(s.id) };
+          return { '@type': 'ListItem', position: i + 1, name: s.name, url: location.href.split(/[?#]/)[0] + '?store=' + encodeURIComponent(s.id) };
         })
       }, null, 2);
       return;
@@ -449,12 +516,14 @@
         description: '주문받고 그때 직화로 굽는 스테이크 덮밥·파스타·카레·샐러드 전문점 그릴박스 ' + (s.shortName || s.name) + '.',
         servesCuisine: '한식 직화 스테이크 덮밥',
         address: addressOf(s),
-        telephone: telOf(s.phone),
-        openingHours: 'Mo-Su ' + s.openHour + '-' + s.closeHour,
-        hasMap: s.naverPlace,
         hasMenu: origin.replace(/\/$/, '') + '/menu/',
         parentOrganization: { '@type': 'Organization', name: '그릴박스', url: 'https://grillbox.co.kr' }
       };
+      // 빈 값은 아예 내지 않는다 — 덜 채워진 매장에서 잘못된 구조화 데이터가 나가지 않게
+      if (s.phone) d.telephone = telOf(s.phone);
+      if (s.openHour && s.closeHour) d.openingHours = 'Mo-Su ' + s.openHour + '-' + s.closeHour;
+      var mu = storeMapUrl(s);
+      if (mu) d.hasMap = mu;
       if (s.photoExterior) d.image = origin.replace(/\/$/, '') + '/' + s.photoExterior;
       return d;
     });
@@ -470,29 +539,49 @@
       addressCountry: 'KR'
     };
   }
+  // 국가번호 표기 — 원 표기의 하이픈 묶음을 그대로 살린다. 숫자만 붙여 쓴 번호는 3-4-4로만 나눈다
+  // (하이픈 없이 자릿수만 보고 나누면 0507-1234-5678 이 507-1234-5678 이 아니라 5071-234-5678 로 잘린다)
   function telOf(phone) {
-    var digits = String(phone || '').replace(/[^0-9]/g, '');
-    return digits ? '+82-' + digits.replace(/^0/, '').replace(/^(\d{3,4})(\d{3,4})(\d{4})$/, '$1-$2-$3') : '';
+    var raw = String(phone || '').replace(/[^0-9-]/g, '').replace(/^-+|-+$/g, '');
+    if (!raw) return '';
+    if (raw.indexOf('-') >= 0) return '+82-' + raw.replace(/^0/, '');
+    // 하이픈 없는 번호는 국번(02 / 010 / 0507 / 070 / 지역 2자리)을 알아보고 나눈다
+    var m = /^0(2|1[016-9]|50\d|70|80\d|\d{2})(\d{3,4})(\d{4})$/.exec(raw);
+    return m ? '+82-' + m[1] + '-' + m[2] + '-' + m[3] : '+82-' + raw.replace(/^0/, '');
   }
 
   // 영업 중 뱃지 — KST 기준으로 실제 영업시간과 대조 (정적 사이트라 서버 없이 계산)
+  // data-open-badge 는 "선택된 매장" 배지 전용. 매장별로 렌더되는 목록·블록 안 배지는 각자 계산하므로 건드리지 않는다.
   function openBadges(c, sel) {
     if (!sel) return;
     var ss = c.storeSection || {};
     document.querySelectorAll('[data-open-badge]').forEach(function (b) {
+      if (b.closest('[data-render="store-blocks"], [data-render="store-list"], [data-render="home-store-list"]')) return;
       var open = isOpenNow(sel);
       b.textContent = open ? (ss.badgeOpen || '지금 영업 중') : tpl(ss.badgeClosedTpl || '오늘 {openHour} 오픈', sel);
       b.classList.toggle('badge-closed', !open);
     });
   }
 
-  /* ── 매장 선택 (§7) — 매장 2곳 이상일 때만 개입 ── */
+  /* ── 매장 선택 (§7) — 매장 수와 무관하게 주문 CTA는 항상 선택 단계를 거친다 ── */
   function bindOrderCtas(c) {
-    if (!needsSelect(c)) return;
+    // 보이는 매장이 0곳(전 매장 휴점)이면 주문 링크는 숨겨진 매장으로 가면 안 된다 — 매장 안내로 보낸다
+    if (!hasStores(c)) {
+      document.querySelectorAll('[data-cms-href="links.order"]').forEach(function (a) {
+        a.setAttribute('href', ROOT + 'stores/');
+        a.removeAttribute('target');
+      });
+      return;
+    }
     document.querySelectorAll('[data-cms-href="links.order"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         e.preventDefault();
-        openStoreSelect(c, function (s) { window.open(s.orderUrl || (c.links && c.links.order) || '#', '_blank', 'noopener'); });
+        openStoreSelect(c, function (s) {
+          var url = storeOrderUrl(s);
+          // 주문 링크가 없는 매장이면 그 매장 상세로 — 다른 매장 주문 화면으로 새지 않게
+          if (url) window.open(url, '_blank', 'noopener');
+          else location.href = storeHref(s.id);
+        });
       });
     });
   }
@@ -505,8 +594,9 @@
     modal.render();
     modal.root.hidden = false;
     document.body.style.overflow = 'hidden';
-    var s = modal.root.querySelector('.ssel-search');
-    if (s) s.focus();
+    // 매장 1곳이면 검색창이 숨겨져 있다 — 실제로 보이는 첫 요소에 포커스
+    var f = modal.root.querySelector('.ssel-search:not([hidden])') || modal.root.querySelector('.ssel-cta') || modal.root.querySelector('.ssel-close');
+    if (f) f.focus();
   }
   function closeStoreSelect() {
     if (!modal) return;
@@ -545,7 +635,7 @@
     var nearby = el('button', 'ssel-nearby', t.nearbyCta);
     nearby.type = 'button';
     // 좌표(lat/lng)가 있는 매장이 없으면 거리순 정렬 자체가 불가 — 버튼을 감춘다
-    var geoReady = c.stores.some(function (s) { return s.lat && s.lng; });
+    var geoReady = visibleStores(c).some(hasGeo);
     if (!geoReady) nearby.hidden = true;
     box.appendChild(nearby);
     box.appendChild(notice);
@@ -597,7 +687,7 @@
       body.appendChild(head);
       body.appendChild(el('p', 'ssel-addr', s.address));
       var meta = tpl(tc.hoursTpl || '{hoursText}', s);
-      if (state.coords && s.lat && s.lng) meta += ' · ' + tpl(tc.distanceTpl, { distance: distanceText(state.coords, s) });
+      if (state.coords && hasGeo(s)) meta += ' · ' + tpl(tc.distanceTpl, { distance: distanceText(state.coords, s) });
       body.appendChild(el('p', 'ssel-meta', meta));
       if (s.seatNote) body.appendChild(el('p', 'ssel-seat', s.seatNote));
 
@@ -611,10 +701,13 @@
       });
       row.appendChild(main);
       if (!soon) {
-        row.appendChild(extLink('ssel-sub-link', s.naverPlace, tc.subDirections));
-        var call = el('a', 'ssel-sub-link', tc.subCall);
-        call.href = 'tel:' + s.phone;
-        row.appendChild(call);
+        var mu = storeMapUrl(s);
+        if (mu) row.appendChild(extLink('ssel-sub-link', mu, tc.subDirections));
+        if (s.phone) {
+          var call = el('a', 'ssel-sub-link', tc.subCall);
+          call.href = 'tel:' + s.phone;
+          row.appendChild(call);
+        }
       }
       body.appendChild(row);
       b.appendChild(body);
@@ -633,12 +726,21 @@
       var all = visibleStores(c);
       var shown = all.filter(matches);
       if (state.coords) {
-        shown = shown.slice().sort(function (a, b) { return distance(state.coords, a) - distance(state.coords, b); });
+        // 좌표 없는 매장은 뒤로 — NaN이 섞이면 정렬이 통째로 무너진다
+        var dOf = function (s) { return hasGeo(s) ? distance(state.coords, s) : Infinity; };
+        shown = shown.slice().sort(function (a, b) { return dOf(a) - dOf(b); });
       }
-      // 이미 고른 매장이 있으면 상단에서 그대로 이어가게 — 매번 다시 고르게 하지 않는다
+      // 매장이 1곳뿐이면 검색·탭·카운트는 군더더기 — 「이 매장으로 주문하기」 확인 단계만 남긴다
+      var single = all.length < 2;
+      search.hidden = single;
+      tabs.hidden = single;
+      count.hidden = single;
+      nearby.hidden = single || !geoReady;
+
+      // 실제로 고른 적이 있는 매장만 상단에서 이어가게 — 기본값(첫 매장)을 고른 것처럼 보이게 하지 않는다
       banner.innerHTML = '';
-      var cur = readSelected(c);
-      if (cur && all.length > 1) {
+      var cur = savedStore(c);
+      if (cur) {
         banner.appendChild(el('span', null, tpl(t.selectedTpl, cur)));
         var go = el('button', 'btn btn-red ssel-confirm', t.confirmCta);
         go.type = 'button';
@@ -688,11 +790,13 @@
     return api;
   }
 
+  // 관리자에서 넣은 좌표는 문자열로 들어올 수 있다 — 숫자로 강제
   function distance(c0, s) {
     var R = 6371, rad = Math.PI / 180;
-    var dLat = (s.lat - c0.lat) * rad, dLng = (s.lng - c0.lng) * rad;
+    var sLat = +s.lat, sLng = +s.lng;
+    var dLat = (sLat - c0.lat) * rad, dLng = (sLng - c0.lng) * rad;
     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(c0.lat * rad) * Math.cos(s.lat * rad) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+      Math.cos(c0.lat * rad) * Math.cos(sLat * rad) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
     return 2 * R * Math.asin(Math.sqrt(a));
   }
   function distanceText(c0, s) {

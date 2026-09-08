@@ -10,6 +10,8 @@
   --content:1140px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
+/* hidden 속성이 뒤에 오는 display 규칙(flex/grid)에 덮이지 않게 — 매장 선택 모달·매장 바·목록이 전부 hidden 토글이다 */
+[hidden]{display:none !important}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{
@@ -240,8 +242,6 @@ footer{background:#0e0d0c;padding:56px 0 40px;font-size:14px}
   .info-row{font-size:14px}
   .origin-block{padding:20px}
   .store-bar-in{padding:7px 20px;font-size:12.5px;gap:8px}
-  .store-list{grid-template-columns:1fr;gap:14px}
-  .store-list-head h2{font-size:17px}
 }
 
 
@@ -259,8 +259,16 @@ body.has-storebar section[id]{scroll-margin-top:110px}
 .foot-store strong{color:var(--gb-text);font-weight:700}
 .foot-store .chg{background:none;border:0;color:var(--gb-muted);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer;padding:6px 0;min-height:36px}
 
-/* ── /stores 매장 목록(카드) — 매장 2곳 이상, ?store= 없을 때 ── */
+/* ── 매장 목록(카드) — /stores(2곳 이상·?store= 없음) · 홈 H5 전 매장 목록 공용 ── */
 .store-list{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:8px}
+.store-list[hidden]{display:none}
+/* 홈 H5 — 대표 매장 아래 전 매장 목록 (매장 2곳 이상) */
+.home-store-list{margin-top:26px}
+.home-store-list .store-list-card.is-current{border-color:rgba(255,17,14,.55)}
+/* 보이는 매장이 0곳일 때 /stores 안내 */
+.stores-empty{background:var(--gb-card);border-radius:16px;margin-top:8px}
+/* ⚠ 이 media 블록은 .store-list 정의보다 뒤에 있어야 한다 — 위쪽 767px 블록에 두면 기본값에 덮인다 */
+@media (max-width:767px){.store-list{grid-template-columns:1fr;gap:14px}.store-list-head h2{font-size:17px}}
 .store-list-card{display:block;background:var(--gb-card);border:1px solid rgba(245,243,239,.08);border-radius:16px;overflow:hidden}
 .store-list-card:hover{border-color:rgba(255,17,14,.55)}
 .store-list-card img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
@@ -282,7 +290,7 @@ body.has-storebar section[id]{scroll-margin-top:110px}
 .nf .btn-row{justify-content:center;margin-top:32px}
 @media (max-width:767px){.nf h1{font-size:30px}.nf p{font-size:14.5px}}
 
-/* ── 매장 선택 (§7 storeSelect) — 매장 2곳 이상일 때만 뜬다 ── */
+/* ── 매장 선택 (§7 storeSelect) — 주문 CTA는 매장 수와 무관하게 항상 이 화면을 거친다 ── */
 .ssel-back{position:fixed;inset:0;z-index:200;background:rgba(10,9,8,.72);display:flex;align-items:flex-end;justify-content:center;padding:0}
 @media(min-width:721px){.ssel-back{align-items:center;padding:32px}}
 .ssel{position:relative;width:100%;max-width:560px;max-height:92vh;overflow:auto;background:#1b1917;color:#f5f2ee;border-radius:20px 20px 0 0;padding:28px 20px 24px}

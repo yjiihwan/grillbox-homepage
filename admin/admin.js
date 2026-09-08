@@ -191,7 +191,7 @@
           field('hero.h1', '큰 제목', { type: 'textarea', rows: 2, help: '줄을 나누면 화면에서도 그 자리에서 줄이 바뀌어요.' }) +
           field('hero.sub', '소개 문구', { type: 'textarea', rows: 2 }) +
           '<div class="grid2">' + field('hero.ctaStore', '왼쪽 버튼 글자') + field('hero.ctaOrder', '오른쪽 버튼 글자') + '</div>' +
-          field('nav.order', '맨 위 「바로 주문」 버튼 글자', { help: '모든 페이지 맨 위 빨간 버튼이에요. 매장이 2곳 이상이 되면 「매장 골라 주문」으로 바꿔 주세요.' })) +
+          field('nav.order', '맨 위 주문 버튼 글자', { help: '모든 페이지 맨 위 빨간 버튼이에요. 누르면 매장 선택 화면이 떠요.' })) +
         card('고기양 소개', '200g · 300g · 500g 비교 사진이 있는 부분이에요.', { href: '../#weight', label: '이 부분 보기' },
           field('weight.head', '제목') + field('weight.sub', '소개 문구') + field('weight.caption', '사진 아래 설명') +
           field('weight.footnote', '작은 글씨 안내', { help: '가격·중량 기준을 밝히는 문구예요. 실제 판매 기준과 다르면 안 돼요.' })) +
@@ -227,7 +227,7 @@
       return html;
     },
     store: function () {
-      var html = '<div class="notice">매장은 여기서 직접 <b>추가·삭제·순서 변경</b>할 수 있어요. 매장이 2곳 이상이 되면 홈·매장 페이지·「바로 주문」 버튼이 자동으로 「매장 선택」 방식으로 바뀌어요.</div>';
+      var html = '<div class="notice">매장은 여기서 직접 <b>추가·삭제·순서 변경</b>할 수 있어요. 「주문」 버튼은 매장 수와 상관없이 항상 <b>매장 선택 화면</b>을 거치고, 매장을 추가하면 홈·매장 페이지·매장 선택 화면·지도·구조화 데이터에 자동으로 함께 반영돼요.</div>';
       html += '<div class="list-bar"><span>매장 ' + content.stores.length + '곳</span><button type="button" class="btn btn-primary btn-sm" data-store-add>＋ 매장 추가</button></div>';
       content.stores.forEach(function (s, i) {
         var p = 'stores.' + i + '.';
@@ -248,9 +248,11 @@
           card('영업시간', '「지금 영업 중」 표시는 오픈·마감 시각을 보고 자동으로 바뀌어요. 영업시간이 바뀌면 세 칸을 모두 고쳐 주세요.', null,
             field(p + 'hoursText', '화면에 보이는 영업시간 글', { placeholder: '예: 매일 11:00 – 21:50' }) +
             '<div class="grid2">' + field(p + 'openHour', '오픈 시각', { placeholder: '11:00', help: '시:분 형식 (예 11:00)' }) + field(p + 'closeHour', '마감 시각', { placeholder: '21:50', help: '시:분 형식 (예 21:50)' }) + '</div>') +
-          card('링크', '이 매장의 주문·지도 주소예요. 매장마다 다르니 꼭 그 매장 주소를 넣어 주세요.', null,
-            field(p + 'orderUrl', '이 매장 주문 주소', { type: 'url', placeholder: 'https://booking.naver.com/…', help: '「바로 주문」·「포장 주문하기」 버튼이 여는 주소예요.' }) +
-            field(p + 'naverPlace', '이 매장 지도 주소', { type: 'url', placeholder: 'https://map.naver.com/…', help: '「길찾기」 버튼이 여는 네이버 지도 주소예요.' })) +
+          card('링크·좌표', '이 매장의 주문·지도 주소예요. 매장마다 다르니 꼭 그 매장 주소를 넣어 주세요.', null,
+            field(p + 'orderUrl', '이 매장 주문 주소', { type: 'url', placeholder: 'https://booking.naver.com/…', help: '매장 선택 화면에서 이 매장을 고르면 열리는 주소예요. 비우면 주문 버튼 대신 매장 상세로 보내요.' }) +
+            field(p + 'naverPlace', '이 매장 지도 주소', { type: 'url', placeholder: 'https://map.naver.com/…', help: '「길찾기」 버튼이 여는 네이버 지도 주소예요. 비우면 위 주소로 네이버 지도 검색을 열어요.' }) +
+            '<div class="grid2">' + field(p + 'lat', '위도 (선택)', { placeholder: '예: 37.5133', help: '매장 선택 화면의 「내 위치에서 가까운 순으로」에 쓰여요. 전 매장 모두 비어 있으면 그 버튼이 숨겨져요.' }) +
+              field(p + 'lng', '경도 (선택)', { placeholder: '예: 126.9421' }) + '</div>') +
           card('사진', '외관·내부 사진은 매장 페이지와 매장 선택 화면에, 지도 사진은 매장 페이지 위쪽 지도 자리에 쓰여요. 2.5MB 이하 가로 사진을 권장해요.', null,
             '<div class="photo-grid">' +
               '<figure class="photo-tile">' + photoBox(p + 'photoExterior', nm + ' 외관') + '<figcaption><b>매장 외관</b><small>가로 사진 (3:2)</small>' + undoBtn(p + 'photoExterior') + '</figcaption></figure>' +
@@ -270,10 +272,10 @@
           field('storeSection.mapCta', '지도 위 안내 글'));
       html += card('매장 페이지 문구', '', { href: '../stores/', label: '매장 페이지 보기' },
         field('storesPage.h1', '페이지 제목') + field('storesPage.intro', '맨 위 소개 문구', { type: 'textarea', rows: 2 }) + field('storesPage.tail', '맨 아래 한 줄') +
-        field('storesPage.moreCta', '매장 목록 카드의 「상세 보기」 글', { help: '매장이 2곳 이상일 때 매장 페이지가 목록으로 바뀌는데, 그 카드 맨 아래 글이에요.' }));
-      html += card('현재 매장 표시줄 문구', '매장이 2곳 이상일 때 모든 페이지 맨 위·맨 아래에 「현재 매장 ○○점 (변경)」으로 보이는 줄이에요.' + (content.stores.filter(function (s) { return s.status !== 'hidden'; }).length > 1 ? '' : ' 지금은 보이는 매장이 한 곳이라 화면에 나오지 않아요.'), null,
+        field('storesPage.moreCta', '매장 목록 카드의 「상세 보기」 글', { help: '매장이 2곳 이상이면 매장 페이지와 홈 매장 영역이 목록으로 바뀌는데, 그 카드 맨 아래 글이에요.' }));
+      html += card('현재 매장 표시줄 문구', '모든 페이지 맨 위·맨 아래에 「현재 매장 ○○점 (변경)」으로 보이는 줄이에요. 손님이 언제든 매장을 바꿀 수 있게 항상 보여요.', null,
         '<div class="grid3">' + field('storeBar.label', '앞에 붙는 말', { placeholder: '현재 매장' }) + field('storeBar.changeCta', '「변경」 버튼') + field('storeBar.backCta', '매장 상세에서 목록으로 가는 링크', { placeholder: '← 전체 매장' }) + '</div>');
-      html += card('매장 선택 화면 문구', '매장이 2곳 이상일 때 「바로 주문」을 누르면 뜨는 화면이에요.' + (content.stores.filter(function (s) { return s.status !== 'hidden'; }).length > 1 ? '' : ' 지금은 보이는 매장이 한 곳이라 화면에 나오지 않아요.'), null,
+      html += card('매장 선택 화면 문구', '주문 버튼을 누르면 뜨는 화면이에요. 매장이 한 곳이어도 「이 매장으로 주문하기」 확인 단계로 떠요.', null,
         field('storeSelect.title', '제목') + field('storeSelect.sub', '안내 문구', { type: 'textarea', rows: 2 }) +
         '<div class="grid2">' + field('storeSelect.tabAll', '「전체 매장」 탭') + field('storeSelect.tabOpen', '「지금 영업 중」 탭') + '</div>' +
         '<div class="grid2">' + field('storeSelect.card.cta', '매장 카드 버튼') + field('storeSelect.confirmCta', '이어서 주문 버튼') + '</div>' +
@@ -385,7 +387,7 @@
     // 새 매장은 「오픈 준비 중」으로 시작 — 주소·영업시간을 채우기 전에 「지금 영업 중」으로 보이지 않게
     content.stores.push({
       id: newStoreId(), name: '', shortName: '', address: '', hoursText: '', openHour: '', closeHour: '',
-      phone: '', seatNote: '', access: '', mapQuery: '', naverPlace: '', orderUrl: '', status: 'soon'
+      phone: '', seatNote: '', access: '', mapQuery: '', naverPlace: '', orderUrl: '', lat: '', lng: '', status: 'soon'
     });
     rebuildPanel('store');
     var g = $('[data-store-group="' + (content.stores.length - 1) + '"]');
