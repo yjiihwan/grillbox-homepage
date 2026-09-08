@@ -16,6 +16,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="../assets/brand/favicon.svg">
 <link rel="icon" href="../favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
@@ -56,7 +57,7 @@
 
 <header class="gnb">
   <div class="gnb-in">
-    <a class="wordmark" href="../">GRILLBOX</a>
+    <a class="wordmark" href="../" aria-label="그릴박스 홈"><img src="../assets/brand/grillbox_wordmark_white.svg" alt="그릴박스 GRILLBOX" width="986" height="200"></a>
     <nav class="gnb-nav" aria-label="주 메뉴">
       <a href="../menu/">메뉴</a>
       <a href="./" class="active">매장</a>
@@ -73,6 +74,7 @@
     <a href="./">매장</a>
     <a href="../#brand">브랜드</a>
   </nav>
+  <div class="store-bar" data-render="store-bar" hidden></div>
 </header>
 
 <div class="page-head stores-bg">
@@ -84,7 +86,9 @@
 
 <section style="padding-top:64px">
   <div class="wrap">
-    <div class="map-frame fullmap-frame">
+    <nav class="store-crumb" data-render="store-crumb" hidden></nav>
+    <div class="store-list" data-render="store-list" hidden></div>
+    <div class="map-frame fullmap-frame" data-render="store-map">
       <a class="map-static" href="https://map.naver.com/p/entry/place/1093880694" target="_blank" rel="noopener" data-cms-href="links.naverPlace" aria-label="그릴박스 노량진점 위치를 네이버 지도에서 보기" data-store-tpl="aria-label|{name} 위치를 네이버 지도에서 보기">
         <img src="../assets/map_noryangjin.webp" alt="그릴박스 노량진점 위치 지도" width="1600" height="1000" data-store-src="mapImg" data-store-tpl="alt|{name} 위치 지도">
         <span class="map-cta" data-cms="storeSection.mapCta">네이버 지도에서 보기 ↗</span>
@@ -120,10 +124,11 @@
 
 <footer>
   <div class="wrap foot-grid">
-    <span class="wordmark">GRILLBOX</span>
+    <span class="wordmark"><img src="../assets/brand/grillbox_wordmark_white.svg" alt="그릴박스 GRILLBOX" width="986" height="200"></span>
     <p data-cms="footer.company">운영: 주식회사 인디펜던트 · 그릴박스</p>
     <p class="foot-links"><a href="https://pf.kakao.com/_xnKGIn" target="_blank" rel="noopener" data-cms-href="links.kakao">카카오채널</a> · <a href="https://www.instagram.com/grillbox.official/" target="_blank" rel="noopener" data-cms-href="links.instagram">인스타그램</a></p>
     <p class="foot-small"><a href="https://pf.kakao.com/_xnKGIn" target="_blank" rel="noopener" data-cms-href="links.kakao"><span data-cms="footer.contact">가맹·제휴 문의는 카카오톡 채널로 받아요.</span></a></p>
+    <p class="foot-store" data-render="store-bar-foot" hidden></p>
     <div class="foot-biz" data-render="footer-business"></div>
     <p class="copyright" data-cms="footer.copyright">© 2026 GRILLBOX. All rights reserved.</p>
   </div>

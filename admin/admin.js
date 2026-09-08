@@ -269,7 +269,10 @@
           '<div class="grid3">' + field('storeSection.ctaDirections', '「길찾기」 버튼') + field('storeSection.ctaCall', '「전화하기」 버튼') + field('storeSection.allStores', '「전체 매장 보기」 링크') + '</div>' +
           field('storeSection.mapCta', '지도 위 안내 글'));
       html += card('매장 페이지 문구', '', { href: '../stores/', label: '매장 페이지 보기' },
-        field('storesPage.h1', '페이지 제목') + field('storesPage.intro', '맨 위 소개 문구', { type: 'textarea', rows: 2 }) + field('storesPage.tail', '맨 아래 한 줄'));
+        field('storesPage.h1', '페이지 제목') + field('storesPage.intro', '맨 위 소개 문구', { type: 'textarea', rows: 2 }) + field('storesPage.tail', '맨 아래 한 줄') +
+        field('storesPage.moreCta', '매장 목록 카드의 「상세 보기」 글', { help: '매장이 2곳 이상일 때 매장 페이지가 목록으로 바뀌는데, 그 카드 맨 아래 글이에요.' }));
+      html += card('현재 매장 표시줄 문구', '매장이 2곳 이상일 때 모든 페이지 맨 위·맨 아래에 「현재 매장 ○○점 (변경)」으로 보이는 줄이에요.' + (content.stores.filter(function (s) { return s.status !== 'hidden'; }).length > 1 ? '' : ' 지금은 보이는 매장이 한 곳이라 화면에 나오지 않아요.'), null,
+        '<div class="grid3">' + field('storeBar.label', '앞에 붙는 말', { placeholder: '현재 매장' }) + field('storeBar.changeCta', '「변경」 버튼') + field('storeBar.backCta', '매장 상세에서 목록으로 가는 링크', { placeholder: '← 전체 매장' }) + '</div>');
       html += card('매장 선택 화면 문구', '매장이 2곳 이상일 때 「바로 주문」을 누르면 뜨는 화면이에요.' + (content.stores.filter(function (s) { return s.status !== 'hidden'; }).length > 1 ? '' : ' 지금은 보이는 매장이 한 곳이라 화면에 나오지 않아요.'), null,
         field('storeSelect.title', '제목') + field('storeSelect.sub', '안내 문구', { type: 'textarea', rows: 2 }) +
         '<div class="grid2">' + field('storeSelect.tabAll', '「전체 매장」 탭') + field('storeSelect.tabOpen', '「지금 영업 중」 탭') + '</div>' +

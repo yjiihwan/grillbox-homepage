@@ -27,7 +27,10 @@ section[id]{scroll-margin-top:72px}
 /* ── GNB ── */
 .gnb{position:sticky;top:0;z-index:50;background:rgba(19,18,17,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(245,243,239,.06)}
 .gnb-in{max-width:var(--content);margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.wordmark{font-weight:900;font-size:22px;letter-spacing:.04em;color:#fff}
+/* 워드마크 = 공식 로고 SVG. 비율은 원본(4.93:1) 고정 — height만 주고 width는 auto로 둔다 */
+.wordmark{display:inline-flex;align-items:center;line-height:0;flex:0 0 auto}
+.wordmark img{display:block;height:21px;width:auto}
+footer .wordmark img{height:24px}
 .gnb-nav{display:flex;align-items:center;gap:28px}
 .gnb-nav a{font-size:15px;font-weight:600;color:var(--gb-text)}
 .gnb-nav a.active{color:#fff;box-shadow:0 14px 0 -12px var(--gb-red)}
@@ -236,7 +239,40 @@ footer{background:#0e0d0c;padding:56px 0 40px;font-size:14px}
   .store-block .photo{min-height:200px}
   .info-row{font-size:14px}
   .origin-block{padding:20px}
+  .store-bar-in{padding:7px 20px;font-size:12.5px;gap:8px}
+  .store-list{grid-template-columns:1fr;gap:14px}
+  .store-list-head h2{font-size:17px}
 }
+
+
+/* ── 현재 매장 바 — 매장 2곳 이상일 때만 렌더(cms.js) ── */
+.store-bar{background:#1B1917;border-bottom:1px solid rgba(245,243,239,.07)}
+.store-bar[hidden]{display:none}
+.store-bar-in{max-width:var(--content);margin:0 auto;padding:7px 24px;display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--gb-text)}
+.store-bar .k{color:var(--gb-muted)}
+.store-bar strong{font-weight:700}
+.store-bar .chg{margin-left:auto;background:none;border:1px solid rgba(245,243,239,.28);color:var(--gb-text);font:inherit;font-size:12.5px;padding:5px 12px;border-radius:999px;cursor:pointer;min-height:36px}
+.store-bar .chg:hover{border-color:var(--gb-red);color:#fff}
+body.has-storebar section[id]{scroll-margin-top:110px}
+.foot-store{font-size:13px;color:var(--gb-muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.foot-store[hidden]{display:none}
+.foot-store strong{color:var(--gb-text);font-weight:700}
+.foot-store .chg{background:none;border:0;color:var(--gb-muted);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer;padding:6px 0;min-height:36px}
+
+/* ── /stores 매장 목록(카드) — 매장 2곳 이상, ?store= 없을 때 ── */
+.store-list{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:8px}
+.store-list-card{display:block;background:var(--gb-card);border:1px solid rgba(245,243,239,.08);border-radius:16px;overflow:hidden}
+.store-list-card:hover{border-color:rgba(255,17,14,.55)}
+.store-list-card img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+.store-list-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:7px}
+.store-list-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.store-list-head h2{font-size:19px;font-weight:800}
+.store-list-body .addr{font-size:14px;color:var(--gb-text);opacity:.85}
+.store-list-body .meta{font-size:13px;color:var(--gb-muted)}
+.store-list-body .more{font-size:13.5px;font-weight:700;color:var(--gb-red);margin-top:4px}
+.store-crumb{margin-bottom:20px;font-size:13.5px;color:var(--gb-muted)}
+.store-crumb[hidden]{display:none}
+.store-crumb a{text-decoration:underline}
 
 /* ── 404 ── */
 .nf{min-height:calc(100vh - 64px);display:grid;place-items:center;text-align:center;padding:96px 24px}

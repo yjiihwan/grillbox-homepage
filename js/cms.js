@@ -118,33 +118,11 @@
         });
       } else node.textContent = v;
     });
-    document.querySelectorAll('[data-cms-href]').forEach(function (node) {
-      var key = node.getAttribute('data-cms-href');
-      var v = get(c, key);
-      // 주문·길찾기는 매장별 값이 우선 (links.* 는 하위호환 폴백)
-      if (sel && key === 'links.order' && sel.orderUrl) v = sel.orderUrl;
-      if (sel && key === 'links.naverPlace' && sel.naverPlace) v = sel.naverPlace;
-      if (typeof v === 'string' && v) node.setAttribute('href', v);
-    });
     document.querySelectorAll('[data-cms-src]').forEach(function (node) {
       var v = get(c, node.getAttribute('data-cms-src'));
       if (typeof v === 'string' && v) node.setAttribute('src', ROOT + v);
     });
-    // data-store-tpl="속성|템플릿" — {name} 등 매장 값을 끼워 넣는다 (alt·aria 다매장 대응)
-    if (sel) {
-      document.querySelectorAll('[data-store-tpl]').forEach(function (node) {
-        var parts = node.getAttribute('data-store-tpl').split('|');
-        if (parts.length < 2) return;
-        node.setAttribute(parts[0], tpl(parts.slice(1).join('|'), sel));
-      });
-      document.querySelectorAll('[data-store-tel]').forEach(function (node) {
-        if (sel.phone) node.setAttribute('href', 'tel:' + sel.phone);
-      });
-      document.querySelectorAll('[data-store-src]').forEach(function (node) {
-        var v = sel[node.getAttribute('data-store-src')];
-        if (v) node.setAttribute('src', ROOT + v);
-      });
-    }
+    applyStore(c, sel);
 
     // 홈 — 메뉴 하이라이트 3종
     var hl = document.querySelector('[data-render="menu-highlight"]');
@@ -195,11 +173,73 @@
     // 푸터는 모든 페이지 공통 — 각 페이지 <footer> 안 [data-render="footer-business"] 한 곳에서만 그린다
     renderBiz(document.querySelector('[data-render="footer-business"]'), c.footer && c.footer.business);
 
-    renderStoreBlocks(c);
-    renderStoresJsonLd(c);
-
-    openBadges(c, sel);
+    renderStores(c);
     bindOrderCtas(c);
+  }
+
+  /* ── 선택 매장이 바뀌면 다시 그려야 하는 것들 ── */
+  // 헤더 「매장 변경」·모달에서 매장을 고르면 링크·전화·배지·바를 그 자리에서 갱신한다(새로고침 없이)
+  function applyStore(c, sel) {
+    document.querySelectorAll('[data-cms-href]').forEach(function (node) {
+      var key = node.getAttribute('data-cms-href');
+      var v = get(c, key);
+      // 주문·길찾기는 매장별 값이 우선 (links.* 는 하위호환 폴백)
+      if (sel && key === 'links.order' && sel.orderUrl) v = sel.orderUrl;
+      if (sel && key === 'links.naverPlace' && sel.naverPlace) v = sel.naverPlace;
+      if (typeof v === 'string' && v) node.setAttribute('href', v);
+    });
+    if (sel) {
+      // data-store-tpl="속성|템플릿" — {name} 등 매장 값을 끼워 넣는다 (alt·aria 다매장 대응)
+      document.querySelectorAll('[data-store-tpl]').forEach(function (node) {
+        var parts = node.getAttribute('data-store-tpl').split('|');
+        if (parts.length < 2) return;
+        node.setAttribute(parts[0], tpl(parts.slice(1).join('|'), sel));
+      });
+      document.querySelectorAll('[data-store-tel]').forEach(function (node) {
+        if (sel.phone) node.setAttribute('href', 'tel:' + sel.phone);
+      });
+      document.querySelectorAll('[data-store-src]').forEach(function (node) {
+        var v = sel[node.getAttribute('data-store-src')];
+        if (v) node.setAttribute('src', ROOT + v);
+      });
+    }
+    openBadges(c, sel);
+    renderStoreBar(c, sel);
+  }
+
+  /* ── 헤더·푸터 「현재 매장 ○○점 (변경)」 — 매장 2곳 이상일 때만 ── */
+  function renderStoreBar(c, sel) {
+    var bar = document.querySelector('[data-render="store-bar"]');
+    var foot = document.querySelector('[data-render="store-bar-foot"]');
+    var t = (c.storeBar) || {};
+    var multi = needsSelect(c) && sel;
+    document.body.classList.toggle('has-storebar', !!multi);
+    if (bar) {
+      bar.hidden = !multi;
+      bar.innerHTML = '';
+      if (multi) {
+        var inn = el('div', 'store-bar-in');
+        inn.appendChild(el('span', 'k', (t.label || '현재 매장') + ' '));
+        inn.appendChild(el('strong', null, sel.shortName || sel.name));
+        var b = el('button', 'chg', t.changeCta || (c.storeSelect && c.storeSelect.changeCta) || '매장 변경');
+        b.type = 'button';
+        b.addEventListener('click', function () { openStoreSelect(c, null); });
+        inn.appendChild(b);
+        bar.appendChild(inn);
+      }
+    }
+    if (foot) {
+      foot.hidden = !multi;
+      foot.innerHTML = '';
+      if (multi) {
+        foot.appendChild(document.createTextNode((t.label || '현재 매장') + ' '));
+        foot.appendChild(el('strong', null, sel.shortName || sel.name));
+        var b2 = el('button', 'chg', t.changeCta || '매장 변경');
+        b2.type = 'button';
+        b2.addEventListener('click', function () { openStoreSelect(c, null); });
+        foot.appendChild(b2);
+      }
+    }
   }
 
   function menuCard(m, highlight) {
@@ -235,12 +275,89 @@
     });
   }
 
-  /* ── /stores 매장 블록 ── */
-  function renderStoreBlocks(c) {
+  /* ── /stores — 매장 목록 ↔ 매장 상세 ──
+     매장 2곳 이상 + ?store= 없음 → 목록. ?store=<id> 또는 매장 1곳 → 상세(불필요한 단계 제거).
+     개별 매장 LocalBusiness 스키마는 상세에서만 낸다 — 목록은 ItemList. */
+  function storeParam() {
+    var m = /[?&]store=([^&]*)/.exec(location.search);
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+  function renderStores(c) {
     var host = document.querySelector('[data-render="store-blocks"]');
     if (!host) return;
     var list = visibleStores(c);
     if (!list.length) return;
+    var want = storeParam();
+    var detail = list.filter(function (s) { return s.id === want; })[0] || (list.length === 1 ? list[0] : null);
+    var listHost = document.querySelector('[data-render="store-list"]');
+    var mapHost = document.querySelector('[data-render="store-map"]');
+    var crumb = document.querySelector('[data-render="store-crumb"]');
+
+    if (detail) {
+      renderStoreBlocks(c, [detail]);
+      if (listHost) { listHost.hidden = true; listHost.innerHTML = ''; }
+      if (mapHost) { mapHost.hidden = false; applyStoreMap(mapHost, c, detail); }
+      if (crumb) {
+        crumb.hidden = list.length < 2;
+        crumb.innerHTML = '';
+        if (list.length > 1) {
+          var a = el('a', null, (c.storeBar && c.storeBar.backCta) || '← 전체 매장');
+          a.href = './';
+          crumb.appendChild(a);
+        }
+      }
+      renderStoresJsonLd(c, [detail]);
+      return;
+    }
+
+    host.innerHTML = '';
+    if (mapHost) mapHost.hidden = true;
+    if (crumb) { crumb.hidden = true; crumb.innerHTML = ''; }
+    if (listHost) {
+      listHost.hidden = false;
+      listHost.innerHTML = '';
+      list.forEach(function (st) { listHost.appendChild(storeListCard(c, st)); });
+    }
+    renderStoresJsonLd(c, list, 'list');
+  }
+  function applyStoreMap(mapHost, c, s) {
+    var a = mapHost.querySelector('a');
+    if (a) {
+      if (s.naverPlace) a.setAttribute('href', s.naverPlace);
+      a.setAttribute('aria-label', s.name + ' 위치를 네이버 지도에서 보기');
+    }
+    var im = mapHost.querySelector('img');
+    if (im) {
+      if (s.mapImg) im.setAttribute('src', ROOT + s.mapImg);
+      im.setAttribute('alt', s.name + ' 위치 지도');
+    }
+  }
+  function storeListCard(c, s) {
+    var a = el('a', 'store-list-card');
+    a.href = './?store=' + encodeURIComponent(s.id);
+    if (s.photoExterior) {
+      var im = new Image();
+      im.src = ROOT + s.photoExterior; im.alt = ''; im.setAttribute('aria-hidden', 'true');
+      im.loading = 'lazy'; im.width = 2528; im.height = 1696;
+      a.appendChild(im);
+    }
+    var body = el('div', 'store-list-body');
+    var head = el('div', 'store-list-head');
+    head.appendChild(el('h2', null, s.name));
+    var badge = el('span', 'badge-open', storeStatusText(c, s));
+    if (s.status === 'soon' || !isOpenNow(s)) badge.classList.add('badge-closed');
+    head.appendChild(badge);
+    body.appendChild(head);
+    body.appendChild(el('p', 'addr', s.address));
+    body.appendChild(el('p', 'meta', s.hoursText));
+    body.appendChild(el('p', 'more', (c.storesPage && c.storesPage.moreCta) || '매장 상세 보기 →'));
+    a.appendChild(body);
+    return a;
+  }
+
+  function renderStoreBlocks(c, list) {
+    var host = document.querySelector('[data-render="store-blocks"]');
+    if (!host) return;
     host.innerHTML = '';
     var ss = c.storeSection || {};
     list.forEach(function (s) {
@@ -308,11 +425,24 @@
   }
 
   // /stores 구조화 데이터는 매장별 1건 — 매장을 추가하면 JSON-LD도 함께 늘어난다
-  function renderStoresJsonLd(c) {
+  function renderStoresJsonLd(c, stores, mode) {
     var node = document.getElementById('stores-jsonld');
     if (!node) return;
     var origin = location.origin + ROOT.replace(/^\.\.\//, '/').replace(/^\.\//, '/');
-    var list = visibleStores(c).map(function (s) {
+    if (mode === 'list') {
+      // 목록 화면은 개별 매장 스키마를 내지 않는다 — 상세 페이지로 가는 ItemList만
+      node.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: (c.storesPage && c.storesPage.h1) || '매장 안내',
+        numberOfItems: stores.length,
+        itemListElement: stores.map(function (s, i) {
+          return { '@type': 'ListItem', position: i + 1, name: s.name, url: location.href.split('?')[0] + '?store=' + encodeURIComponent(s.id) };
+        })
+      }, null, 2);
+      return;
+    }
+    var list = stores.map(function (s) {
       var d = {
         '@type': 'Restaurant',
         name: s.name,
@@ -444,6 +574,7 @@
       writeSelected(s.id);
       c.store = s;
       closeStoreSelect();
+      applyStore(c, s);
       if (api.onPick) api.onPick(s);
     }
 
