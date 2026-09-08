@@ -119,7 +119,8 @@
     { key: 'reviews', ico: '💬', title: '고객 리뷰', short: '홈 화면 리뷰 3건', desc: '홈 화면에 보이는 고객 리뷰 3건이에요. 실제 고객이 남긴 리뷰 원문만 넣어 주세요 (만든 리뷰는 표시광고법 위반 소지).', preview: '../#reviews' },
     { key: 'photos', ico: '🖼️', title: '사진', short: '메뉴 사진·고기양 비교 사진', desc: '사진을 새 파일로 바꿀 수 있어요. 파일을 고르면 미리보기가 바뀌고, 「저장하기」를 누르면 사이트에 올라가요. 2.5MB 이하 가로 사진을 권장해요.', preview: '../menu/' },
     { key: 'links', ico: '🔗', title: '버튼 연결 주소', short: '주문·길찾기·SNS 링크', desc: '「바로 주문」「길찾기」「인스타그램」「카카오톡」 버튼을 누르면 열리는 주소예요. 주소가 바뀌었을 때만 고쳐 주세요.', preview: '../' },
-    { key: 'pages', ico: '📄', title: '기타 문구', short: '메뉴·매장 페이지·하단 표기', desc: '메뉴 페이지와 매장 페이지의 안내 문구, 사이트 맨 아래 사업자 표기예요.', preview: '../menu/' }
+    { key: 'business', ico: '🏢', title: '사업자 정보', short: '상호·사업자등록번호·하단 표기', desc: '모든 페이지 맨 아래에 작게 들어가는 사업자 표기예요. 비워 둔 항목은 화면에 아예 나오지 않으니, 확정된 값만 채우면 돼요.', preview: '../' },
+    { key: 'pages', ico: '📄', title: '기타 문구', short: '메뉴·매장 페이지 안내', desc: '메뉴 페이지와 매장 페이지의 안내 문구예요.', preview: '../menu/' }
   ];
 
   function buildNav() {
@@ -148,7 +149,10 @@
     var inner;
     if (opt.type === 'textarea') inner = '<textarea id="' + id + '" data-path="' + path + '" rows="' + (opt.rows || 3) + '">' + esc(v) + '</textarea>';
     else if (opt.type === 'price') inner = '<span class="input-suffix" data-suffix="원"><input type="text" inputmode="numeric" id="' + id + '" data-path="' + path + '" data-kind="price" value="' + esc(Number(v).toLocaleString('ko-KR')) + '"></span>';
-    else inner = '<input type="' + (opt.type === 'url' ? 'url' : opt.type === 'tel' ? 'tel' : 'text') + '" id="' + id + '" data-path="' + path + '" value="' + esc(v) + '"' + (opt.placeholder ? ' placeholder="' + esc(opt.placeholder) + '"' : '') + '>';
+    else if (opt.type === 'select') inner = '<select id="' + id + '" data-path="' + path + '">' + (opt.options || []).map(function (o) {
+      return '<option value="' + esc(o[0]) + '"' + (String(v) === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
+    }).join('') + '</select>';
+    else inner = '<input type="' + (opt.type === 'url' ? 'url' : opt.type === 'tel' ? 'tel' : opt.type === 'email' ? 'email' : 'text') + '" id="' + id + '" data-path="' + path + '" value="' + esc(v) + '"' + (opt.placeholder ? ' placeholder="' + esc(opt.placeholder) + '"' : '') + '>';
     return '<label class="field" for="' + id + '"><span>' + label + '</span>' + inner + help + '</label>';
   }
   function card(title, desc, where, body) {
@@ -157,9 +161,11 @@
   }
   function photoBox(path, label, fallbackPath) {
     var cur = get(path) || (fallbackPath ? get(fallbackPath) : '');
-    var src = pendingImages[path] ? pendingImages[path].url : '../' + cur + '?ts=' + Date.now();
-    return '<div class="menu-photo' + (pendingImages[path] ? ' pending' : '') + '" data-photo="' + path + '"><img src="' + esc(src) + '" alt="' + esc(label) + '">' +
-      '<label class="ph-btn">사진 바꾸기<input type="file" accept="image/*" data-img-path="' + path + '"></label></div>';
+    var pend = pendingImages[path];
+    var src = pend ? pend.url : (cur ? '../' + cur + '?ts=' + Date.now() : '');
+    return '<div class="menu-photo' + (pend ? ' pending' : '') + (src ? '' : ' empty') + '" data-photo="' + path + '">' +
+      '<img' + (src ? ' src="' + esc(src) + '"' : '') + ' alt="' + esc(label) + '">' +
+      '<label class="ph-btn">' + (src ? '사진 바꾸기' : '사진 올리기') + '<input type="file" accept="image/*" data-img-path="' + path + '"></label></div>';
   }
 
   function panelHead(s) {
@@ -221,19 +227,41 @@
       return html;
     },
     store: function () {
-      var html = '<div class="notice">매장이 2곳 이상이 되면 홈·매장 페이지·주문 버튼이 자동으로 「매장 선택」 방식으로 바뀌어요. 2호점 정보는 개발 담당에게 알려 주세요.</div>';
+      var html = '<div class="notice">매장은 여기서 직접 <b>추가·삭제·순서 변경</b>할 수 있어요. 매장이 2곳 이상이 되면 홈·매장 페이지·「바로 주문」 버튼이 자동으로 「매장 선택」 방식으로 바뀌어요.</div>';
+      html += '<div class="list-bar"><span>매장 ' + content.stores.length + '곳</span><button type="button" class="btn btn-primary btn-sm" data-store-add>＋ 매장 추가</button></div>';
       content.stores.forEach(function (s, i) {
         var p = 'stores.' + i + '.';
-        html += card((s.name || ('매장 ' + (i + 1))) + ' · 기본 정보', '', { href: '../stores/', label: '매장 페이지 보기' },
-            field(p + 'name', '매장 이름') + field(p + 'address', '주소', { help: '지도도 이 주소로 표시돼요.' }) +
-            '<div class="grid2">' + field(p + 'phone', '전화번호', { type: 'tel' }) + field(p + 'seatNote', '좌석 한 줄 소개') + '</div>' +
+        var nm = s.name || ('새 매장 ' + (i + 1));
+        html += '<section class="store-group" data-store-group="' + i + '">' +
+          '<div class="group-head"><h3><span class="no">' + (i + 1) + '</span>' + esc(nm) + '</h3><div class="group-btns">' +
+            '<button type="button" class="btn btn-ghost btn-sm" data-store-up="' + i + '"' + (i === 0 ? ' disabled' : '') + ' aria-label="' + esc(nm) + ' 위로">↑ 위로</button>' +
+            '<button type="button" class="btn btn-ghost btn-sm" data-store-down="' + i + '"' + (i === content.stores.length - 1 ? ' disabled' : '') + ' aria-label="' + esc(nm) + ' 아래로">↓ 아래로</button>' +
+            '<button type="button" class="btn btn-danger btn-sm" data-store-del="' + i + '" aria-label="' + esc(nm) + ' 삭제">삭제</button>' +
+          '</div></div>' +
+          card('기본 정보', '', { href: '../stores/', label: '매장 페이지 보기' },
+            '<div class="grid2">' + field(p + 'name', '매장 이름', { placeholder: '예: 그릴박스 노량진점' }) + field(p + 'shortName', '짧은 이름', { placeholder: '예: 노량진점', help: '매장 선택 화면·구조화 데이터에서 짧게 쓰여요.' }) + '</div>' +
+            field(p + 'address', '주소', { placeholder: '예: 서울 동작구 만양로14가길 23 1층', help: '지도도 이 주소로 표시돼요.' }) +
+            '<div class="grid2">' + field(p + 'phone', '전화번호', { type: 'tel', placeholder: '0507-0000-0000' }) + field(p + 'seatNote', '좌석 한 줄 소개', { placeholder: '예: 혼밥도 편해요' }) + '</div>' +
+            '<div class="grid2">' + field(p + 'mapQuery', '지도 검색어', { placeholder: '예: 서울 동작구 만양로14가길 23', help: '지도에서 이 매장을 찾을 때 쓰는 검색어예요. 보통 주소와 같게 두면 돼요.' }) +
+              field(p + 'status', '노출 상태', { type: 'select', options: [['open', '영업 중 (사이트에 보임)'], ['soon', '오픈 준비 중 (「오픈 소식 받기」로 표시)'], ['hidden', '숨김 (휴점·사이트에 안 보임)']], help: '「영업 중」이면 오픈·마감 시각을 보고 지금 영업 중인지 자동으로 표시해요.' }) + '</div>' +
             field(p + 'access', '가는 길 안내', { type: 'textarea', rows: 2, help: '도보 O분 같은 표현은 실제로 재 본 뒤에만 적어 주세요.' })) +
-          card((s.name || ('매장 ' + (i + 1))) + ' · 영업시간', '「지금 영업 중」 표시는 오픈·마감 시각을 보고 자동으로 바뀌어요. 영업시간이 바뀌면 세 칸을 모두 고쳐 주세요.', null,
+          card('영업시간', '「지금 영업 중」 표시는 오픈·마감 시각을 보고 자동으로 바뀌어요. 영업시간이 바뀌면 세 칸을 모두 고쳐 주세요.', null,
             field(p + 'hoursText', '화면에 보이는 영업시간 글', { placeholder: '예: 매일 11:00 – 21:50' }) +
             '<div class="grid2">' + field(p + 'openHour', '오픈 시각', { placeholder: '11:00', help: '시:분 형식 (예 11:00)' }) + field(p + 'closeHour', '마감 시각', { placeholder: '21:50', help: '시:분 형식 (예 21:50)' }) + '</div>') +
-          card((s.name || ('매장 ' + (i + 1))) + ' · 링크', '이 매장의 주문·지도 주소예요. 매장마다 다르니 꼭 그 매장 주소를 넣어 주세요.', null,
-            field(p + 'orderUrl', '이 매장 주문 주소', { type: 'url', help: '「바로 주문」·「포장 주문하기」 버튼이 여는 주소예요.' }) +
-            field(p + 'naverPlace', '이 매장 지도 주소', { type: 'url', help: '「길찾기」 버튼이 여는 네이버 지도 주소예요.' }));
+          card('링크', '이 매장의 주문·지도 주소예요. 매장마다 다르니 꼭 그 매장 주소를 넣어 주세요.', null,
+            field(p + 'orderUrl', '이 매장 주문 주소', { type: 'url', placeholder: 'https://booking.naver.com/…', help: '「바로 주문」·「포장 주문하기」 버튼이 여는 주소예요.' }) +
+            field(p + 'naverPlace', '이 매장 지도 주소', { type: 'url', placeholder: 'https://map.naver.com/…', help: '「길찾기」 버튼이 여는 네이버 지도 주소예요.' })) +
+          card('사진', '외관·내부 사진은 매장 페이지와 매장 선택 화면에, 지도 사진은 매장 페이지 위쪽 지도 자리에 쓰여요. 2.5MB 이하 가로 사진을 권장해요.', null,
+            '<div class="photo-grid">' +
+              '<figure class="photo-tile">' + photoBox(p + 'photoExterior', nm + ' 외관') + '<figcaption><b>매장 외관</b><small>가로 사진 (3:2)</small>' + undoBtn(p + 'photoExterior') + '</figcaption></figure>' +
+              '<figure class="photo-tile">' + photoBox(p + 'photoInterior', nm + ' 내부') + '<figcaption><b>매장 내부</b><small>가로 사진 (3:2)</small>' + undoBtn(p + 'photoInterior') + '</figcaption></figure>' +
+              '<figure class="photo-tile">' + photoBox(p + 'mapImg', nm + ' 지도') + '<figcaption><b>지도 사진</b><small>매장 페이지 위쪽 지도</small>' + undoBtn(p + 'mapImg') + '</figcaption></figure>' +
+            '</div>') +
+          card('이 매장 사업자 정보 (선택)', '가맹점처럼 매장마다 사업자가 다를 때만 채워 주세요. 비워 두면 「사업자 정보」 탭에 넣은 본사 값이 그대로 쓰여요.', null,
+            '<div class="grid2">' + field(p + 'business.companyName', '상호 (법인명)', { placeholder: '비우면 본사 값' }) + field(p + 'business.ceo', '대표자명', { placeholder: '비우면 본사 값' }) + '</div>' +
+            '<div class="grid2">' + field(p + 'business.regNo', '사업자등록번호', { placeholder: '000-00-00000' }) + field(p + 'business.mailOrderNo', '통신판매업 신고번호', { placeholder: '제 0000-지역-0000 호' }) + '</div>' +
+            field(p + 'business.address', '사업장 주소', { placeholder: '비우면 본사 값 · 매장 주소와 다를 수 있어요' })) +
+          '</section>';
       });
       html += card('홈 화면 매장 영역 문구', '홈 화면 가운데 「가까운 그릴박스」 부분이에요.', { href: '../#store', label: '이 부분 보기' },
           field('storeSection.head', '제목') + field('storeSection.sub', '소개 문구') +
@@ -242,7 +270,7 @@
           field('storeSection.mapCta', '지도 위 안내 글'));
       html += card('매장 페이지 문구', '', { href: '../stores/', label: '매장 페이지 보기' },
         field('storesPage.h1', '페이지 제목') + field('storesPage.intro', '맨 위 소개 문구', { type: 'textarea', rows: 2 }) + field('storesPage.tail', '맨 아래 한 줄'));
-      html += card('매장 선택 화면 문구', '매장이 2곳 이상일 때 「바로 주문」을 누르면 뜨는 화면이에요. 지금은 매장이 한 곳이라 화면에 나오지 않아요.', null,
+      html += card('매장 선택 화면 문구', '매장이 2곳 이상일 때 「바로 주문」을 누르면 뜨는 화면이에요.' + (content.stores.filter(function (s) { return s.status !== 'hidden'; }).length > 1 ? '' : ' 지금은 보이는 매장이 한 곳이라 화면에 나오지 않아요.'), null,
         field('storeSelect.title', '제목') + field('storeSelect.sub', '안내 문구', { type: 'textarea', rows: 2 }) +
         '<div class="grid2">' + field('storeSelect.tabAll', '「전체 매장」 탭') + field('storeSelect.tabOpen', '「지금 영업 중」 탭') + '</div>' +
         '<div class="grid2">' + field('storeSelect.card.cta', '매장 카드 버튼') + field('storeSelect.confirmCta', '이어서 주문 버튼') + '</div>' +
@@ -289,17 +317,101 @@
         field('links.instagram', '「인스타그램」 버튼', { type: 'url' }) +
         field('links.kakao', '「카카오톡 채널」 버튼', { type: 'url' }));
     },
+    business: function () {
+      var b = 'footer.business.';
+      return '<div class="notice">여기에 넣은 내용은 홈 · 메뉴 · 매장 등 <b>모든 페이지 맨 아래</b>에 작은 글씨로 함께 표시돼요. <b>비워 둔 항목은 화면에 아예 나오지 않으니</b>, 확정된 값만 채우고 나머지는 비워 두셔도 괜찮아요.</div>' +
+        card('사업자 정보 (모든 페이지 맨 아래)', '온라인으로 주문·결제를 받는 사이트가 표시해야 하는 항목이에요. 사업자등록증·통신판매업 신고증에 적힌 값을 그대로 옮겨 적어 주세요.', { href: '../', label: '이 부분 보기' },
+          '<div class="grid2">' +
+            field(b + 'companyName', '상호 (법인명)', { placeholder: '예: 주식회사 인디펜던트', help: '사업자등록증에 적힌 상호를 그대로 넣어 주세요.' }) +
+            field(b + 'ceo', '대표자명', { placeholder: '예: 홍길동' }) +
+          '</div>' +
+          '<div class="grid2">' +
+            field(b + 'regNo', '사업자등록번호', { placeholder: '000-00-00000', help: '숫자 10자리를 000-00-00000 모양으로 넣어 주세요.' }) +
+            field(b + 'mailOrderNo', '통신판매업 신고번호', { placeholder: '제 0000-서울OO-0000 호', help: '관할 구청에서 받은 신고증에 적힌 번호예요. 아직 없으면 비워 두세요.' }) +
+          '</div>' +
+          field(b + 'address', '사업장 주소', { placeholder: '예: 서울특별시 동작구 ○○로 00, 0층', help: '사업자등록증상 소재지예요. 매장 주소와 다를 수 있어요.' }) +
+          '<div class="grid2">' +
+            field(b + 'phone', '대표 전화', { type: 'tel', placeholder: '02-0000-0000' }) +
+            field(b + 'email', '이메일', { type: 'email', placeholder: 'name@example.com' }) +
+          '</div>' +
+          '<div class="grid2">' +
+            field(b + 'privacyOfficer', '개인정보관리책임자', { placeholder: '예: 홍길동 (privacy@example.com)', help: '고객 정보를 다루는 책임자예요. 이름만 적어도 되고, 연락처를 함께 적어도 좋아요.' }) +
+            field(b + 'etc', '기타 표기 (선택)', { placeholder: '예: 호스팅 제공 ○○○', help: '위 항목에 없는 표기가 필요할 때만 쓰세요. 라벨 없이 적은 그대로 보여요.' }) +
+          '</div>') +
+        card('맨 아래 나머지 문구', '사업자 정보 위·아래에 함께 보이는 줄이에요.', { href: '../', label: '이 부분 보기' },
+          field('footer.company', '운영 표기 한 줄', { help: '사업자 정보와 별개로 맨 위에 굵게 보이는 줄이에요. 예: 운영: 주식회사 인디펜던트 · 그릴박스' }) +
+          field('footer.contact', '문의 안내 한 줄') + field('footer.copyright', '저작권 표기'));
+    },
     pages: function () {
       return card('메뉴 페이지 안내 문구', '', { href: '../menu/', label: '메뉴 페이지 보기' },
-          field('menuPage.h1', '페이지 제목') + field('menuPage.intro', '맨 위 소개 문구', { type: 'textarea', rows: 2 }) + field('menuPage.sizeNote', '사이즈 안내') + field('menuPage.originHead', '원산지 안내 제목') +
-          field('menuPage.origin', '원산지 안내', { type: 'textarea', rows: 2, help: '법정 원산지 표기 문구가 확정되면 여기에 넣어 주세요.' })) +
-        card('사이트 맨 아래 (모든 페이지 공통)', '', { href: '../#cta', label: '이 부분 보기' },
-          field('footer.company', '사업자 표기', { type: 'textarea', rows: 2, help: '상호 · 사업자등록번호 · 대표자 · 주소 등을 적어요.' }) +
-          field('footer.contact', '문의 안내 한 줄') + field('footer.copyright', '저작권 표기'));
+        field('menuPage.h1', '페이지 제목') + field('menuPage.intro', '맨 위 소개 문구', { type: 'textarea', rows: 2 }) + field('menuPage.sizeNote', '사이즈 안내') + field('menuPage.originHead', '원산지 안내 제목') +
+        field('menuPage.origin', '원산지 안내', { type: 'textarea', rows: 2, help: '법정 원산지 표기 문구가 확정되면 여기에 넣어 주세요.' }));
     }
   };
   function catLabel(id) { var c = content.categories.find(function (x) { return x.id === id; }); return c ? c.label : ''; }
   function undoBtn(path) { return pendingImages[path] ? '<button type="button" class="undo" data-undo="' + path + '">바꾸기 취소</button>' : ''; }
+
+  /* ── 매장 추가 · 삭제 · 순서 변경 ── */
+  function rebuildPanel(key) {
+    var panel = $('[data-panel="' + key + '"]');
+    if (!panel) return;
+    var sec = SECTIONS.filter(function (s) { return s.key === key; })[0];
+    panel.innerHTML = panelHead(sec) + PANEL[key]();
+    bindInputs(panel);
+    refreshDirty();
+  }
+  // 저장 전 사진(pendingImages)은 stores.<번호>.<칸> 키로 잡혀 있어 순서가 바뀌면 같이 옮겨 줘야 한다
+  function remapStoreImages(mapIndex) {
+    var next = {};
+    Object.keys(pendingImages).forEach(function (k) {
+      var m = /^stores\.(\d+)\.(.+)$/.exec(k);
+      if (!m) { next[k] = pendingImages[k]; return; }
+      var to = mapIndex(+m[1]);
+      if (to == null) { URL.revokeObjectURL(pendingImages[k].url); return; }
+      next['stores.' + to + '.' + m[2]] = pendingImages[k];
+    });
+    pendingImages = next;
+  }
+  function newStoreId() {
+    var ids = content.stores.map(function (s) { return s.id; });
+    var n = content.stores.length + 1;
+    while (ids.indexOf('store' + n) >= 0) n++;
+    return 'store' + n;
+  }
+  function addStore() {
+    // 새 매장은 「오픈 준비 중」으로 시작 — 주소·영업시간을 채우기 전에 「지금 영업 중」으로 보이지 않게
+    content.stores.push({
+      id: newStoreId(), name: '', shortName: '', address: '', hoursText: '', openHour: '', closeHour: '',
+      phone: '', seatNote: '', access: '', mapQuery: '', naverPlace: '', orderUrl: '', status: 'soon'
+    });
+    rebuildPanel('store');
+    var g = $('[data-store-group="' + (content.stores.length - 1) + '"]');
+    if (g && g.scrollIntoView) g.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    var f = g && $('input', g); if (f) f.focus();
+    toast('빈 매장이 추가됐어요. 이름 · 주소 · 영업시간 · 주문 주소를 채우고 「저장하기」를 눌러 주세요.', 'ok');
+  }
+  function delStore(i) {
+    var s = content.stores[i]; if (!s) return;
+    if (content.stores.length <= 1) {
+      toast('매장은 최소 한 곳이 있어야 해요. 잠시 감추려면 「노출 상태」를 「숨김」으로 바꿔 주세요.', 'err');
+      return;
+    }
+    var nm = s.name || ('새 매장 ' + (i + 1));
+    if (!confirm('「' + nm + '」을(를) 매장 목록에서 지울까요?\n「저장하기」를 누르면 사이트에서도 사라져요. 잠시만 감추려면 「노출 상태」를 「숨김」으로 바꾸는 편이 안전해요.')) return;
+    content.stores.splice(i, 1);
+    remapStoreImages(function (k) { return k === i ? null : k > i ? k - 1 : k; });
+    rebuildPanel('store');
+    toast('「' + nm + '」을(를) 지웠어요. 「저장하기」를 눌러야 사이트에 반영돼요.', 'ok');
+  }
+  function moveStore(i, d) {
+    var j = i + d;
+    if (j < 0 || j >= content.stores.length) return;
+    var t = content.stores[i]; content.stores[i] = content.stores[j]; content.stores[j] = t;
+    remapStoreImages(function (k) { return k === i ? j : k === j ? i : k; });
+    rebuildPanel('store');
+    var g = $('[data-store-group="' + j + '"]');
+    if (g && g.scrollIntoView) g.scrollIntoView({ block: 'center' });
+  }
 
   /* ── 입력 바인딩 ── */
   function bindInputs(root) {
@@ -330,7 +442,7 @@
         if (pendingImages[path]) URL.revokeObjectURL(pendingImages[path].url);
         pendingImages[path] = { file: f, url: URL.createObjectURL(f) };
         // 같은 사진이 여러 곳(메뉴 탭·사진 탭)에 보이므로 전부 갱신
-        $$('[data-photo="' + path + '"]').forEach(function (box) { box.classList.add('pending'); $('img', box).src = pendingImages[path].url; });
+        $$('[data-photo="' + path + '"]').forEach(function (box) { box.classList.add('pending'); box.classList.remove('empty'); $('img', box).src = pendingImages[path].url; });
         $$('.photo-tile').forEach(function (tile) {
           var box = $('[data-photo="' + path + '"]', tile); if (!box) return;
           var cap = $('figcaption', tile); var old = $('.undo', cap); if (old) old.remove();
@@ -341,14 +453,34 @@
         toast('사진이 바뀔 준비가 됐어요. 「저장하기」를 누르면 사이트에 올라가요.', 'ok');
       });
     });
-    root.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-undo]'); if (!b) return;
-      var path = b.getAttribute('data-undo');
-      if (pendingImages[path]) URL.revokeObjectURL(pendingImages[path].url);
-      delete pendingImages[path];
-      $$('[data-photo="' + path + '"]').forEach(function (box) { box.classList.remove('pending'); $('img', box).src = '../' + get(path) + '?ts=' + Date.now(); });
-      b.remove();
-      refreshDirty();
+  }
+
+  /* 패널이 다시 그려져도 살아 있도록 #content에 한 번만 위임한다 */
+  function bindDelegation() {
+    $('#content').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-undo]');
+      if (b) {
+        var path = b.getAttribute('data-undo');
+        if (pendingImages[path]) URL.revokeObjectURL(pendingImages[path].url);
+        delete pendingImages[path];
+        var cur = get(path);
+        $$('[data-photo="' + path + '"]').forEach(function (box) {
+          box.classList.remove('pending');
+          var img = $('img', box);
+          if (cur) { box.classList.remove('empty'); img.src = '../' + cur + '?ts=' + Date.now(); }
+          else { box.classList.add('empty'); img.removeAttribute('src'); }
+        });
+        b.remove();
+        refreshDirty();
+        return;
+      }
+      if (e.target.closest('[data-store-add]')) { addStore(); return; }
+      var del = e.target.closest('[data-store-del]');
+      if (del) { delStore(+del.getAttribute('data-store-del')); return; }
+      var up = e.target.closest('[data-store-up]');
+      if (up) { moveStore(+up.getAttribute('data-store-up'), -1); return; }
+      var dn = e.target.closest('[data-store-down]');
+      if (dn) { moveStore(+dn.getAttribute('data-store-down'), 1); return; }
     });
   }
 
@@ -360,7 +492,8 @@
     reviews: /^reviews\./,
     photos: /^(menus\.\d+\.img|menus\.\d+\.imgHome|weight\.tiers\.\d+\.img)$/,
     links: /^links\./,
-    pages: /^(menuPage|footer)\./
+    business: /^footer\./,
+    pages: /^menuPage\./
   };
   function changedPaths() {
     var out = [];
@@ -369,6 +502,9 @@
       if (JSON.stringify(get(p)) !== JSON.stringify(get(p, original))) out.push(p);
     });
     Object.keys(pendingImages).forEach(function (p) { out.push(p); });
+    // 매장을 지우면 그 칸이 화면에서 사라져 위 비교로는 잡히지 않는다 — 목록 자체를 대조한다
+    var ids = function (o) { return ((o && o.stores) || []).map(function (s) { return s.id; }).join('|'); };
+    if (ids(content) !== ids(original)) out.push('stores._list');
     return out;
   }
   function isDirty() { return changedPaths().length > 0; }
@@ -453,6 +589,10 @@
     var parts = path.split('.');
     if (parts[0] === 'menus') return content.menus[+parts[1]].id + (parts[2] === 'imgHome' ? '_home' : '');
     if (parts[0] === 'weight') return 'size_' + content.weight.tiers[+parts[2]].grams.replace(/[^0-9]/g, '');
+    if (parts[0] === 'stores') {
+      var st = content.stores[+parts[1]];
+      return 'store_' + ((st && st.id) || parts[1]) + '_' + parts[2].replace(/^photo/, '').toLowerCase();
+    }
     return parts.join('_');
   }
 
@@ -544,6 +684,7 @@
 
   /* ───────── 시작 ───────── */
   initLogin();
+  bindDelegation();
   $('#logout-btn').addEventListener('click', logout);
   $('#save-btn').addEventListener('click', save);
   $('#revert-btn').addEventListener('click', revert);

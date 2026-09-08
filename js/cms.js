@@ -22,6 +22,46 @@
     return n;
   }
 
+  /* ── 사업자 정보 ── */
+  // 표기 순서 = 화면 노출 순서. 값이 빈 항목은 라벨째 그리지 않는다(라벨만 남는 일 방지).
+  var BIZ_FIELDS = [
+    ['companyName', '상호'],
+    ['ceo', '대표자'],
+    ['regNo', '사업자등록번호'],
+    ['mailOrderNo', '통신판매업신고번호'],
+    ['address', '주소'],
+    ['phone', '대표전화'],
+    ['email', '이메일'],
+    ['privacyOfficer', '개인정보관리책임자'],
+    ['etc', '']
+  ];
+  function bizValue(v) { return typeof v === 'string' ? v.trim() : ''; }
+  // 매장 값이 있으면 그것을, 비어 있으면 본사(footer.business) 값을 쓴다 — 가맹점 사업자 표기 대응
+  function mergeBiz(base, over) {
+    var out = {};
+    BIZ_FIELDS.forEach(function (f) {
+      out[f[0]] = bizValue(over && over[f[0]]) || bizValue(base && base[f[0]]);
+    });
+    return out;
+  }
+  function renderBiz(node, biz) {
+    if (!node) return;
+    node.innerHTML = '';
+    BIZ_FIELDS.forEach(function (f) {
+      var v = bizValue(biz && biz[f[0]]);
+      if (!v) return;
+      var span = document.createElement('span');
+      if (f[1]) { span.appendChild(el('b', null, f[1])); span.appendChild(document.createTextNode(' ')); }
+      span.appendChild(document.createTextNode(v));
+      node.appendChild(span);
+    });
+  }
+  function bizNode(cls, biz) {
+    var d = el('div', cls);
+    renderBiz(d, biz);
+    return d.childNodes.length ? d : null;
+  }
+
   /* ── 매장 ── */
   // store(단수)는 stores[0] 별칭. 구 content.json(배열 없음)도 그대로 뜨게 양방향으로 채운다.
   function normalizeStores(c) {
@@ -152,6 +192,9 @@
     }
 
     // /stores — 매장 블록 전수 렌더 (매장이 늘면 블록도 늘어난다)
+    // 푸터는 모든 페이지 공통 — 각 페이지 <footer> 안 [data-render="footer-business"] 한 곳에서만 그린다
+    renderBiz(document.querySelector('[data-render="footer-business"]'), c.footer && c.footer.business);
+
     renderStoreBlocks(c);
     renderStoresJsonLd(c);
 
@@ -250,6 +293,8 @@
       row.appendChild(call);
       row.appendChild(extLink('btn btn-outline', s.orderUrl, '포장 주문하기'));
       d.appendChild(row);
+      var sb = bizNode('store-biz', mergeBiz(c.footer && c.footer.business, s.business));
+      if (sb) d.appendChild(sb);
       art.appendChild(d);
       host.appendChild(art);
     });
@@ -317,7 +362,7 @@
     document.querySelectorAll('[data-cms-href="links.order"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         e.preventDefault();
-        openStoreSelect(c, function (s) { window.open(s.orderUrl, '_blank', 'noopener'); });
+        openStoreSelect(c, function (s) { window.open(s.orderUrl || (c.links && c.links.order) || '#', '_blank', 'noopener'); });
       });
     });
   }

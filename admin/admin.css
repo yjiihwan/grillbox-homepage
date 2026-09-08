@@ -23,7 +23,7 @@ button,input,textarea,select{font:inherit;color:inherit}
 .field{display:block;margin-top:14px}
 .field>span:first-child,.field .lbl{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
 .field .help{display:block;font-size:12px;color:var(--muted);opacity:.85;margin-top:5px;line-height:1.5}
-input[type=text],input[type=url],input[type=password],input[type=tel],textarea,select{width:100%;background:#0F0E0D;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:15px;min-width:0}
+input[type=text],input[type=url],input[type=password],input[type=tel],input[type=email],textarea,select{width:100%;background:#0F0E0D;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:15px;min-width:0}
 textarea{min-height:84px;resize:vertical;line-height:1.55}
 input:focus,textarea:focus,select:focus{outline:none;border-color:rgba(255,17,14,.7);box-shadow:0 0 0 3px rgba(255,17,14,.15)}
 input.changed,textarea.changed,select.changed{border-color:var(--warn)}
@@ -149,3 +149,26 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
 .toast.ok{border-color:rgba(61,190,108,.6)}
 .toast.err{border-color:rgba(255,17,14,.6)}
 @media(max-width:640px){.toast{bottom:130px}}
+
+/* ── 매장 그룹 (추가·삭제·순서 변경) ── */
+.list-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding:0 2px}
+.list-bar span{font-size:13px;font-weight:700;color:var(--muted)}
+.btn-danger{background:transparent;border:1px solid rgba(255,17,14,.45);color:#FF8A88}
+.btn-danger:hover{background:rgba(255,17,14,.12);border-color:rgba(255,17,14,.75)}
+.store-group{margin-top:22px;padding:16px 16px 20px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.015)}
+.store-group .card{margin-top:12px}
+.store-group .card:first-of-type{margin-top:14px}
+.group-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 4px}
+.group-head h3{display:flex;align-items:center;gap:9px;font-size:16.5px;font-weight:800;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.group-head .no{flex:none;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+.group-btns{display:flex;gap:6px;flex:none}
+@media(max-width:640px){
+  .store-group{padding:14px 12px 16px;border-radius:14px}
+  .group-head{align-items:stretch;flex-direction:column;gap:10px}
+  .group-btns{display:grid;grid-template-columns:1fr 1fr 1fr}
+}
+
+/* 아직 사진이 없는 칸 (새로 추가한 매장) */
+.menu-photo.empty{border:1px dashed rgba(245,243,239,.22);background:#0F0E0D}
+.menu-photo.empty img{opacity:0}
+.menu-photo.empty::before{content:"사진 없음";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted)}
