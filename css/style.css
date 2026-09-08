@@ -17,6 +17,8 @@ body{
   font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
   line-height:1.6;-webkit-font-smoothing:antialiased;
 }
+/* 한글은 어절 단위로 끊는다 — 「…샐 / 러드」처럼 낱글자만 다음 줄에 고립되는 것 방지 */
+h1,h2,h3,h4,h5,h6,p,li,dt,dd,figcaption,summary{word-break:keep-all;overflow-wrap:anywhere}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 section[id]{scroll-margin-top:72px}

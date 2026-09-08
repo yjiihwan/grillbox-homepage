@@ -208,7 +208,7 @@
         card('인스타그램 소개', '', { href: '../#insta', label: '이 부분 보기' },
           field('insta.head', '제목') + field('insta.sub', '소개 문구', { help: '@계정이름을 함께 적어 두면 좋아요.' }) + field('insta.cta', '버튼 글자')) +
         card('마지막 안내 (맨 아래 큰 문구)', '', { href: '../#cta', label: '이 부분 보기' },
-          field('finalCta.head', '제목') + field('finalCta.sub', '소개 문구') +
+          field('finalCta.head', '제목', { type: 'textarea', rows: 2, help: '줄을 나누면 화면에서도 그 자리에서 줄이 바뀌어요.' }) + field('finalCta.sub', '소개 문구') +
           '<div class="grid2">' + field('finalCta.ctaStore', '왼쪽 버튼 글자') + field('finalCta.ctaOrder', '오른쪽 버튼 글자') + '</div>');
     },
     menu: function () {
