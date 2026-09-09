@@ -234,13 +234,20 @@
     renderHomeStores(c, sel);
   }
 
-  /* ── 헤더·푸터 「현재 매장 ○○점 (변경)」 — 매장 수와 무관하게 항상 노출(변경 경로 상시 확보) ── */
+  /* ── 헤더·푸터 「현재 매장 ○○점 (변경)」 ──
+     2026-09-09 형 지시로 상단 바를 걷어냈다. 매장을 바꿔도 «보이는 화면»은 거의 그대로였고
+     (홈의 매장 카드 1블록·매장 페이지 사진뿐, 나머지는 href 속성) 매장이 1곳이라 노이즈였다.
+     매장 선택은 «주문할 때»(bindOrderCtas)로 옮겼다 — 고를 이유가 생기는 시점이다.
+     마크업은 제거했지만 함수는 남긴다: content.json 으로 바를 되살릴 여지를 두고,
+     data-render 노드가 없으면 아무것도 하지 않는다(방어). */
   function renderStoreBar(c, sel) {
     var bar = document.querySelector('[data-render="store-bar"]');
     var foot = document.querySelector('[data-render="store-bar-foot"]');
     var t = (c.storeBar) || {};
-    var multi = !!sel;
-    document.body.classList.toggle('has-storebar', !!multi);
+    // 바 마크업이 없으면(2026-09-09 제거) 노출도 없고 여백 보정도 없어야 한다 —
+    // has-storebar 는 앵커 스크롤 여백(110px)을 주는 클래스라, 바 없이 붙으면 헛여백이 생긴다.
+    var multi = !!sel && !!bar;
+    document.body.classList.toggle('has-storebar', multi);
     if (bar) {
       bar.hidden = !multi;
       bar.innerHTML = '';
@@ -573,15 +580,20 @@
       });
       return;
     }
+    var list = visibleStores(c);
+    var goto = function (s) {
+      var url = storeOrderUrl(s);
+      // 주문 링크가 없는 매장이면 그 매장 상세로 — 다른 매장 주문 화면으로 새지 않게
+      if (url) window.open(url, '_blank', 'noopener');
+      else location.href = storeHref(s.id);
+    };
     document.querySelectorAll('[data-cms-href="links.order"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         e.preventDefault();
-        openStoreSelect(c, function (s) {
-          var url = storeOrderUrl(s);
-          // 주문 링크가 없는 매장이면 그 매장 상세로 — 다른 매장 주문 화면으로 새지 않게
-          if (url) window.open(url, '_blank', 'noopener');
-          else location.href = storeHref(s.id);
-        });
+        // 매장이 1곳이면 고를 게 없다 — 모달을 띄우지 않고 바로 주문으로 보낸다.
+        // 2곳 이상이 되면 여기서 선택 모달이 뜬다(코드 수정 없이 매장 등록만으로 전환).
+        if (list.length === 1) { goto(list[0]); return; }
+        openStoreSelect(c, goto);
       });
     });
   }
