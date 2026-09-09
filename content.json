@@ -3,7 +3,7 @@
     "note": "그릴박스 홈페이지 콘텐츠 SSOT. /admin/ 에서 수정하면 이 파일이 갱신되고 1~2분 내 사이트에 반영됩니다. menus[].imgHome은 홈 화면 대표 메뉴 카드 전용 사진(없으면 img 사용). footer.business는 모든 페이지 하단 사업자 정보(빈 항목은 화면에 표시되지 않음), stores[].business는 매장별 사업자 정보(비면 footer.business로 대체).",
     "updated": "2026-09-09",
     "dataSource": "메뉴·가격: 그릴박스 노량진점 네이버 주문(2026-07-10 수집) · 매장정보: 네이버플레이스(2026-09-04 확인)",
-    "rev": "mttmrajq"
+    "rev": "mttmudu5"
   },
   "brand": {
     "slogan": "직화 스테이크 가득 맛있는 한그릇",
@@ -103,6 +103,24 @@
       "mapImg": "assets/map_noryangjin.webp",
       "photoExterior": "assets/store_exterior_dusk.webp",
       "photoInterior": "assets/store_interior_counter.webp"
+    },
+    {
+      "id": "store2",
+      "name": "그릴박스 고대안암점",
+      "shortName": "고대안암점",
+      "address": "서울 성북구 고려대로 86 1층",
+      "hoursText": "",
+      "openHour": "",
+      "closeHour": "",
+      "phone": "02-921-2272",
+      "seatNote": "",
+      "access": "",
+      "mapQuery": "그릴박스 고대안암점",
+      "naverPlace": "",
+      "orderUrl": "",
+      "lat": "",
+      "lng": "",
+      "status": "open"
     }
   ],
   "store": {
